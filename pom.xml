@@ -51,6 +51,13 @@
 		    <artifactId>sphinx4-data</artifactId>
 		    <version>5prealpha-SNAPSHOT</version>
 		</dependency>
+		
+		<!-- Dependency for TextRazor analysis API -->
+		<dependency>
+		  <groupId>com.textrazor</groupId>
+		  <artifactId>textrazor</artifactId>
+		  <version>1.0.9</version>
+		</dependency>
 	</dependencies>
   
   <properties>

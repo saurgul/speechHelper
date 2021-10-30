@@ -23,6 +23,10 @@ public class Speech {
 		this.report = report;
 	}
 	
+	public String getText() {
+		return this.speechToText;
+	}
+	
 	public File getSpeechFile() {
 		return this.speechFile;
 	}

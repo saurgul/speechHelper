@@ -64,6 +64,8 @@ public class SpeechToTextCommand implements Command{
 		recognizer.stopRecognition();
 		*/
 		
+		
+		
 		//Code for speech to text from audio file
 		try {
 			StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(config);
@@ -78,13 +80,14 @@ public class SpeechToTextCommand implements Command{
 	                text += s;
 	            }
 	        }
-	        
 	        //Removes String tags from output
 	        text = text.replaceAll("<s>", "");
 	        text = text.replaceAll("</s>", "");
 	        
 	        //Creates a container object
 	        speechContainer = new Speech(speech, text, new NullSpeechToTextReport());
+	        
+	        //Adds it to model
 	        model.addSpeech(speechContainer);
 	        
 	        recognizer.stopRecognition();

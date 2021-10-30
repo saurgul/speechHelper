@@ -33,6 +33,10 @@ public class Model {
 		speeches.remove(s);
 	}
 	
+	public void modifySpeech(Speech s) {
+		//TODO implement Speech object ID and have this find object by id rather than by reference.
+		speeches.set(speeches.indexOf(s), s);
+	}
 	
 	//Use commandInvoker
 	public void receiveCommand(Command c) {

@@ -1,3 +1,4 @@
+//@Author Christian Dummer
 package nullobjects;
 
 import speechtotext.Speech;
