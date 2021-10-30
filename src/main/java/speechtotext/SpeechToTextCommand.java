@@ -18,6 +18,7 @@ public class SpeechToTextCommand implements Command{
 	private Configuration config;
 	private File speech;
 	private String text = "";
+	private Speech speechContainer;
 	
 	public SpeechToTextCommand(Model m) {
 		this.model = m;
@@ -80,7 +81,10 @@ public class SpeechToTextCommand implements Command{
 	        //Removes String tags from output
 	        text = text.replaceAll("<s>", "");
 	        text = text.replaceAll("</s>", "");
-	        model.addSpeech(text);
+	        
+	        //Creates a container object
+	        speechContainer = new Speech(speech, text, new SpeechToTextReport());
+	        model.addSpeech(speechContainer);
 	        recognizer.stopRecognition();
 		}
 		catch(IOException ioe) {

@@ -5,29 +5,30 @@ import java.util.ArrayList;
 
 import command.Command;
 import command.CommandInvoker;
+import speechtotext.Speech;
 
 //Basic model with an arraylist of speeches. Will need to move type from string once we have longer speeches but string will do for now.
 public class Model {
 	
-	private ArrayList<String> speeches;
+	private ArrayList<Speech> speeches;
 	private CommandInvoker commandInvoker;
 	
 	public Model() {
-		speeches = new ArrayList<String>();
+		speeches = new ArrayList<Speech>();
 		this.commandInvoker = new CommandInvoker();
 	}
 	
 	//TODO use a database for this 
 	//Add, remove, and get list of speech transcriptions
-	public ArrayList<String> getSpeeches(){
+	public ArrayList<Speech> getSpeeches(){
 		return this.speeches;
 	}
 	
-	public void addSpeech(String s) {
+	public void addSpeech(Speech s) {
 		speeches.add(s);
 	}
 	
-	public void removeSpeech(String s) {
+	public void removeSpeech(Speech s) {
 		speeches.remove(s);
 	}
 	
