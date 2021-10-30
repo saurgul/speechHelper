@@ -7,9 +7,11 @@ public class WordCountUtility {
 	public static WordCountUtility sharedInstance = getInstance();
 
 	private HashMap<String, Integer> wordFreqTable;
+	private Integer totalWords;
 
 	private WordCountUtility() {
 		wordFreqTable = new HashMap<String, Integer>();
+		totalWords = 0;
 	}
 
 	private static WordCountUtility getInstance() {
@@ -22,6 +24,7 @@ public class WordCountUtility {
 	public HashMap<String, Integer> countWordFrequencyFor(String parsedText) {
 		String[] words = parsedText.split(" ");
 		for (String word : words) {
+			totalWords += 1;
 			if (wordFreqTable.containsKey(word)) {
 				wordFreqTable.put(word,  wordFreqTable.get(word) + 1);
 			} else {
@@ -37,5 +40,11 @@ public class WordCountUtility {
 	
 	public void clearWordCount() {
 		wordFreqTable.clear();
+		totalWords = 0;
 	}
+	
+	public Integer getTotalWords() {
+		return totalWords;
+	}
+	
 }
