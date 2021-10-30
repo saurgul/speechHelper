@@ -6,6 +6,7 @@ import java.io.File;
 import command.Command;
 import model.Model;
 import speechtotext.GenerateReportCommand;
+import speechtotext.ModifySpeechCommand;
 import speechtotext.Speech;
 import speechtotext.SpeechToTextCommand;
 
@@ -30,5 +31,11 @@ public class Controller {
 	public void generateReport(Speech speech) {
 		Command generateReportCommand = new GenerateReportCommand(model, speech);
 		model.receiveCommand(generateReportCommand);
+	}
+	
+	//Modifies the stored speech object
+	public void modifySpeech(Speech speech) {
+		Command modifySpeechCommand = new ModifySpeechCommand(model, speech);
+		model.receiveCommand(modifySpeechCommand);
 	}
 }

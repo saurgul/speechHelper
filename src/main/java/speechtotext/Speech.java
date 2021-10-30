@@ -39,4 +39,9 @@ public class Speech {
 		return this.speechId;
 	}
 	
+	//Returns a copy
+	public Speech copy() {
+		return new Speech(speechFile, speechToText, report);
+	}
+	
 }

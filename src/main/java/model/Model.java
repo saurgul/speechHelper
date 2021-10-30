@@ -38,6 +38,11 @@ public class Model {
 		speeches.set(speeches.indexOf(s), s);
 	}
 	
+	public Speech getSpeech(Speech s) {
+		//Returns a copy of a given speech
+		return speeches.get(speeches.indexOf(s)).copy();
+	}
+	
 	//Use commandInvoker
 	public void receiveCommand(Command c) {
 		commandInvoker.receiveCommand(c);
