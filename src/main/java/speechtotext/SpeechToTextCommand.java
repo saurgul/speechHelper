@@ -76,7 +76,7 @@ public class SpeechToTextCommand implements Command{
 	        SpeechResult result;
 	        while ((result = recognizer.getResult()) != null) {
 	            for (String s : result.getNbest(1)) {
-	            	System.out.println(s);
+	            	//System.out.println(s);
 	                text += s;
 	            }
 	        }
@@ -89,6 +89,9 @@ public class SpeechToTextCommand implements Command{
 	        
 	        //Adds it to model
 	        model.addSpeech(speechContainer);
+	        
+	        //Println for debugging
+	        System.out.println(text);
 	        
 	        recognizer.stopRecognition();
 		}
