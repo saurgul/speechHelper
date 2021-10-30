@@ -8,7 +8,7 @@ public class Main {
 	//Default spring setup 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
-		 
+		 System.out.println("Hello World");
 		// loading the definitions from the given XML file
 /*		ApplicationContext context = new ClassPathXmlApplicationContext("./resources/applicationContext.xml");
  
