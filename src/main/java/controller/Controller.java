@@ -5,6 +5,8 @@ import java.io.File;
 
 import command.Command;
 import model.Model;
+import parsetext.ParseSpeechTextCommand;
+import parsetext.WordCountUtility;
 import speechtotext.GenerateReportCommand;
 import speechtotext.ModifySpeechCommand;
 import speechtotext.Speech;
@@ -37,5 +39,11 @@ public class Controller {
 	public void modifySpeech(Speech speech) {
 		Command modifySpeechCommand = new ModifySpeechCommand(model, speech);
 		model.receiveCommand(modifySpeechCommand);
+	}
+	
+	public void parseText(Speech speech) {
+		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, speech);
+		model.receiveCommand(parseTextCommand);
+		parseTextCommand.getWordFreqeucnyCount().toString();
 	}
 }

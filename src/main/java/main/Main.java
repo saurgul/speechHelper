@@ -28,6 +28,7 @@ public class Main {
 		
 		//Temporary hacky way of getting newest Speech object from model
 		Speech newSpeech = model.getSpeeches().get(model.getSpeeches().size() - 1);
+		controller.parseText(newSpeech);
 		controller.generateReport(newSpeech);
 		
 	}
