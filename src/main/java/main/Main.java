@@ -1,11 +1,8 @@
+//@Author Christian Dummer
 package main;
 
 import java.io.File;
-import java.io.InputStream;
 import java.net.URISyntaxException;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import speechtotext.SpeechToText;
  

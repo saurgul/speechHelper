@@ -10,20 +10,23 @@ import command.Command;
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.SpeechResult;
 import edu.cmu.sphinx.api.StreamSpeechRecognizer;
-import edu.cmu.sphinx.result.WordResult;
+import model.Model;
 
 //TODO builder pattern for 
-public class SpeechToText implements Command{       
+public class SpeechToText implements Command{  
+	private Model model;
 	private Configuration config;
 	private File speech;
 	private String text = "";
-	//Default Constructor
-	public SpeechToText() {
+	
+	public SpeechToText(Model m) {
+		this.model = m;
         setConfig();
 	}
 	
-	public SpeechToText(File speech) {
+	public SpeechToText(Model m, File speech) {
 		this.speech = speech;
+		this.model = m;
 		setConfig();
 	}
 	
@@ -77,6 +80,7 @@ public class SpeechToText implements Command{
 	        //Removes String tags from output
 	        text = text.replaceAll("<s>", "");
 	        text = text.replaceAll("</s>", "");
+	        model.addSpeech(text);
 	        recognizer.stopRecognition();
 		}
 		catch(IOException ioe) {
@@ -85,7 +89,7 @@ public class SpeechToText implements Command{
 	}
 	
 	public void unexecute() {
-		//TODO
+		model.removeSpeech(text);
 	}
 
 }
