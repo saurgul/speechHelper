@@ -11,6 +11,7 @@ import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.SpeechResult;
 import edu.cmu.sphinx.api.StreamSpeechRecognizer;
 import model.Model;
+import nullobjects.NullSpeechToTextReport;
 
 //TODO builder pattern for 
 public class SpeechToTextCommand implements Command{  
@@ -83,7 +84,8 @@ public class SpeechToTextCommand implements Command{
 	        text = text.replaceAll("</s>", "");
 	        
 	        //Creates a container object
-	        speechContainer = new Speech(speech, text, new SpeechToTextReport());
+	        speechContainer = new Speech(speech, text, new NullSpeechToTextReport());
+	        model.addSpeech(speechContainer);
 	        
 	        recognizer.stopRecognition();
 		}

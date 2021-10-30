@@ -24,6 +24,7 @@ public class Model {
 		return this.speeches;
 	}
 	
+	//TODO assign speech objects an ID when they are added. 
 	public void addSpeech(Speech s) {
 		speeches.add(s);
 	}
