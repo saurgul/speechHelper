@@ -20,5 +20,6 @@ public class Controller {
 	//Performs speech to text command
 	public void speechToText(File f) {
 		Command speechToTextCommand = new SpeechToTextCommand(model);
+		model.receiveCommand(speechToTextCommand);
 	}
 }
