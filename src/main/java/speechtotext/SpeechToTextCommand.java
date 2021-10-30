@@ -93,7 +93,7 @@ public class SpeechToTextCommand implements Command{
 	}
 	
 	public void unexecute() {
-		model.removeSpeech(text);
+		model.removeSpeech(speechContainer);
 	}
 
 }
