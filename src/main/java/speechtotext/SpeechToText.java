@@ -16,7 +16,7 @@ import edu.cmu.sphinx.result.WordResult;
 public class SpeechToText implements Command{       
 	private Configuration config;
 	private File speech;
-	private String text;
+	private String text = "";
 	//Default Constructor
 	public SpeechToText() {
         setConfig();
@@ -68,9 +68,15 @@ public class SpeechToText implements Command{
 			recognizer.startRecognition(stream);
 	        SpeechResult result;
 	        while ((result = recognizer.getResult()) != null) {
-	            for (String s : result.getNbest(1))
-	                text = s;
+	            for (String s : result.getNbest(1)) {
+	            	System.out.println(s);
+	                text += s;
+	            }
 	        }
+	        
+	        //Removes String tags from output
+	        text = text.replaceAll("<s>", "");
+	        text = text.replaceAll("</s>", "");
 	        recognizer.stopRecognition();
 		}
 		catch(IOException ioe) {
