@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 
 import controller.Controller;
 import model.Model;
+import speechtotext.Speech;
 import speechtotext.SpeechToTextCommand;
  
 public class Main {
@@ -25,7 +26,9 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		
+		//Temporary hacky way of getting newest Speech object from model
+		Speech newSpeech = model.getSpeeches().get(model.getSpeeches().size() - 1);
+		controller.generateReport(newSpeech);
 		
 	}
 
