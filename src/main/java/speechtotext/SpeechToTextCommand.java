@@ -13,18 +13,18 @@ import edu.cmu.sphinx.api.StreamSpeechRecognizer;
 import model.Model;
 
 //TODO builder pattern for 
-public class SpeechToText implements Command{  
+public class SpeechToTextCommand implements Command{  
 	private Model model;
 	private Configuration config;
 	private File speech;
 	private String text = "";
 	
-	public SpeechToText(Model m) {
+	public SpeechToTextCommand(Model m) {
 		this.model = m;
         setConfig();
 	}
 	
-	public SpeechToText(Model m, File speech) {
+	public SpeechToTextCommand(Model m, File speech) {
 		this.speech = speech;
 		this.model = m;
 		setConfig();

@@ -4,14 +4,18 @@ package main;
 import java.io.File;
 import java.net.URISyntaxException;
 
-import speechtotext.SpeechToText;
+import model.Model;
+import speechtotext.SpeechToTextCommand;
  
 public class Main {
 
 	//Default spring setup 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
-		SpeechToText spt = new SpeechToText();
+		Model model = new Model();
+		
+		//Example speech to text command and execution. Need to make a command invoker to implement this properly.
+		SpeechToTextCommand spt = new SpeechToTextCommand(model);
 		try {
 			spt.setSpeech(new File(Main.class.getClassLoader().getResource("test.wav").toURI()));
 		} catch (URISyntaxException e) {
