@@ -84,7 +84,7 @@ public class SpeechToTextCommand implements Command{
 	        
 	        //Creates a container object
 	        speechContainer = new Speech(speech, text, new SpeechToTextReport());
-	        model.addSpeech(speechContainer);
+	        
 	        recognizer.stopRecognition();
 		}
 		catch(IOException ioe) {
