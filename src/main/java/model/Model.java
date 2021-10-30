@@ -7,7 +7,7 @@ import command.Command;
 import command.CommandInvoker;
 import speechtotext.Speech;
 
-//Basic model with an arraylist of speeches. Will need to move type from string once we have longer speeches but string will do for now.
+//Basic model with an arraylist of speeches. See speechtotext.Speech for all that class contains.
 public class Model {
 	
 	private ArrayList<Speech> speeches;

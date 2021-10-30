@@ -4,8 +4,6 @@ package command;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-import command.Command;
-
 public class CommandInvoker 
 {
 	private Stack<Command> commandStack;

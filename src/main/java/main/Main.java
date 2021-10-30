@@ -14,7 +14,7 @@ public class Main {
 	public static void main(String[] args) {
 		Model model = new Model();
 		
-		//Example speech to text command and execution. Need to make a command invoker to implement this properly.
+		//Example speech to text command and execution.
 		SpeechToTextCommand spt = new SpeechToTextCommand(model);
 		try {
 			spt.setSpeech(new File(Main.class.getClassLoader().getResource("test.wav").toURI()));
