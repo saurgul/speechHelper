@@ -41,10 +41,12 @@ public class Controller {
 		model.receiveCommand(modifySpeechCommand);
 	}
 	
+	//Performs content analyzer command
 	public void parseText(Speech speech) {
 		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, speech);
 		model.receiveCommand(parseTextCommand);
-		parseTextCommand.getWordFreqeucnyCount().toString();
-		System.out.println(parseTextCommand.getFillerFreqeucny().toString());
+		System.out.println(parseTextCommand.getWordFrequencyCount().toString());
+		System.out.println(parseTextCommand.getFillerFrequency().toString());
+		System.out.println(parseTextCommand.getFillerPercentage()+"% of content in speech is filler");
 	}
 }

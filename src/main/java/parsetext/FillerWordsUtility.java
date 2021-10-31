@@ -58,5 +58,14 @@ public class FillerWordsUtility {
 		return fillerFreq;	
 	}
 	
+	public Double getFillerWordsPercentage(Integer totalWords) {
+		Integer totalFillerWords = 0;
+		
+		for(String filler : fillerFreq.keySet()) {
+			totalFillerWords += fillerFreq.get(filler);
+		}
+		return (totalFillerWords/totalWords)*100.0;
+	}
+	
 	
 	}

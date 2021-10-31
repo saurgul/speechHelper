@@ -13,6 +13,7 @@ public class ParseSpeechTextCommand implements Command {
 	private HashMap<String, Integer> wordFrequency;
 	private HashMap<String, Integer> fillerFrequency;
 	private Integer totalWords;
+	private Double fillerPercentage;
 	public ParseSpeechTextCommand(Model m, Speech s) {
 		this.model = m;
 		this.speech = s;
@@ -23,17 +24,18 @@ public class ParseSpeechTextCommand implements Command {
 		wordFrequency = WordCountUtility.sharedInstance.getWordFrequencyCount(speechText);
 		setTotalWords(WordCountUtility.sharedInstance.getTotalWords());
 		fillerFrequency = FillerWordsUtility.sharedInstance.getFillersFrequency(wordFrequency);
+		fillerPercentage = FillerWordsUtility.sharedInstance.getFillerWordsPercentage(totalWords);
 	}
 
 	public void unexecute() {
 		// TODO Auto-generated method stub
 	}
 	
-	public HashMap<String, Integer> getWordFreqeucnyCount() {
+	public HashMap<String, Integer> getWordFrequencyCount() {
 		return wordFrequency;
 	}
 	
-	public HashMap<String, Integer> getFillerFreqeucny() {
+	public HashMap<String, Integer> getFillerFrequency() {
 		return fillerFrequency;
 	}
 
@@ -44,4 +46,8 @@ public class ParseSpeechTextCommand implements Command {
 	public void setTotalWords(Integer totalWords) {
 		this.totalWords = totalWords;
 	} 
+	
+	public Double getFillerPercentage() {
+		return fillerPercentage;
+	}
 }
