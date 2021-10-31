@@ -24,6 +24,7 @@ public class WordCountUtility {
 	public HashMap<String, Integer> countWordFrequencyFor(String parsedText) {
 		String[] words = parsedText.split(" ");
 		for (String word : words) {
+			word = word.replaceAll("[^a-zA-Z0-9]", "");
 			totalWords += 1;
 			if (wordFreqTable.containsKey(word)) {
 				wordFreqTable.put(word,  wordFreqTable.get(word) + 1);
