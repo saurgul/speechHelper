@@ -45,5 +45,6 @@ public class Controller {
 		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, speech);
 		model.receiveCommand(parseTextCommand);
 		parseTextCommand.getWordFreqeucnyCount().toString();
+		System.out.println(parseTextCommand.getFillerFreqeucny().toString());
 	}
 }

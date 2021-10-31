@@ -11,6 +11,7 @@ public class ParseSpeechTextCommand implements Command {
 	private Model model;
 	private Speech speech;
 	private HashMap<String, Integer> wordFrequency;
+	private HashMap<String, Integer> fillerFrequency;
 	private Integer totalWords;
 	public ParseSpeechTextCommand(Model m, Speech s) {
 		this.model = m;
@@ -18,8 +19,10 @@ public class ParseSpeechTextCommand implements Command {
 	}
 
 	public void execute() {
-		wordFrequency = WordCountUtility.sharedInstance.getWordFrequencyCount(model.getSpeech(speech).getText());
+		String speechText = model.getSpeech(speech).getText();
+		wordFrequency = WordCountUtility.sharedInstance.getWordFrequencyCount(speechText);
 		setTotalWords(WordCountUtility.sharedInstance.getTotalWords());
+		fillerFrequency = FillerWordsUtility.sharedInstance.getFillersFrequency(wordFrequency);
 	}
 
 	public void unexecute() {
@@ -28,6 +31,10 @@ public class ParseSpeechTextCommand implements Command {
 	
 	public HashMap<String, Integer> getWordFreqeucnyCount() {
 		return wordFrequency;
+	}
+	
+	public HashMap<String, Integer> getFillerFreqeucny() {
+		return fillerFrequency;
 	}
 
 	public Integer getTotalWords() {

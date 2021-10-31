@@ -2,10 +2,12 @@
 package main;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 import controller.Controller;
 import model.Model;
+import parsetext.FillerWordsUtility;
 import speechtotext.Speech;
 import speechtotext.SpeechToTextCommand;
  
@@ -17,7 +19,7 @@ public class Main {
 		Model model = new Model();
 		Controller controller = new Controller(model);
 		
-		//Example speech to text command and execution.
+//		//Example speech to text command and execution.
 		File audioFilePath;
 		try {
 			audioFilePath = new File(Main.class.getClassLoader().getResource("test.wav").toURI());
@@ -29,8 +31,7 @@ public class Main {
 		//Temporary hacky way of getting newest Speech object from model
 		Speech newSpeech = model.getSpeeches().get(model.getSpeeches().size() - 1);
 		controller.parseText(newSpeech);
-		controller.generateReport(newSpeech);
-		
+		controller.generateReport(newSpeech);	
 	}
 
 }
