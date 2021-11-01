@@ -7,7 +7,6 @@ import java.net.URISyntaxException;
 import controller.Controller;
 import model.Model;
 import speechtotext.Speech;
-import speechtotext.SpeechToTextCommand;
  
 public class Main {
 
