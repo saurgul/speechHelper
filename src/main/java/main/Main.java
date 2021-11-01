@@ -9,7 +9,6 @@ import controller.Controller;
 import model.Model;
 import parsetext.FillerWordsUtility;
 import speechtotext.Speech;
-import speechtotext.SpeechToTextCommand;
  
 public class Main {
 
