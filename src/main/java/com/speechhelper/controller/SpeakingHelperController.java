@@ -29,12 +29,6 @@ public class SpeakingHelperController {
 	public SpeakingHelperController(Model m) {
 		this.model = m;
 	}
-	
- 	 @RequestMapping("/")
-     @ResponseBody
-     public String goToHomePage () {
-         return "<h1>Backend Server is Running!</h1>";
-     }
 
 	//Performs speech to text command
 	public void speechToText(File file) {
