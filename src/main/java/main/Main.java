@@ -13,7 +13,6 @@ import speechtotext.Speech;
 public class Main {
 
 	//Currently demoing in main, the front end will take input to make these calls in the future
-	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		Model model = new Model();
 		Controller controller = new Controller(model);
