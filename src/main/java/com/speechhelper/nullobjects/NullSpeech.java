@@ -1,7 +1,7 @@
 //@Author Christian Dummer
-package nullobjects;
+package com.speechhelper.nullobjects;
 
-import speechtotext.Speech;
+import com.speechhelper.speechtotext.Speech;
 
 public class NullSpeech extends Speech{
 

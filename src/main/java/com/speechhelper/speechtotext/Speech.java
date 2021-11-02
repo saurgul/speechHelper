@@ -1,5 +1,5 @@
 //@Author Christian Dummer
-package speechtotext;
+package com.speechhelper.speechtotext;
 
 import java.io.File;
 

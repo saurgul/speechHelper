@@ -7,8 +7,9 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 
-import main.Main;
-import model.Model;
+import com.speechhelper.main.Main;
+import com.speechhelper.model.Model;
+import com.speechhelper.speechtotext.SpeechToTextCommand;
 
 public class SpeechToTextCommandTest {
 

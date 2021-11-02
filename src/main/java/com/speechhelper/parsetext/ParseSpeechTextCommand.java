@@ -1,10 +1,10 @@
-package parsetext;
+package com.speechhelper.parsetext;
 
 import java.util.HashMap;
 
-import command.Command;
-import model.Model;
-import speechtotext.Speech;
+import com.speechhelper.command.Command;
+import com.speechhelper.model.Model;
+import com.speechhelper.speechtotext.Speech;
 
 public class ParseSpeechTextCommand implements Command {
 

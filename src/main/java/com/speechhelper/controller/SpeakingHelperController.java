@@ -1,28 +1,41 @@
 //@Author Christian Dummer
-package controller;
+package com.speechhelper.controller;
 
 import java.io.File;
 
-import command.Command;
-import model.Model;
-import parsetext.ParseSpeechTextCommand;
-import parsetext.WordCountUtility;
-import speechtotext.GenerateReportCommand;
-import speechtotext.ModifySpeechCommand;
-import speechtotext.Speech;
-import speechtotext.SpeechToTextCommand;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-public class Controller {
+import com.speechhelper.command.Command;
+import com.speechhelper.model.Model;
+import com.speechhelper.parsetext.ParseSpeechTextCommand;
+import com.speechhelper.parsetext.WordCountUtility;
+import com.speechhelper.speechtotext.GenerateReportCommand;
+import com.speechhelper.speechtotext.ModifySpeechCommand;
+import com.speechhelper.speechtotext.Speech;
+import com.speechhelper.speechtotext.SpeechToTextCommand;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+@ResponseBody
+public class SpeakingHelperController {
 	private Model model;
 	
-	public Controller() {
+	public SpeakingHelperController() {
 		
 	}
 	
-	public Controller(Model m) {
+	public SpeakingHelperController(Model m) {
 		this.model = m;
 	}
 	
+ 	 @RequestMapping("/")
+     @ResponseBody
+     public String goToHomePage () {
+         return "<h1>Backend Server is Running!</h1>";
+     }
+
 	//Performs speech to text command
 	public void speechToText(File file) {
 		Command speechToTextCommand = new SpeechToTextCommand(model, file);

@@ -1,17 +1,18 @@
 //@Author Christian Dummer
-package speechtotext;
+package com.speechhelper.speechtotext;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import command.Command;
+import com.speechhelper.command.Command;
+import com.speechhelper.model.Model;
+import com.speechhelper.nullobjects.NullSpeechToTextReport;
+
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.SpeechResult;
 import edu.cmu.sphinx.api.StreamSpeechRecognizer;
-import model.Model;
-import nullobjects.NullSpeechToTextReport;
 
 //TODO builder pattern for 
 public class SpeechToTextCommand implements Command{  

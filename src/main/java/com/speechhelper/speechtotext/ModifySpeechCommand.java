@@ -1,9 +1,9 @@
 //@Author Christian Dummer
-package speechtotext;
+package com.speechhelper.speechtotext;
 
-import command.Command;
-import model.Model;
-import nullobjects.NullSpeech;
+import com.speechhelper.command.Command;
+import com.speechhelper.model.Model;
+import com.speechhelper.nullobjects.NullSpeech;
 
 //TODO more intuitive names, having copies
 public class ModifySpeechCommand implements Command {

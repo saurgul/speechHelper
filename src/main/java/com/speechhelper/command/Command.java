@@ -1,5 +1,5 @@
 //@Author Christian Dummer
-package command;
+package com.speechhelper.command;
 
 public interface Command {
 	

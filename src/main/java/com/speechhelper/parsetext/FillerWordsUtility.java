@@ -1,4 +1,4 @@
-package parsetext;
+package com.speechhelper.parsetext;
 
 import java.io.BufferedReader;
 import java.io.File;

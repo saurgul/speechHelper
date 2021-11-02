@@ -1,5 +1,5 @@
 //@Author Christian Dummer
-package command;
+package com.speechhelper.command;
 
 import java.util.EmptyStackException;
 import java.util.Stack;

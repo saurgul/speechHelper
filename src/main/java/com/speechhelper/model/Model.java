@@ -1,11 +1,11 @@
 //@Author Christian Dummer
-package model;
+package com.speechhelper.model;
 
 import java.util.ArrayList;
 
-import command.Command;
-import command.CommandInvoker;
-import speechtotext.Speech;
+import com.speechhelper.command.Command;
+import com.speechhelper.command.CommandInvoker;
+import com.speechhelper.speechtotext.Speech;
 
 //Basic model with an arraylist of speeches. See speechtotext.Speech for all that class contains.
 public class Model {

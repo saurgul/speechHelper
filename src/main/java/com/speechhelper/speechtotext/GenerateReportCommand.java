@@ -1,13 +1,12 @@
 //@Author Christian Dummer
-package speechtotext;
+package com.speechhelper.speechtotext;
 
+import com.speechhelper.command.Command;
+import com.speechhelper.constants.Constants;
+import com.speechhelper.model.Model;
 import com.textrazor.AnalysisException;
 import com.textrazor.NetworkException;
 import com.textrazor.TextRazor;
-
-import command.Command;
-import constants.Constants;
-import model.Model;
 
 public class GenerateReportCommand implements Command {
 
