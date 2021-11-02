@@ -1,7 +1,8 @@
-package parsetext;
+package utilities;
 
 import java.util.HashMap;
 
+//Class that count the number of words and has reference to the wordFreqtable
 public class WordCountUtility {
 
 	public static WordCountUtility sharedInstance = getInstance();

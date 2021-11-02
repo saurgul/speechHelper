@@ -5,7 +5,11 @@ import java.util.HashMap;
 import command.Command;
 import model.Model;
 import speechtotext.Speech;
+import utilities.FillerWordsUtility;
+import utilities.WordCountUtility;
 
+//Class to parse the original text and count the number of words and filler words
+//TODO: remove the filler words from the original text and set parsed text fort the speech
 public class ParseSpeechTextCommand implements Command {
 
 	private Model model;
@@ -20,11 +24,12 @@ public class ParseSpeechTextCommand implements Command {
 	}
 
 	public void execute() {
-		String speechText = model.getSpeech(speech).getText();
+		String speechText = speech.getOriginalText();
 		wordFrequency = WordCountUtility.sharedInstance.getWordFrequencyCount(speechText);
 		setTotalWords(WordCountUtility.sharedInstance.getTotalWords());
 		fillerFrequency = FillerWordsUtility.sharedInstance.getFillersFrequency(wordFrequency);
 		fillerPercentage = FillerWordsUtility.sharedInstance.getFillerWordsPercentage(totalWords);
+		speech.setParsedText(generateCleanText());
 	}
 
 	public void unexecute() {
@@ -49,5 +54,9 @@ public class ParseSpeechTextCommand implements Command {
 	
 	public Double getFillerPercentage() {
 		return fillerPercentage;
+	}
+	
+	private String generateCleanText() {
+		return "";
 	}
 }

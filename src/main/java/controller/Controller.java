@@ -2,15 +2,15 @@
 package controller;
 
 import java.io.File;
-
 import command.Command;
 import model.Model;
 import parsetext.ParseSpeechTextCommand;
-import parsetext.WordCountUtility;
+import speechtotext.CreateSpeechCommand;
 import speechtotext.GenerateReportCommand;
 import speechtotext.ModifySpeechCommand;
 import speechtotext.Speech;
 import speechtotext.SpeechToTextCommand;
+
 
 public class Controller {
 	private Model model;
@@ -21,6 +21,12 @@ public class Controller {
 	
 	public Controller(Model m) {
 		this.model = m;
+	}
+	
+	//Create a speech from the downloaded file Content
+	public void createSpeech(String urlString) {
+		Command createSpeechCommand = new CreateSpeechCommand(model, urlString);
+		model.receiveCommand(createSpeechCommand);
 	}
 	
 	//Performs speech to text command
@@ -47,6 +53,6 @@ public class Controller {
 		model.receiveCommand(parseTextCommand);
 		System.out.println(parseTextCommand.getWordFrequencyCount().toString());
 		System.out.println(parseTextCommand.getFillerFrequency().toString());
-		System.out.println(parseTextCommand.getFillerPercentage()+"% of content in speech is filler");
+		System.out.printf("%.2f percent of content text in speech is filler",parseTextCommand.getFillerPercentage());
 	}
 }

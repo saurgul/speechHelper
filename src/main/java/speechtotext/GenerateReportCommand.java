@@ -24,7 +24,7 @@ public class GenerateReportCommand implements Command {
 	public void execute() {
 		// TODO 
 		try {
-			analyzer.analyze(speech.getText());
+			analyzer.analyze(speech.getOriginalText());
 			//System.out.println(analyzer.analyze(speech.getText()));
 		} catch (NetworkException e) {
 			e.printStackTrace();
