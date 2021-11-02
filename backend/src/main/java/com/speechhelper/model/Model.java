@@ -1,11 +1,16 @@
 //@Author Christian Dummer
 package com.speechhelper.model;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import com.speechhelper.command.Command;
 import com.speechhelper.command.CommandInvoker;
+import com.speechhelper.main.Main;
 import com.speechhelper.speechtotext.Speech;
+import com.speechhelper.speechtotext.SpeechToTextCommand;
+import com.speechhelper.speechtotext.SpeechToTextReport;
 
 //Basic model with an arraylist of speeches. See speechtotext.Speech for all that class contains.
 public class Model {
@@ -16,6 +21,18 @@ public class Model {
 	public Model() {
 		speeches = new ArrayList<Speech>();
 		this.commandInvoker = new CommandInvoker();
+		
+		File audioFilePath;
+		try {
+			audioFilePath = new File(Main.class.getClassLoader().getResource("test.wav").toURI());
+
+			Speech speech = new Speech(audioFilePath, "Speech to text", new SpeechToTextReport());
+			speeches.add(speech);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	//TODO use a database for this 

@@ -21,6 +21,8 @@ public class Main {
 
 	//Currently demoing in main, the front end will take input to make these calls in the future
 	public static void main(String[] args) {
+		Model model = new Model();
+		SpeakingHelperController controller = new SpeakingHelperController(model);
 		SpringApplication.run(Main.class, args);
 		
 		/*Model model = new Model();

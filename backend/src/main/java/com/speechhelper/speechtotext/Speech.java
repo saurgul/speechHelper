@@ -14,7 +14,6 @@ public class Speech {
 	
 	
 	public Speech() {
-		
 	}
 	
 	public Speech(File speechFile, String speechToText, SpeechToTextReport report) {
