@@ -12,25 +12,35 @@ import speechtotext.Speech;
  
 public class Main {
 
-	//Default spring setup 
+	//Currently demoing in main, the front end will take input to make these calls in the future
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		Model model = new Model();
 		Controller controller = new Controller(model);
 		
-//		//Example speech to text command and execution.
+		//Accessing an audiofile from resources
 		File audioFilePath;
 		try {
-			audioFilePath = new File(Main.class.getClassLoader().getResource("test.wav").toURI());
+			audioFilePath = new File(Main.class.getClassLoader().getResource("demo.wav").toURI());
+			
+			//Asking controller to make a speech to text Command
 			controller.speechToText(audioFilePath);
+			
+			//Temporary normally these would be called by UI referencing a controller method
+			Speech newSpeech = model.getSpeeches().get(model.getSpeeches().size() - 1);
+			
+			//Creates a parseText command and passes it to the model
+			controller.parseText(newSpeech);
+			
+			//Creates a generate report command and passes it to the model
+			controller.generateReport(newSpeech);	
+			
+			
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
 		
-		//Temporary hacky way of getting newest Speech object from model
-		Speech newSpeech = model.getSpeeches().get(model.getSpeeches().size() - 1);
-		controller.parseText(newSpeech);
-		controller.generateReport(newSpeech);	
+		
 	}
 
 }
