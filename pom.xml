@@ -58,10 +58,13 @@
 		  <artifactId>textrazor</artifactId>
 		  <version>1.0.9</version>
 		</dependency>
+		
+		
 	</dependencies>
   
   <properties>
 		<spring.version>3.2.3.RELEASE</spring.version>
+   		<java.version>11</java.version>
   </properties>
 	
   <build>
