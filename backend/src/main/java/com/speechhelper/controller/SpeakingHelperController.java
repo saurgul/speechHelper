@@ -2,24 +2,17 @@
 package com.speechhelper.controller;
 
 import java.io.File;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.speechhelper.command.Command;
-import com.speechhelper.main.Main;
 import com.speechhelper.model.Model;
 import com.speechhelper.parsetext.ParseSpeechTextCommand;
-import com.speechhelper.parsetext.WordCountUtility;
 import com.speechhelper.speechtotext.CreateSpeechCommand;
 import com.speechhelper.speechtotext.GenerateReportCommand;
 import com.speechhelper.speechtotext.ModifySpeechCommand;
 import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextCommand;
-import com.speechhelper.speechtotext.SpeechToTextReport;
-
 import org.springframework.stereotype.Controller;
 
 
