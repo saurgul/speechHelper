@@ -22,9 +22,13 @@ public class Speech {
 		this.report = report;
 	}
 	
-	//the transcribedSpeechText object contains the originalText downloaded from the url and parsed text that can be used to compare the original and parsed text
-	public Speech(File speechFile, SpeechToTextReport report, TranscribedSpeechText transcribedSpeechText) {
+	public Speech(File speechFile, SpeechToTextReport report) {
 		this.speechFile = speechFile;
+		this.report = report;
+	}
+	
+	//the transcribedSpeechText object contains the originalText downloaded from the url and parsed text that can be used to compare the original and parsed text
+	public Speech(SpeechToTextReport report, TranscribedSpeechText transcribedSpeechText) {
 		this.report = report;
 		this.transcribedSpeechText = transcribedSpeechText;
 	}
