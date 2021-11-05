@@ -31,7 +31,8 @@ public class ControllerTest {
 			model.addSpeech(speech);
 			SpeakingHelperController cont = new SpeakingHelperController(model);
 //			audioFile2 = FileDownloadUtility.getFileFrom(new URL("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3"), "audio-test.mp3");
-//			cont.createSpeech("https://raw.githubusercontent.com/pratu13/ToDoApp/main/README.md", audioFile2);
+//			cont.createSpeech("https://raw.githubusercontent.com/pratu13/ToDoApp/main/README.md");
+//			cont.createSpeech(audioFile2);
 			cont.speechToText(audioFilePath);
 			cont.generateReport(speech);
 			cont.modifySpeech(speech);

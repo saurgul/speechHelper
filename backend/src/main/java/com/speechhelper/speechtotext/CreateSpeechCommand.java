@@ -40,7 +40,6 @@ public class CreateSpeechCommand implements Command {
 			newSpeech = new Speech(new NullSpeechToTextReport(), new TranscribedSpeechText(getTextSpeechFrom(urlString)));
 			model.addSpeech(newSpeech);
 		}
-		System.out.print(newSpeech.getOriginalText());
 	}
 
 	public void unexecute() {

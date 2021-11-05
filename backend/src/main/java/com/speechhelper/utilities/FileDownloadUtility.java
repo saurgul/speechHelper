@@ -21,7 +21,7 @@ public class FileDownloadUtility {
 	
 	// returns the contents of a text file as a string
 	public static String getFileContents(URL url, String fileName) throws Exception {
-		String outputPath = "src/main/resources" + "/" + fileName;
+		String outputPath = "src/main/resources/" + fileName;
 		downloadFile(url, outputPath);
 		String fileContent = "";
 		try {
@@ -34,11 +34,10 @@ public class FileDownloadUtility {
 	
 	// returns the file after downloading it 
 	public static File getFileFrom(URL url, String fileName) throws Exception {
-		String outputPath = "src/main/resources" + "/" + fileName;
+		String outputPath = "src/main/resources/" + fileName;
 		downloadFile(url, outputPath);
 		File file; 
 		try {
-			System.out.println(Main.class.getClassLoader().getResource(fileName).toURI().toString());
 			file = new File(Main.class.getClassLoader().getResource(fileName).toURI());
 			return file;
 		} catch (URISyntaxException e) {
