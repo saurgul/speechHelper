@@ -39,9 +39,10 @@ public class SpeakingHelperController {
 	//Example mapping for a request from the frontend
 	@RequestMapping("/test")
 	public String getTest() {
-		System.out.println("Got api call through");
-		return "Hello World";
+		System.out.println("Hello World!");
+		return "<h1>Hello World!</h1>";
 	}
+	
 
 	//Performs speech to text command
 	public void speechToText(File file) {
