@@ -38,8 +38,8 @@ public class SpeakingHelperController {
 	}
 	
 	//Create a speech from the downloaded file Content
-	public void createSpeech(String urlString) {
-		Command createSpeechCommand = new CreateSpeechCommand(model, urlString);
+	public void createSpeech(String urlString, File file) {
+		Command createSpeechCommand = new CreateSpeechCommand(model, urlString, file);
 		model.receiveCommand(createSpeechCommand);
 	}
 	
