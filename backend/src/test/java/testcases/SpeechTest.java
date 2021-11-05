@@ -1,4 +1,4 @@
-package speechtotext;
+package testcases;
 
 import static org.junit.Assert.*;
 
