@@ -10,7 +10,7 @@ public class ErrorController {
 	//Handles the default return value for the backend, which is a helpful message displaying that the API is running!
 	 @RequestMapping("/")
      @ResponseBody
-     public String goToHomePage () {
+     public String defaultMessage () {
          return "<h1>Backend Server is Running!</h1>";
      }
 }

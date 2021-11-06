@@ -3,15 +3,16 @@ package com.speechhelper.speechtotext;
 
 import java.io.File;
 
+
 //This is a container class for speech objects, the text transcription, and the feedback.
 //This will be the main thing we store in our database.
 //TODO update datatype for the actual speechToText variable, add more fields
 public class Speech {
-	private File speechFile;
-	private SpeechToTextReport report;
-	private String speechToText;
-	private int speechId;
-	private TranscribedSpeechText transcribedSpeechText;
+	protected File speechFile;
+	protected SpeechToTextReport report;
+	protected String speechToText;
+	protected int speechId;
+	protected TranscribedSpeechText transcribedSpeechText;
 	
 	public Speech() {
 	}

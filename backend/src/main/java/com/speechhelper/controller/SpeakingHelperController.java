@@ -2,24 +2,19 @@
 package com.speechhelper.controller;
 
 import java.io.File;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.speechhelper.command.Command;
-import com.speechhelper.main.Main;
 import com.speechhelper.model.Model;
+import com.speechhelper.nullobjects.NullSpeech;
 import com.speechhelper.parsetext.ParseSpeechTextCommand;
-import com.speechhelper.parsetext.WordCountUtility;
 import com.speechhelper.speechtotext.CreateSpeechCommand;
 import com.speechhelper.speechtotext.GenerateReportCommand;
 import com.speechhelper.speechtotext.ModifySpeechCommand;
 import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextCommand;
-import com.speechhelper.speechtotext.SpeechToTextReport;
-
 import org.springframework.stereotype.Controller;
 
 
@@ -37,46 +32,50 @@ public class SpeakingHelperController {
 		this.model = m;
 	}
 	
+
+	//Example mapping for a request from the frontend
+	@RequestMapping("/test")
+	public String getTest() {
+		System.out.println("Hello World!");
+		return "<h1>Hello World!</h1>";
+	}
+	
 	//Create a speech from the downloaded file Content
-	public void createSpeech(String urlString) {
+	public void createSpeech(@RequestParam String urlString) {
 		Command createSpeechCommand = new CreateSpeechCommand(model, urlString);
 		model.receiveCommand(createSpeechCommand);
 	}
 	
 	//Create a speech from the audio file Content
-	public void createSpeech(File file) {
+	public void createSpeech(@RequestParam File file) {
 		Command createSpeechCommand = new CreateSpeechCommand(model, file);
 		model.receiveCommand(createSpeechCommand);
 	}
-	
-	//Example mapping for a request from the frontend
-	@RequestMapping("/test")
-	public String getTest() {
-		System.out.println("Got api call through");
-		return "Hello World";
-	}
 
 	//Performs speech to text command
-	public void speechToText(File file) {
+	public void speechToText(@RequestParam File file) {
 		Command speechToTextCommand = new SpeechToTextCommand(model, file);
 		model.receiveCommand(speechToTextCommand);
 	}
 	
 	//Generates feedback report on given speech object
-	public void generateReport(Speech speech) {
-		Command generateReportCommand = new GenerateReportCommand(model, speech);
+	public void generateReport(@RequestParam int speechId) {
+		//TODO, change second parameter to model.findSpeechById (Currently does not exist)
+		Command generateReportCommand = new GenerateReportCommand(model, new NullSpeech());
 		model.receiveCommand(generateReportCommand);
 	}
 	
 	//Modifies the stored speech object
-	public void modifySpeech(Speech speech) {
-		Command modifySpeechCommand = new ModifySpeechCommand(model, speech);
+	public void modifySpeech(@RequestParam int speechId) {
+		//TODO, change second parameter to model.findSpeechById (Currently does not exist)
+		Command modifySpeechCommand = new ModifySpeechCommand(model, new NullSpeech());
 		model.receiveCommand(modifySpeechCommand);
 	}
 	
 	//Performs content analyzer command
-	public void parseText(Speech speech) {
-		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, speech);
+	public void parseText(@RequestParam int speechId) {
+		//TODO, change second parameter to model.findSpeechById (Currently does not exist)
+		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, new NullSpeech());
 		model.receiveCommand(parseTextCommand);
 		System.out.println(parseTextCommand.getWordFrequencyCount().toString());
 		System.out.println(parseTextCommand.getFillerFrequency().toString());

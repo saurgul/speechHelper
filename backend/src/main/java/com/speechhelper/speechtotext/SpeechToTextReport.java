@@ -1,10 +1,6 @@
 //@Author Christian Dummer
 package com.speechhelper.speechtotext;
 
-import com.speechhelper.constants.Constants;
-import com.textrazor.AnalysisException;
-import com.textrazor.NetworkException;
-import com.textrazor.TextRazor;
 
 //Class to store feedback on a particular speech recording.
 //TODO all of this class.
