@@ -2,8 +2,12 @@ package com.speechhelper.speechtotext;
 
 //Class to represent an Speech object's property containing the original text and the  clean parsed text
 public class TranscribedSpeechText {
-	private String originalText;
-	private String parsedText;
+	protected String originalText;
+	protected String parsedText;
+	
+	public TranscribedSpeechText() {
+		
+	}
 	
 	public TranscribedSpeechText(String originalText) {
 		this.originalText = originalText;

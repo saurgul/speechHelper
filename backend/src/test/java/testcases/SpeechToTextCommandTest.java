@@ -1,7 +1,5 @@
 package testcases;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 import java.net.URISyntaxException;
 
