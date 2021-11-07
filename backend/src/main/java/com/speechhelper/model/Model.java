@@ -16,6 +16,7 @@ public class Model {
 	
 	private ArrayList<Speech> speeches;
 	private CommandInvoker commandInvoker;
+	private int currentId = 0;
 	
 	public Model() {
 		speeches = new ArrayList<Speech>();
@@ -42,6 +43,8 @@ public class Model {
 	
 	//TODO assign speech objects an ID when they are added. 
 	public void addSpeech(Speech s) {
+		s.setId(currentId);
+		currentId++;
 		speeches.add(s);
 	}
 	

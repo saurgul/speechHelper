@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +42,11 @@ public class SpeechToTextCommand implements Command{
 		setConfig();
 	}
 	
+	public SpeechToTextCommand(Model m, URI filepath) {
+		this.speech = new File(filepath);
+		this.model = m;
+		setConfig();
+	}
 	
 	public SpeechToTextCommand(Model m, File speech, String input) {
 		this.speech = speech;
@@ -76,13 +82,15 @@ public class SpeechToTextCommand implements Command{
 			
 		}
 		
+		String tempInput = input;
+		
 		//Reads through fillerWords file and adds those words to the input
 		try(Scanner fileReader = new Scanner(fillerWords)){
 			while(fileReader.hasNext()) {
 				String line = fileReader.nextLine();
 				List<String> fillers = Arrays.asList(line.split(","));
 				for(String f: fillers) {
-					input = input + " " + f;
+					tempInput = input + " " + f;
 				}
 			}
 		}
@@ -91,7 +99,7 @@ public class SpeechToTextCommand implements Command{
 		}
 		
 		//Gets the input text and puts all of its words into a list
-		List<String> inputWords = Arrays.asList(input.split(" "));
+		List<String> inputWords = Arrays.asList(tempInput.split(" "));
 		
 
 	

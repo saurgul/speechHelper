@@ -46,6 +46,10 @@ public class Speech {
 		return this.speechId;
 	}
 	
+	public void setId(int id) {
+		this.speechId = id;
+	}
+	
 	public String getOriginalText() {
 		return transcribedSpeechText.getOriginalText();
 	}
