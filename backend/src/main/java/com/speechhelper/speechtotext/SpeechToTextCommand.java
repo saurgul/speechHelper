@@ -3,10 +3,18 @@ package com.speechhelper.speechtotext;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 import com.speechhelper.command.Command;
+import com.speechhelper.main.Main;
 import com.speechhelper.model.Model;
 import com.speechhelper.nullobjects.NullSpeechToTextReport;
 
@@ -19,6 +27,7 @@ public class SpeechToTextCommand implements Command{
 	private Model model;
 	private Configuration config;
 	private File speech;
+	private String input = "";
 	private String text = "";
 	private Speech speechContainer;
 	
@@ -33,12 +42,98 @@ public class SpeechToTextCommand implements Command{
 		setConfig();
 	}
 	
+	public SpeechToTextCommand(Model m, URI filepath) {
+		this.speech = new File(filepath);
+		this.model = m;
+		setConfig();
+	}
+	
+	public SpeechToTextCommand(Model m, File speech, String input) {
+		this.speech = speech;
+		this.model = m;
+		this.input = input;
+		setConfig();
+	}
 	public void setConfig() {
 		//Default configuration for speech to text, using Sphinx models and dictionaries.
 		config = new Configuration();
-        config.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
-        config.setDictionaryPath("resource:/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict");
-        config.setLanguageModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us.lm.bin");
+		config.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
+	    config.setLanguageModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us.lm.bin");
+		if(!input.equals("")) {
+			//If input, customize the dictionary
+			customizeDictionary();
+		}
+		else {
+			//Otherwise, use the default dictionary
+			config.setDictionaryPath("resource:/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict");
+		}
+	}
+	
+	private void customizeDictionary() {
+	//TODO clean this method up a bit.
+		ArrayList<String> customDict = new ArrayList<String>();
+		File fullDictionary = new File("");
+		File fillerWords = new File("");
+		try {
+			fullDictionary = new File(Main.class.getClassLoader().getResource("speechHelper.dict").toURI());
+			fillerWords = new File(Main.class.getClassLoader().getResource("fillerWords.txt").toURI());
+		}
+		catch(Exception ex) {
+			
+		}
+		
+		String tempInput = input;
+		
+		//Reads through fillerWords file and adds those words to the input
+		try(Scanner fileReader = new Scanner(fillerWords)){
+			while(fileReader.hasNext()) {
+				String line = fileReader.nextLine();
+				List<String> fillers = Arrays.asList(line.split(","));
+				for(String f: fillers) {
+					tempInput = input + " " + f;
+				}
+			}
+		}
+		catch(FileNotFoundException ex) {
+			
+		}
+		
+		//Gets the input text and puts all of its words into a list
+		List<String> inputWords = Arrays.asList(tempInput.split(" "));
+		
+
+	
+		
+		
+		///Reads through the full dictionary and adds the line to the custom dict if the word is in the input
+		try(Scanner fileReader = new Scanner(fullDictionary)){
+			while(fileReader.hasNext()) {
+				String nextLine = fileReader.nextLine();
+				String[] words = nextLine.split(" ");
+				if(inputWords.contains(words[0])) {
+					customDict.add(nextLine);
+				}
+			}
+		}
+		catch(FileNotFoundException ex) {
+			System.out.println(ex);
+		}
+		
+		
+
+		//Finally, write the custom dictionary file and set the configs dictionary to that file
+		try(PrintWriter writer = new PrintWriter("custom.dict")){
+			for(String word: customDict) {
+				writer.println(word);
+			System.out.println(word);
+			}
+		}
+		catch(FileNotFoundException ex) {
+			System.out.println(ex);
+		}
+		
+		config.setDictionaryPath("custom.dict");
+		
 	}
 	
 	//Getters and Setters

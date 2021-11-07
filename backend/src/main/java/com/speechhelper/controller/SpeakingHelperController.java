@@ -2,6 +2,8 @@
 package com.speechhelper.controller;
 
 import java.io.File;
+import java.net.URI;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,6 +43,7 @@ public class SpeakingHelperController {
 	}
 	
 	//Create a speech from the downloaded file Content
+	@RequestMapping("/createSpeech")
 	public void createSpeech(@RequestParam String urlString) {
 		Command createSpeechCommand = new CreateSpeechCommand(model, urlString);
 		model.receiveCommand(createSpeechCommand);
@@ -53,8 +56,9 @@ public class SpeakingHelperController {
 	}
 
 	//Performs speech to text command
-	public void speechToText(@RequestParam File file) {
-		Command speechToTextCommand = new SpeechToTextCommand(model, file);
+	@RequestMapping("/speechToText")
+	public void speechToText(@RequestParam URI filepath) {
+		Command speechToTextCommand = new SpeechToTextCommand(model, filepath);
 		model.receiveCommand(speechToTextCommand);
 	}
 	

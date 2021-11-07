@@ -11,7 +11,7 @@ import com.speechhelper.speechtotext.SpeechToTextCommand;
 
 public class SpeechToTextCommandTest {
 
-	@Test
+	/*@Test
 	public void test() {
 		Model model = new Model();
 		File audioFilePath;
@@ -27,6 +27,20 @@ public class SpeechToTextCommandTest {
 		}
 		
 		
+	}*/
+	
+	@Test
+	public void customDictTest() {
+		Model model = new Model();
+		File audioFilePath;
+		try {
+			audioFilePath = new File(Main.class.getClassLoader().getResource("test.wav").toURI());
+			String input = "This is the first interval of speaking. After the first moment of silence this is the second interval of speaking. After the third moment of silence this the third interval of speaking and the last one";
+			SpeechToTextCommand command = new SpeechToTextCommand(model, audioFilePath, input);
+			command.execute();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
