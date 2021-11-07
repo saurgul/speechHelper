@@ -21,7 +21,7 @@ public class SpeechToTextCommandTest {
 			command.setSpeech(audioFilePath);
 			command.execute();
 			assert(command.getSpeech().toString().equals(audioFilePath.toString()));
-			assert(command.getText().equals(" this is the first interval speaking  for the first moment of silence is the second of all speaking  so the for the moment of silence is a fucking several speaking and the last "));
+			assert(command.getText().equals("  this is the first interval speaking  for the first moment of silence is the second of all speaking  so the for the moment of silence is a fuckin the role speaking and the last "));
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}

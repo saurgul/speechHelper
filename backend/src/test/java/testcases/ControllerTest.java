@@ -28,9 +28,9 @@ public class ControllerTest {
 			model.addSpeech(speech);
 			SpeakingHelperController cont = new SpeakingHelperController(model);
 			cont.speechToText(audioFilePath);
-			cont.generateReport(speech);
-			cont.modifySpeech(speech);
-			cont.parseText(speech);
+			//cont.generateReport(speech);
+			//cont.modifySpeech(speech);
+			//cont.parseText(speech);
 		   
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block

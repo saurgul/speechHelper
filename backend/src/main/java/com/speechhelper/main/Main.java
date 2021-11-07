@@ -20,11 +20,16 @@ public class Main {
 	
 	//Currently demoing in main, the front end will take input to make these calls in the future
 	public static void main(String[] args) {
-		SpringApplication app = new SpringApplication(Main.class);
-		//SpringApplication.run(Main.class, args);
-		app.setDefaultProperties(Collections
-		          .singletonMap("server.port", "8083"));
-		app.run(args);
+		
+		Model model = new Model();
+		SpeakingHelperController controller = new SpeakingHelperController(model);
+		SpringApplication.run(Main.class, args);
+		
+//		SpringApplication app = new SpringApplication(Main.class);
+//		//SpringApplication.run(Main.class, args);
+//		app.setDefaultProperties(Collections
+//		          .singletonMap("server.port", "8083"));
+//		app.run(args);
 	}
 
 }
