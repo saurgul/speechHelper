@@ -27,6 +27,8 @@ public class ParseSpeechTextCommand implements Command {
 		setTotalWords(WordCountUtility.sharedInstance.getTotalWords());
 		fillerFrequency = FillerWordsUtility.sharedInstance.getFillersFrequency(wordFrequency);
 		fillerPercentage = FillerWordsUtility.sharedInstance.getFillerWordsPercentage(totalWords);
+		System.out.println("Filler Frequency: " + fillerFrequency);
+		System.out.println("Filler Percentage: " + fillerPercentage);
 //		speech.setParsedText(generateCleanText());
 	}
 

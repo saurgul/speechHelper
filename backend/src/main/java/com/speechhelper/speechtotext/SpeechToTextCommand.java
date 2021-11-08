@@ -90,7 +90,7 @@ public class SpeechToTextCommand implements Command{
 				String line = fileReader.nextLine();
 				List<String> fillers = Arrays.asList(line.split(","));
 				for(String f: fillers) {
-					tempInput = input + " " + f;
+					tempInput = tempInput + " " + f;
 				}
 			}
 		}

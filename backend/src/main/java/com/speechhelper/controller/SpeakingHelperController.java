@@ -64,22 +64,19 @@ public class SpeakingHelperController {
 	
 	//Generates feedback report on given speech object
 	public void generateReport(@RequestParam int speechId) {
-		//TODO, change second parameter to model.findSpeechById (Currently does not exist)
-		Command generateReportCommand = new GenerateReportCommand(model, new NullSpeech());
+		Command generateReportCommand = new GenerateReportCommand(model, model.getSpeechById(speechId));
 		model.receiveCommand(generateReportCommand);
 	}
 	
 	//Modifies the stored speech object
 	public void modifySpeech(@RequestParam int speechId) {
-		//TODO, change second parameter to model.findSpeechById (Currently does not exist)
-		Command modifySpeechCommand = new ModifySpeechCommand(model, new NullSpeech());
+		Command modifySpeechCommand = new ModifySpeechCommand(model, model.getSpeechById(speechId));
 		model.receiveCommand(modifySpeechCommand);
 	}
 	
 	//Performs content analyzer command
 	public void parseText(@RequestParam int speechId) {
-		//TODO, change second parameter to model.findSpeechById (Currently does not exist)
-		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, new NullSpeech());
+		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, model.getSpeechById(speechId));
 		model.receiveCommand(parseTextCommand);
 		System.out.println(parseTextCommand.getWordFrequencyCount().toString());
 		System.out.println(parseTextCommand.getFillerFrequency().toString());
