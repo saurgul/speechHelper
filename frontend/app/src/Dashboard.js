@@ -23,18 +23,39 @@ function Report(){
 function InputForm(props){
 	const[textFile, setTextFile] = useState();
 	const[speechFile, setSpeechFile] = useState();	
+	const[speechId, setSpeechId] = useState();
 	
 	async function generateReport(){
-		//change it to textFile.file once controller code is fixed to take file as request param
-        const response = await fetch(`/createSpeech?urlString=${encodeURIComponent(textFile.name)}&file=${encodeURIComponent(speechFile.file)}`, {method: "GET"});
-        console.log(response);
+		const textFileData = new FormData();
+		textFileData.append("textFile", textFile);
+		const speechFileData = new FormData();
+		speechFileData.append("speechFile", speechFile);
+       // const response = await fetch(`/createSpeech?textFile=${encodeURIComponent(textFile.file)}&audioFile=${encodeURIComponent(speechFile.file)}`, {method: "GET"});
+	   // const response = await fetch(`/createSpeech?textFile=${textFileData}&audioFile=${speechFileData}`, {method: "POST"});
+      //  console.log(response);
+	//	console.log(response.json);
+	//	await setSpeechId(response.json).then(res => {
+			getFeedback();
+	//	})
     }
 
-	const handleSubmit= (e) => {
+	async function getFeedback(){
+		const response = await fetch(`/parseText?speechId=${0}`, {method: "GET"});
+		console.log(response);
+		const json = await response.json();
+		console.log(json);
+		console.log(json.data)
+		console.log(json.WordFrequency);
+		console.log(json.FillerFrequency);
+		console.log(json.FillerRatio);
+		console.log(json.SpeechRate);
+	}
+
+	const handleSubmit= async(e) => {
 		//upload files to database and call functions to generate report
       console.log(textFile.name);
 	  console.log(speechFile.name);
-	  generateReport();
+	  await generateReport();
 		//set actual values after generating the values
 	  setFillerWordRatio("3:100");
 	  setSpeechRate("80 words /min")

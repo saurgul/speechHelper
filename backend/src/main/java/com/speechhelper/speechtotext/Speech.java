@@ -13,6 +13,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 //This is a container class for speech objects, the text transcription, and the feedback.
 //This will be the main thing we store in our database.
 //TODO update datatype for the actual speechToText variable, add more fields
+//TODO BUILDER PATTERN!!!!
 public class Speech {
 	protected File speechFile;
 	protected SpeechToTextReport report;
@@ -32,6 +33,11 @@ public class Speech {
 	public Speech(File speechFile, SpeechToTextReport report) {
 		this.speechFile = speechFile;
 		this.report = report;
+	}
+	
+	public Speech(File speechFile, TranscribedSpeechText transcribedSpeechText) {
+		this.speechFile = speechFile;
+		this.transcribedSpeechText = transcribedSpeechText;
 	}
 	
 	//the transcribedSpeechText object contains the originalText downloaded from the url and parsed text that can be used to compare the original and parsed text
