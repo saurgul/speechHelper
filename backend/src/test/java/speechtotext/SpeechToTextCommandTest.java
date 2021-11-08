@@ -33,7 +33,7 @@ public class SpeechToTextCommandTest {
 	
 	@Test
 	public void customDictTest() {
-	/*	Model model = new Model();
+		Model model = new Model();
 		File audioFilePath;
 		try {
 			audioFilePath = new File(Main.class.getClassLoader().getResource("test.wav").toURI());
@@ -42,7 +42,7 @@ public class SpeechToTextCommandTest {
 			command.execute();
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 	
 	@Test 
