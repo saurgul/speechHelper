@@ -49,7 +49,11 @@ public class SpeakingHelperController {
 		model.receiveCommand(createSpeechCommand);
 	}
 	
-	
+	//Create a speech from the audio file Content
+	public void createSpeech(@RequestParam File file) {
+		Command createSpeechCommand = new CreateSpeechCommand(model, file);
+		model.receiveCommand(createSpeechCommand);
+	}
 
 	//Performs speech to text command
 	@RequestMapping("/speechToText")

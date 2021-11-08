@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.speechhelper.command.Command;
 import com.speechhelper.command.CommandInvoker;
 import com.speechhelper.main.Main;
+import com.speechhelper.nullobjects.NullSpeech;
 import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextReport;
 
@@ -46,6 +47,15 @@ public class Model {
 		s.setId(currentId);
 		currentId++;
 		speeches.add(s);
+	}
+	
+	public Speech getSpeechById(int id) {
+		for(Speech s: speeches) {
+			if(s.getId() == id) {
+				return s;
+			}
+		}
+		return new NullSpeech();
 	}
 	
 	public void removeSpeech(Speech s) {

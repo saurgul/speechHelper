@@ -23,12 +23,11 @@ public class ParseSpeechTextCommand implements Command {
 	}
 
 	public void execute() {
-		String speechText = speech.getOriginalText();
+		String speechText = speech.getText();
 		wordFrequency = WordCountUtility.sharedInstance.getWordFrequencyCount(speechText);
 		setTotalWords(WordCountUtility.sharedInstance.getTotalWords());
 		fillerFrequency = FillerWordsUtility.sharedInstance.getFillersFrequency(wordFrequency);
 		fillerPercentage = FillerWordsUtility.sharedInstance.getFillerWordsPercentage(totalWords);
-		//speechRate = SpeechRateUtility.sharedInstance.getSpeechRate(totalWords, totalTime);
 		speech.setParsedText(generateCleanText());
 	}
 
