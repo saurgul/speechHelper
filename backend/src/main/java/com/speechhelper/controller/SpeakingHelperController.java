@@ -17,6 +17,8 @@ import com.speechhelper.speechtotext.GenerateReportCommand;
 import com.speechhelper.speechtotext.ModifySpeechCommand;
 import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextCommand;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 @ResponseBody
 public class SpeakingHelperController {
+	@Autowired
 	private Model model;
 	
 	public SpeakingHelperController() {
@@ -42,8 +45,15 @@ public class SpeakingHelperController {
 		return "<h1>Hello World!</h1>";
 	}
 	
-	//Create a speech from the downloaded file Content
 	@RequestMapping("/createSpeech")
+	public void createSpeech(@RequestParam String urlString, @RequestParam File file) {
+		//Need to take file as an input for text file of speech instead of url
+		Command createSpeechCommand = new CreateSpeechCommand(model, urlString, file);
+		model.receiveCommand(createSpeechCommand);
+		//call parseSpeechTextCommand to get fillerwords ratio and speechrate
+	}
+	
+	//Create a speech from the downloaded file Content
 	public void createSpeech(@RequestParam String urlString) {
 		Command createSpeechCommand = new CreateSpeechCommand(model, urlString);
 		model.receiveCommand(createSpeechCommand);
@@ -80,6 +90,7 @@ public class SpeakingHelperController {
 		model.receiveCommand(parseTextCommand);
 		System.out.println(parseTextCommand.getWordFrequencyCount().toString());
 		System.out.println(parseTextCommand.getFillerFrequency().toString());
-		System.out.printf("%.2f percent of content text in speech is filler",parseTextCommand.getFillerPercentage());
+		System.out.printf(parseTextCommand.getFillerRatio());
+		System.out.println(parseTextCommand.getSpeechRate());
 	}
 }

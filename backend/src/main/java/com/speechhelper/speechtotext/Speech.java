@@ -2,6 +2,12 @@
 package com.speechhelper.speechtotext;
 
 import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 
 //This is a container class for speech objects, the text transcription, and the feedback.
@@ -64,6 +70,23 @@ public class Speech {
 	
 	public void setParsedText(String cleanText) {
 		transcribedSpeechText.setParsedText(cleanText);
+	}
+	
+	public double getSpeechlength() {
+		AudioInputStream audioInputStream = null;
+		try {
+			audioInputStream = AudioSystem.getAudioInputStream(speechFile);
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		AudioFormat format = audioInputStream.getFormat();
+		long frames = audioInputStream.getFrameLength();
+		double durationInSeconds = (frames+0.0) / format.getFrameRate(); 
+		return durationInSeconds;
 	}
 	
 	//Returns a copy
