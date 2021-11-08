@@ -25,6 +25,7 @@ function InputForm(props){
 	const[speechFile, setSpeechFile] = useState();	
 	
 	async function generateReport(){
+		//change it to textFile.file once controller code is fixed to take file as request param
         const response = await fetch(`/createSpeech?urlString=${encodeURIComponent(textFile.name)}&file=${encodeURIComponent(speechFile.file)}`, {method: "GET"});
         console.log(response);
     }
