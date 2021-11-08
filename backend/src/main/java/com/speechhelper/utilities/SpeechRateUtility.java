@@ -16,8 +16,8 @@ public class SpeechRateUtility {
 		return sharedInstance;
 	}
 	
-	public Integer getSpeechRate(Integer totalWords, Integer speechTime) {
-		speechRate = totalWords/speechTime;
+	public Integer getSpeechRate(Integer totalWords, double speechTime) {
+		speechRate = (int) (totalWords/speechTime);
 		return speechRate;
 	}
 	

@@ -5,7 +5,7 @@ function Dashboard(){
 	
 	const[fillerWordRatio, setFillerWordRatio] = useState("0");
 	const[speechRate, setSpeechRate] = useState("0");
-	
+		
 function Report(){	
 	return(
 		<div>
@@ -22,12 +22,18 @@ function Report(){
 
 function InputForm(props){
 	const[textFile, setTextFile] = useState();
-	const[speechFile, setSpeechFile] = useState();
+	const[speechFile, setSpeechFile] = useState();	
 	
+	async function generateReport(){
+        const response = await fetch(`/createSpeech?urlString=${encodeURIComponent(textFile.name)}&file=${encodeURIComponent(speechFile.file)}`, {method: "GET"});
+        console.log(response);
+    }
+
 	const handleSubmit= (e) => {
 		//upload files to database and call functions to generate report
       console.log(textFile.name);
 	  console.log(speechFile.name);
+	  generateReport();
 		//set actual values after generating the values
 	  setFillerWordRatio("3:100");
 	  setSpeechRate("80 words /min")

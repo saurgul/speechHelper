@@ -9,7 +9,7 @@ import com.speechhelper.controller.SpeakingHelperController;
 
 
 @SpringBootApplication
-@ComponentScan(basePackageClasses = SpeakingHelperController.class)
+@ComponentScan("com.speechhelper")
 public class Main {
 
 	//Currently demoing in main, the front end will take input to make these calls in the future
