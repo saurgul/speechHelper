@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(path="/demo")
+@RequestMapping(path="/speech_helper")
 public class UserDatabaseController {
 	@Autowired
 	private UserRepository userRepository;
