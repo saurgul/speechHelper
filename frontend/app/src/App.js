@@ -1,5 +1,4 @@
 import React,{useState, useEffect} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Dashboard from './Dashboard';
 
@@ -16,7 +15,7 @@ function App() {
   },[])
 
   return (
-    <div className="App">
+    <div className="App bg-body">
       <header className="App-header">
 		<div> <Dashboard /> </div>
        <div> {speeches} </div>

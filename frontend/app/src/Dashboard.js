@@ -1,5 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import './Dashboard.css';
+import Header from "./components/Header";
+
 
 function Dashboard(){
 	
@@ -49,10 +51,11 @@ function InputForm(props){
 	);
 }
 	return(
-		<div className="rowAlignment">
-		<div> <InputForm /> </div>
-		<div> <Report /> </div>
-		</div>
+		<Header/>
+		// <div className="rowAlignment">
+		// <div> <InputForm /> </div>
+		// <div> <Report /> </div>
+		// </div>
 	);
 }
 
