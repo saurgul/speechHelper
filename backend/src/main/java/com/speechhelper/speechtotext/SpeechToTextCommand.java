@@ -78,7 +78,7 @@ public class SpeechToTextCommand implements Command{
 		}
 	}
 	
-	private void customizeDictionary() {
+	public void customizeDictionary() {
 	//TODO clean this method up a bit.
 		ArrayList<String> customDict = new ArrayList<String>();
 		File fullDictionary = new File("");

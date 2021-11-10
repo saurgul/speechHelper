@@ -1,9 +1,16 @@
 package speechtotext;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.junit.Test;
+import org.junit.Assert.*;
 
 import com.speechhelper.main.Main;
 import com.speechhelper.model.Model;
@@ -35,14 +42,30 @@ public class SpeechToTextCommandTest {
 	public void customDictTest() {
 		Model model = new Model();
 		File audioFilePath;
+		File customDict = new File("");
 		try {
-			audioFilePath = new File(Main.class.getClassLoader().getResource("test.wav").toURI());
-			String input = "This is the first interval of speaking. After the first moment of silence this is the second interval of speaking. After the third moment of silence this the third interval of speaking and the last one";
+			audioFilePath = new File(Main.class.getClassLoader().getResource("fillerDemo.wav").toURI());
+			String input = "This is sample audio for speech.";
 			SpeechToTextCommand command = new SpeechToTextCommand(model, audioFilePath, input);
-			command.execute();
+			command.customizeDictionary();
+			customDict = new File("custom.dict");
+			assertTrue(customDict.exists());
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
+		
+		ArrayList<String> words = new ArrayList<String>();
+		try(Scanner s = new Scanner(customDict)){
+			while(s.hasNext()) {
+				String[] line = s.nextLine().split(" ");
+				words.add(line[0]);
+			}
+		}
+		catch(FileNotFoundException ex) {
+			
+		}
+		System.out.println(words);
+		assertEquals(words.size(), 23);
 	}
 	
 	@Test 
@@ -53,7 +76,7 @@ public class SpeechToTextCommandTest {
 			audioFilePath = new File(Main.class.getClassLoader().getResource("fillerDemo.wav").toURI());
 			String input = "This is a demo for the speaking helper and this demo has a lot of filler words";
 			SpeechToTextCommand command = new SpeechToTextCommand(model, audioFilePath, input);
-			command.execute();
+			//command.execute();
 			
 			ParseSpeechTextCommand secondCommand = new ParseSpeechTextCommand(model, model.getSpeeches().get(model.getSpeeches().size() - 1));
 			secondCommand.execute();
