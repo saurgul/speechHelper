@@ -3,6 +3,8 @@ package com.speechhelper.controller;
 
 import java.io.File;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.speechhelper.command.Command;
+import com.speechhelper.main.Main;
 import com.speechhelper.model.Model;
 import com.speechhelper.nullobjects.NullSpeech;
 import com.speechhelper.parsetext.ParseSpeechTextCommand;
@@ -48,14 +51,31 @@ public class SpeakingHelperController {
 		return "<h1>Hello World!</h1>";
 	}
 	
+	//This endpoint is currently configured to do the whole process of creating a speech and generating feedback
 	@RequestMapping("/createSpeech")
-	public int createSpeech(@RequestParam File textFile, @RequestParam File audioFile) {
+	public Map<String, String> createSpeech(@RequestParam File textFile, @RequestParam File audioFile) {
 		//Need to take file as an input for text file of speech instead of url
-		Command createSpeechCommand = new CreateSpeechCommand(model, textFile, audioFile);
-		model.receiveCommand(createSpeechCommand);
-		System.out.println("Speech ID to Return: " + model.getSpeeches().get(model.getSpeeches().size() - 1).getId());
-		return model.getSpeeches().get(model.getSpeeches().size() - 1).getId();
-		//call parseSpeechTextCommand to get fillerwords ratio and speechrate
+		//TODO actually use file from front end, rather than loading locally
+		
+		Speech testSpeech = new NullSpeech();
+		try {
+			testSpeech = new Speech(audioFile, new String(Files.readAllBytes(textFile.toPath())));
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		SpeechToTextCommand speechToText = new SpeechToTextCommand(model, testSpeech);
+		model.receiveCommand(speechToText);
+		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, speechToText.getSpeechObject());
+		model.receiveCommand(parseTextCommand);
+		
+		//REST Controller converts to json for us, so returning a key value pair will work for our response
+		HashMap<String, String> values = new HashMap();
+		values.put("WordFrequency", parseTextCommand.getWordFrequencyCount().toString());
+		values.put("FillerFrequency", "{um = 3}");
+		values.put("FillerRatio", "3:9");
+		values.put("SpeechRate", parseTextCommand.getSpeechRate() + "");
+		return values;
 	}
 	
 	//Create a speech from the downloaded file Content
@@ -72,8 +92,8 @@ public class SpeakingHelperController {
 
 	//Performs speech to text command
 	@RequestMapping("/speechToText")
-	public void speechToText(@RequestParam URI filepath) {
-		Command speechToTextCommand = new SpeechToTextCommand(model, filepath);
+	public void speechToText(@RequestParam int speechId) {
+		Command speechToTextCommand = new SpeechToTextCommand(model, model.getSpeechById(speechId).getSpeechFile());
 		model.receiveCommand(speechToTextCommand);
 	}
 	
@@ -91,12 +111,14 @@ public class SpeakingHelperController {
 		model.receiveCommand(modifySpeechCommand);
 	}
 	
+	
 	@RequestMapping("/parseText")
 	//Performs content analyzer command
 	public Map parseText(@RequestParam int speechId) {
+		SpeechToTextCommand speechToText = new SpeechToTextCommand(model, model.getSpeechById(speechId));
+		model.receiveCommand(speechToText);
 		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, model.getSpeechById(speechId));
 		model.receiveCommand(parseTextCommand);
-		parseTextCommand.getWordFrequencyCount().toString();
 		
 		//Prints values to console
 		System.out.println(parseTextCommand.getWordFrequencyCount().toString());
@@ -104,18 +126,12 @@ public class SpeakingHelperController {
 		System.out.printf(parseTextCommand.getFillerRatio());
 		System.out.println(parseTextCommand.getSpeechRate());
 		
-		//Returns values as JSONObject
-		/*JSONObject json = new JSONObject();
-		json.put("WordFrequency", parseTextCommand.getWordFrequencyCount().toString());
-		json.put("FillerFrequency", parseTextCommand.getFillerFrequency().toString());
-		json.put("FillerRatio", parseTextCommand.getFillerRatio());
-		json.put("SpeechRate", parseTextCommand.getSpeechRate());
-		return json.;*/
+		//REST Controller converts to json for us, so returning a key value pair will work for our response
 		HashMap<String, String> values = new HashMap();
 		values.put("WordFrequency", parseTextCommand.getWordFrequencyCount().toString());
 		values.put("FillerFrequency", parseTextCommand.getFillerFrequency().toString());
 		values.put("FillerRatio", parseTextCommand.getFillerRatio());
-		values.put("SpeechRate", parseTextCommand.getSpeechRate().toString());
+		values.put("SpeechRate", parseTextCommand.getSpeechRate() + "");
 		return values;
 	}
 }

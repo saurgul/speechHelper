@@ -18,6 +18,7 @@ public class Speech {
 	protected File speechFile;
 	protected SpeechToTextReport report;
 	protected String speechToText;
+	protected String input;
 	protected int speechId;
 	protected TranscribedSpeechText transcribedSpeechText;
 	
@@ -46,6 +47,11 @@ public class Speech {
 		this.transcribedSpeechText = transcribedSpeechText;
 	}
 	
+	public Speech(File speechFile, String input) {
+		this.speechFile = speechFile;
+		this.input = input;
+	}
+	
 	public String getText() {
 		return this.speechToText;
 	}
@@ -66,6 +72,10 @@ public class Speech {
 		this.speechId = id;
 	}
 	
+	public String getInput() {
+		return this.input;
+	}
+	
 	public String getOriginalText() {
 		return transcribedSpeechText.getOriginalText();
 	}
@@ -76,6 +86,10 @@ public class Speech {
 	
 	public void setParsedText(String cleanText) {
 		transcribedSpeechText.setParsedText(cleanText);
+	}
+	
+	public void setSpeechToText(String s) {
+		this.speechToText = s;
 	}
 	
 	public double getSpeechlength() {
@@ -92,7 +106,7 @@ public class Speech {
 		AudioFormat format = audioInputStream.getFormat();
 		long frames = audioInputStream.getFrameLength();
 		double durationInSeconds = (frames+0.0) / format.getFrameRate(); 
-		return durationInSeconds;
+		return durationInSeconds/60;
 	}
 	
 	//Returns a copy

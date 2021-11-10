@@ -54,6 +54,15 @@ public class SpeechToTextCommand implements Command{
 		this.input = input;
 		setConfig();
 	}
+	
+	public SpeechToTextCommand(Model m, Speech speech) {
+		this.model = m;
+		this.speechContainer = speech;
+		this.speech = speechContainer.getSpeechFile();
+		this.input = "text";
+		setConfig();
+	}
+	
 	public void setConfig() {
 		//Default configuration for speech to text, using Sphinx models and dictionaries.
 		config = new Configuration();
@@ -141,6 +150,10 @@ public class SpeechToTextCommand implements Command{
 		return this.speech;
 	}
 	
+	public Speech getSpeechObject() {
+		return this.speechContainer;
+	}
+	
 	public void setSpeech(File newSpeech) {
 		this.speech = newSpeech;
 	}
@@ -165,7 +178,7 @@ public class SpeechToTextCommand implements Command{
 		//Code for speech to text from audio file
 		try {
 			StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(config);
-			InputStream stream = new FileInputStream(speech);
+			InputStream stream = new FileInputStream(speechContainer.getSpeechFile());
 			
 			//Runs recognition and sets the best result as the given text output
 			recognizer.startRecognition(stream);
@@ -180,14 +193,13 @@ public class SpeechToTextCommand implements Command{
 	        text = text.replaceAll("<s>", "");
 	        text = text.replaceAll("</s>", "");
 	        
-	        //Creates a container object
-	        speechContainer = new Speech(speech, text, new NullSpeechToTextReport());
-	        
 	        //Adds it to model
-	        model.addSpeech(speechContainer);
+	        speechContainer.setSpeechToText(text);
+	        
+	        //model.addSpeech(speechContainer);
 	        
 	        //Println for debugging
-	        System.out.println(text);
+	        //System.out.println(text);
 	        
 	        recognizer.stopRecognition();
 		}

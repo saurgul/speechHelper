@@ -36,10 +36,10 @@ public class CreateSpeechCommand implements Command {
 	
 	public void execute() {
 		Speech newSpeech;
-		if (urlString.isEmpty()) {
-			newSpeech = new Speech(speechFile, new NullSpeechToTextReport());
-			model.addSpeech(newSpeech);
-		} else {
+		//if (urlString.isEmpty()) {
+		//	newSpeech = new Speech(speechFile, new NullSpeechToTextReport());
+		//	model.addSpeech(newSpeech);
+		//} else {
 			try {
 			newSpeech = new Speech(speechFile, new TranscribedSpeechText(new String(Files.readAllBytes(textFile.toPath()))));
 			model.addSpeech(newSpeech);
@@ -47,7 +47,7 @@ public class CreateSpeechCommand implements Command {
 			catch(Exception ex) {
 				System.out.println(ex);
 			}
-		}
+		//}
 	}
 
 	public void unexecute() {

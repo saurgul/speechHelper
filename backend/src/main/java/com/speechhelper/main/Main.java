@@ -11,8 +11,7 @@ import com.speechhelper.controller.SpeakingHelperController;
 @SpringBootApplication
 @ComponentScan("com.speechhelper")
 public class Main {
-
-	//Currently demoing in main, the front end will take input to make these calls in the future
+	
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
 	}
