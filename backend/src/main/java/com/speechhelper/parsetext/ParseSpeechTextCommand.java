@@ -7,6 +7,7 @@ import com.speechhelper.model.Model;
 import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.utilities.FillerWordsUtility;
 import com.speechhelper.utilities.SpeechRateUtility;
+import com.speechhelper.utilities.WordCountUtility;
 
 //Class to parse the original text and count the number of words and filler words
 //TODO: remove the filler words from the original text and set parsed text fort the speech
