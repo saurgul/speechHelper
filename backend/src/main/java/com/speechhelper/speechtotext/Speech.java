@@ -9,11 +9,12 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import com.speechhelper.constants.Constants;
+import com.speechhelper.nullobjects.NullSpeechToTextReport;
+
 
 //This is a container class for speech objects, the text transcription, and the feedback.
 //This will be the main thing we store in our database.
-//TODO update datatype for the actual speechToText variable, add more fields
-//TODO BUILDER PATTERN!!!!
 public class Speech {
 	protected File speechFile;
 	protected SpeechToTextReport report;
@@ -22,10 +23,15 @@ public class Speech {
 	protected int speechId;
 	protected TranscribedSpeechText transcribedSpeechText;
 	
-	public Speech() {
+	private Speech(Builder sb) {
+		this.speechFile = sb.speechFile;
+		this.report = sb.report;
+		this.speechToText = sb.speechToText;
+		this.input = sb.input;
+		this.speechId = sb.speechId;
 	}
 	
-	public Speech(File speechFile, String speechToText, SpeechToTextReport report) {
+	/*public Speech(File speechFile, String speechToText, SpeechToTextReport report) {
 		this.speechFile = speechFile;
 		this.speechToText = speechToText;
 		this.report = report;
@@ -50,7 +56,7 @@ public class Speech {
 	public Speech(File speechFile, String input) {
 		this.speechFile = speechFile;
 		this.input = input;
-	}
+	} */
 	
 	public String getText() {
 		return this.speechToText;
@@ -109,9 +115,44 @@ public class Speech {
 		return durationInSeconds/60;
 	}
 	
-	//Returns a copy
-	public Speech copy() {
-		return new Speech(speechFile, speechToText, report);
+	
+	//Implementation of builder pattern
+	public static class Builder{
+		protected File speechFile = new File("");
+		protected SpeechToTextReport report = new NullSpeechToTextReport();
+		protected String speechToText = "";
+		protected String input = "";
+		protected int speechId = Constants.NULL_SPEECH_ID;
+		
+		
+		public Speech build() {
+			return new Speech(this);
+		}
+		
+		public Builder speechFile(File s) {
+			this.speechFile = s;
+			return this;
+		}
+		 
+		public Builder report(SpeechToTextReport r) {
+			this.report = r;
+			return this;
+		}
+		
+		public Builder speechToText(String s) {
+			this.speechToText = s;
+			return this;
+		}
+		
+		public Builder input(String s) {
+			this.input = s;
+			return this;
+		}
+		
+		public Builder id(int i) {
+			this.speechId = i;
+			return this;
+		}
 	}
 	
 }

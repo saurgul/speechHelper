@@ -14,8 +14,8 @@ import com.speechhelper.utilities.FileDownloadUtility;
 public class CreateSpeechCommand implements Command {
 
 	private Model model;
-	private File textFile = null;
-	private File speechFile = null;
+	private File textFile = new File("");
+	private File speechFile = new File("");
 	private String urlString = "";
 	
 	public CreateSpeechCommand(Model model, String urlString) {
@@ -41,7 +41,7 @@ public class CreateSpeechCommand implements Command {
 		//	model.addSpeech(newSpeech);
 		//} else {
 			try {
-			newSpeech = new Speech(speechFile, new TranscribedSpeechText(new String(Files.readAllBytes(textFile.toPath()))));
+			newSpeech = new Speech.Builder().speechFile(speechFile).build();
 			model.addSpeech(newSpeech);
 			}
 			catch(Exception ex) {
