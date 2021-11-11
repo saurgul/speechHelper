@@ -5,6 +5,8 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Repository;
+
 import com.speechhelper.command.Command;
 import com.speechhelper.command.CommandInvoker;
 import com.speechhelper.main.Main;
@@ -13,6 +15,7 @@ import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextReport;
 
 //Basic model with an arraylist of speeches. See speechtotext.Speech for all that class contains.
+@Repository
 public class Model {
 	
 	private ArrayList<Speech> speeches;

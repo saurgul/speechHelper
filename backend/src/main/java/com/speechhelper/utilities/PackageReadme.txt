@@ -1,2 +1,2 @@
 Utilities Package
--Contains static classes with helpful utilities throughout the program.
+-Contains static singleton classes with helpful utilities throughout the program.

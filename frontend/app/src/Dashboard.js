@@ -5,35 +5,72 @@ import Header from "./components/Header";
 
 function Dashboard(){
 	
-	const[fillerWordRatio, setFillerWordRatio] = useState("0");
-	const[speechRate, setSpeechRate] = useState("0");
-	
+	const[fillerWordRatio, setFillerWordRatio] = useState("");
+	const[speechRate, setSpeechRate] = useState("");
+	const[fillerWordFrequency, setFillerWordFrequency] = useState("");
+		
 function Report(){	
 	return(
 		<div>
 		<h3>Report</h3>
+		<br />
+		<label>Filler Word Breakdown: </label>
+		<label>{fillerWordFrequency}</label>
 		<br />
 		<label>Filler Words Ratio: </label>
 		<label>{fillerWordRatio}</label>
 		<br />
 		<label>Speech Rate: </label>
 		<label>{speechRate}</label>
+		<label> Words Per Minute </label>
 		</div>
 	);
 }
 
 function InputForm(props){
 	const[textFile, setTextFile] = useState();
-	const[speechFile, setSpeechFile] = useState();
+	const[speechFile, setSpeechFile] = useState();	
+	const[speechId, setSpeechId] = useState();
 	
-	const handleSubmit= (e) => {
-		//upload files to database and call functions to generate report
-      console.log(textFile.name);
-	  console.log(speechFile.name);
-		//set actual values after generating the values
-	  setFillerWordRatio("3:100");
-	  setSpeechRate("80 words /min")
+	async function generateReport(){
+		const textFileData = new FormData();
+		textFileData.append("textFile", textFile);
+		const speechFileData = new FormData();
+		speechFileData.append("speechFile", speechFile);
+        const response = await fetch(`/createSpeech?textFile=${encodeURIComponent(textFile.file)}&audioFile=${encodeURIComponent(speechFile.file)}`, {method: "GET"});
+		const json = await response.json();
+		setFillerWordFrequency(json.FillerFrequency);
+		console.log(json.FillerRatio);
+		setFillerWordRatio(json.FillerRatio);
+		console.log(json.SpeechRate);
+		setSpeechRate(json.SpeechRate);
+	   // const response = await fetch(`/createSpeech?textFile=${textFileData}&audioFile=${speechFileData}`, {method: "POST"});
+      //  console.log(response);
+	//	console.log(response.json);
+	//	await setSpeechId(response.json).then(res => {
+			//getFeedback();
+	//	})
+    }
+
+	async function getFeedback(){
+		const response = await fetch(`/parseText?speechId=${0}`, {method: "GET"});
+		console.log(response);
+		const json = await response.json();
+		console.log(json);
+		console.log(json.WordFrequency);
+		console.log(json.FillerFrequency);
+		setFillerWordFrequency(json.FillerFrequency);
+		console.log(json.FillerRatio);
+		setFillerWordRatio(json.FillerRatio);
+		console.log(json.SpeechRate);
+		setSpeechRate(json.SpeechRate);
+		
+	}
+
+	const handleSubmit= async(e) => {
+	
       e.preventDefault();
+	  await generateReport();
     }
 	
 	return(
