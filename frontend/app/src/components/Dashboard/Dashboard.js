@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import './Dashboard.css';
-import Header from "./components/Header";
+import Header from './Header'
 
 
 function Dashboard(){

@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import './App.css';
-import Dashboard from './Dashboard';
+import Dashboard from './components/Dashboard/Dashboard';
+import Onboarding from './components/Onboarding/Onboarding';
 
 function App() {
   const[speeches, setSpeeches] = useState();
@@ -17,7 +18,7 @@ function App() {
   return (
     <div className="App bg-body">
       <header className="App-header">
-		<div> <Dashboard /> </div>
+		<div> <Onboarding /> </div>
        <div> {speeches} </div>
       </header>
     </div>

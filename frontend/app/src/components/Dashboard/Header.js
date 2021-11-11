@@ -1,5 +1,5 @@
 import React from "react";
-import temp from "./resources/temp.png";
+import temp from "./temp.png"
 
 function Header() {
     return(
