@@ -26,21 +26,6 @@ public class Model {
 	public Model() {
 		speeches = new ArrayList<Speech>();
 		this.commandInvoker = new CommandInvoker();
-		
-		File audioFilePath;
-		try {
-			audioFilePath = new File(Main.class.getClassLoader().getResource("test.wav").toURI());
-
-			Speech speech = new Speech.Builder().speechFile(audioFilePath)
-												.input("Speech to Text")
-												.report(new NullSpeechToTextReport())
-												.build();
-			speeches.add(speech);
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 	}
 	
 	//TODO use a database for this 
