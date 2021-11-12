@@ -17,6 +17,8 @@ function App() {
 
   return (
     <div className="App bg-body">
+      <link href='https://fonts.googleapis.com/css?family=Sen' rel='stylesheet'/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/> 
       <header className="App-header">
 		<div> <Onboarding /> </div>
        <div> {speeches} </div>
