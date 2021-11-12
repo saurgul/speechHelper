@@ -11,6 +11,7 @@ import com.speechhelper.command.Command;
 import com.speechhelper.command.CommandInvoker;
 import com.speechhelper.main.Main;
 import com.speechhelper.nullobjects.NullSpeech;
+import com.speechhelper.nullobjects.NullSpeechToTextReport;
 import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextReport;
 
@@ -30,7 +31,10 @@ public class Model {
 		try {
 			audioFilePath = new File(Main.class.getClassLoader().getResource("test.wav").toURI());
 
-			Speech speech = new Speech(audioFilePath, "Speech to text", new SpeechToTextReport());
+			Speech speech = new Speech.Builder().speechFile(audioFilePath)
+												.input("Speech to Text")
+												.report(new NullSpeechToTextReport())
+												.build();
 			speeches.add(speech);
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
@@ -72,7 +76,7 @@ public class Model {
 	
 	public Speech getSpeech(Speech s) {
 		//Returns a copy of a given speech
-		return speeches.get(speeches.indexOf(s)).copy();
+		return speeches.get(speeches.indexOf(s));
 	}
 	
 	//Use commandInvoker

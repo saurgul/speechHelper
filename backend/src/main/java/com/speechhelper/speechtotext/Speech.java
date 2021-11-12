@@ -23,7 +23,10 @@ public class Speech {
 	protected int speechId;
 	protected TranscribedSpeechText transcribedSpeechText;
 	
-	private Speech(Builder sb) {
+	protected Speech() {
+		
+	}
+	protected Speech(Builder sb) {
 		this.speechFile = sb.speechFile;
 		this.report = sb.report;
 		this.speechToText = sb.speechToText;

@@ -59,7 +59,10 @@ public class SpeakingHelperController {
 		
 		Speech testSpeech = new NullSpeech();
 		try {
-			testSpeech = new Speech(audioFile, new String(Files.readAllBytes(textFile.toPath())));
+			//testSpeech = new Speech(audioFile, new String(Files.readAllBytes(textFile.toPath())));
+			testSpeech = new Speech.Builder().speechFile(audioFile)
+											 .input(new String(Files.readAllBytes(textFile.toPath())))
+											 .build();
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();
