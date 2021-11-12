@@ -8,10 +8,7 @@
  
 	<context:component-scan base-package="main" />
  
-	<bean id="helloWorldService"
-		class="main.HelloWorldService">
-		<property name="name" value="Group2" />
-	</bean>
+	
 	
 	
 </beans>
