@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SpeechDatabaseController {
 	@Autowired
 	private SpeechRepository speechRepository;
+	
 	@Autowired
 	private UserRepository userRepository;
 	

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.speechhelper.model.Model;
 
+@Repository
 public interface SpeechRepository extends JpaRepository<SpeechEntity, Long>{
 	
 	List<SpeechEntity> findByUserId(Long userId);
