@@ -12,4 +12,5 @@ public interface SpeechRepository extends JpaRepository<SpeechEntity, Long>{
 	
 	List<SpeechEntity> findByUserId(Long userId);
 	SpeechEntity findBySpeechId(long id);
+	List<SpeechEntity> findAll();
 }
