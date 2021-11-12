@@ -1,5 +1,7 @@
 package com.speechhelper.databasemanager;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +11,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="User")
-public class UserEntity {
-  
+public class UserEntity{
+
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
   @Column(name="userId")
@@ -29,13 +31,6 @@ public class UserEntity {
   private int age;
 
   protected UserEntity() {}
-
-  public UserEntity(String name, String userName, String password, int age) {
-    this.userName = userName;
-    this.password = password;
-	this.name = name;
-    this.age = age;
-  }
 
   @Override
   public String toString() {

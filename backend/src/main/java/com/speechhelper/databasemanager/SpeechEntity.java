@@ -1,16 +1,21 @@
 package com.speechhelper.databasemanager;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
+@IdClass(SpeechID.class)
 @Table(name="Speech")
-public class SpeechEntity {
-	
+public class SpeechEntity implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	  @Id
 	  @GeneratedValue(strategy=GenerationType.AUTO)
 	  @Column(name="speechId")
@@ -20,7 +25,7 @@ public class SpeechEntity {
 	  @Column(name="userId")
 	  private Long userId;
 	  
-	  @Column(name="transcriberSpeechText")
+	  @Column(name="transcribedSpeechText")
 	  private String transcribedSpeechText;
 	  
 	  @Column(name="convertedSpeechText")
@@ -28,11 +33,6 @@ public class SpeechEntity {
 
 	  protected SpeechEntity() {}
 
-	  public SpeechEntity(Long userId, String transcribedSpeechText, String convertedSpeechText) {
-		  this.userId = userId;
-		  this.transcribedSpeechText = transcribedSpeechText;
-		  this.convertedSpeechText = convertedSpeechText;
-	  }
 
 	  @Override
 	  public String toString() {
