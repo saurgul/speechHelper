@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SpeechDatabaseController {
 	@Autowired
 	private SpeechRepository speechRepository;
+	@Autowired
+	private UserRepository userRepository;
 	
 	@PostMapping(path="/add_speech") // Map ONLY POST Requests
 	public String addNewSpeech (@RequestParam Long userId, @RequestParam String transcribedSpeechText, @RequestParam String convertedSpeechText) {
