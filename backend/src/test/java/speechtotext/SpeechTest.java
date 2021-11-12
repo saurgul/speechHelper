@@ -1,6 +1,5 @@
 package speechtotext;
 
-import static org.junit.Assert.*;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -25,7 +24,7 @@ public class SpeechTest {
 				    .build();
 			assert(speech.getText().equals("Speech to text"));
 			assert(speech.getSpeechFile().getPath().toString().equals(audioFilePath.getPath().toString()));
-			assertFalse(speech.toString().equals(speech.toString()));
+			//assertFalse(speech.toString().equals(speech.toString()));
 	
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
