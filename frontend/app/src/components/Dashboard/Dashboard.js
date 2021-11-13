@@ -33,11 +33,16 @@ function InputForm(props){
 	const[speechId, setSpeechId] = useState();
 	
 	async function generateReport(){
-		const textFileData = new FormData();
-		textFileData.append("textFile", textFile);
-		const speechFileData = new FormData();
-		speechFileData.append("speechFile", speechFile);
-        const response = await fetch(`/createSpeech?textFile=${encodeURIComponent(textFile.file)}&audioFile=${encodeURIComponent(speechFile.file)}`, {method: "GET"});
+		const formData = new FormData();
+		formData.append("files", textFile);
+		formData.append("files", speechFile);
+		
+		console.log(textFile.file)
+		console.log(speechFile.file)
+		console.log(textFile)
+		console.log(speechFile)
+		const response = await fetch(`/createSpeech`, {method: "post",body: formData});
+        //const response = await fetch(`/createSpeech?textFile=${encodeURIComponent(textFile)}&audioFile=${encodeURIComponent(speechFile)}`, {method: "GET"});
 		const json = await response.json();
 		setFillerWordFrequency(json.FillerFrequency);
 		console.log(json.FillerRatio);
@@ -89,10 +94,10 @@ function InputForm(props){
 }
 	return(
 		<Header/>
-		// <div className="rowAlignment">
-		// <div> <InputForm /> </div>
-		// <div> <Report /> </div>
-		// </div>
+		//<div className="rowAlignment">
+		//<div> <InputForm /> </div>
+		//<div> <Report /> </div>
+		//</div>
 	);
 }
 
