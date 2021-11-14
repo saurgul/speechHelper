@@ -1,14 +1,7 @@
 //@Author Christian Dummer
 package com.speechhelper.speechtotext;
-
-import java.util.ArrayList;
-
 import com.speechhelper.command.Command;
-import com.speechhelper.constants.Constants;
 import com.speechhelper.model.Model;
-import com.textrazor.AnalysisException;
-import com.textrazor.NetworkException;
-import com.textrazor.TextRazor;
 
 public class GenerateReportCommand implements Command {
 
@@ -27,6 +20,10 @@ public class GenerateReportCommand implements Command {
 		fillerFrequencyFeedback();
 		fillerRatioFeedback();
 		speechRateFeedback();
+	}
+	
+	public SpeechToTextReport getReport() {
+		return report;
 	}
 	
 	private void wordFrequencyFeedback() {

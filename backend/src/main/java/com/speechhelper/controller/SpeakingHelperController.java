@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.speechhelper.command.Command;
-import com.speechhelper.main.Main;
 import com.speechhelper.model.Model;
 import com.speechhelper.nullobjects.NullSpeech;
 import com.speechhelper.parsetext.ParseSpeechTextCommand;
@@ -27,10 +25,8 @@ import com.speechhelper.speechtotext.GenerateReportCommand;
 import com.speechhelper.speechtotext.ModifySpeechCommand;
 import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextCommand;
-
-import org.json.JSONObject;
+import com.speechhelper.speechtotext.SpeechToTextReport;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 
 //This is our interface between the frontend and backend.
@@ -84,7 +80,7 @@ public class SpeakingHelperController {
 		model.receiveCommand(parseTextCommand);
 		
 		//REST Controller converts to json for us, so returning a key value pair will work for our response
-		HashMap<String, String> values = new HashMap();
+		HashMap<String, String> values = new HashMap<String,String>();
 		values.put("WordFrequency", parseTextCommand.getWordFrequencyCount().toString());
 		values.put("FillerFrequency", parseTextCommand.getFillerFrequency().toString());
 		values.put("FillerRatio", parseTextCommand.getFillerRatio());
@@ -112,10 +108,12 @@ public class SpeakingHelperController {
 	}
 	
 	@RequestMapping("/generateReport")
-	//Generates feedback report on given speech object
-	public void generateReport(@RequestParam int speechId) {
+	//Generates feedback report and returns the feedback string
+	public String generateReport(@RequestParam int speechId) {
 		Command generateReportCommand = new GenerateReportCommand(model, model.getSpeechById(speechId));
 		model.receiveCommand(generateReportCommand);
+		SpeechToTextReport report = ((GenerateReportCommand)generateReportCommand).getReport();
+		return report.getFeedback();
 	}
 	
 	@RequestMapping("/modifySpeech")
@@ -128,7 +126,7 @@ public class SpeakingHelperController {
 	
 	@RequestMapping("/parseText")
 	//Performs content analyzer command
-	public Map parseText(@RequestParam int speechId) {
+	public Map<String, String> parseText(@RequestParam int speechId) {
 		SpeechToTextCommand speechToText = new SpeechToTextCommand(model, model.getSpeechById(speechId));
 		model.receiveCommand(speechToText);
 		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, model.getSpeechById(speechId));
@@ -141,7 +139,7 @@ public class SpeakingHelperController {
 		System.out.println(parseTextCommand.getSpeechRate());
 		
 		//REST Controller converts to json for us, so returning a key value pair will work for our response
-		HashMap<String, String> values = new HashMap();
+		HashMap<String, String> values = new HashMap<String, String>();
 		values.put("WordFrequency", parseTextCommand.getWordFrequencyCount().toString());
 		values.put("FillerFrequency", parseTextCommand.getFillerFrequency().toString());
 		values.put("FillerRatio", parseTextCommand.getFillerRatio());
