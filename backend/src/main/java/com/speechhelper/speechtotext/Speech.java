@@ -54,12 +54,12 @@ public class Speech {
 	public Speech(SpeechToTextReport report, TranscribedSpeechText transcribedSpeechText) {
 		this.report = report;
 		this.transcribedSpeechText = transcribedSpeechText;
-	}
+	} 
 	
 	public Speech(File speechFile, String input) {
 		this.speechFile = speechFile;
 		this.input = input;
-	} */
+	}*/
 	
 	public String getText() {
 		return this.speechToText;
@@ -133,6 +133,7 @@ public class Speech {
 		}
 		
 		public Builder speechFile(File s) {
+			System.out.println("inside the speech class"+s);
 			this.speechFile = s;
 			return this;
 		}

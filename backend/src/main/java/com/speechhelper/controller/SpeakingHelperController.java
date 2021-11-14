@@ -2,6 +2,7 @@
 package com.speechhelper.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -9,9 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.speechhelper.command.Command;
 import com.speechhelper.main.Main;
@@ -52,14 +56,21 @@ public class SpeakingHelperController {
 	}
 	
 	//This endpoint is currently configured to do the whole process of creating a speech and generating feedback
-	@RequestMapping("/createSpeech")
-	public Map<String, String> createSpeech(@RequestParam File textFile, @RequestParam File audioFile) {
+	@RequestMapping(value="/createSpeech",  method=RequestMethod.POST)
+	public Map<String, String> createSpeech(@RequestPart("files") MultipartFile[] files) {
 		//Need to take file as an input for text file of speech instead of url
 		//TODO actually use file from front end, rather than loading locally
 		
 		Speech testSpeech = new NullSpeech();
 		try {
-			//testSpeech = new Speech(audioFile, new String(Files.readAllBytes(textFile.toPath())));
+			
+			File textFile = new File("E:\\test\\" +files[0].getOriginalFilename());
+			if(!textFile.exists()) textFile.createNewFile();
+			files[0].transferTo(textFile);
+			File audioFile = new File("E:\\test\\" +files[1].getOriginalFilename());
+			if(!audioFile.exists()) audioFile.createNewFile();
+			files[1].transferTo(audioFile);
+
 			testSpeech = new Speech.Builder().speechFile(audioFile)
 											 .input(new String(Files.readAllBytes(textFile.toPath())))
 											 .build();
@@ -78,6 +89,8 @@ public class SpeakingHelperController {
 		values.put("FillerFrequency", "{um = 3}");
 		values.put("FillerRatio", "3:9");
 		values.put("SpeechRate", parseTextCommand.getSpeechRate() + "");
+//		System.out.println(testSpeech.getText());
+//		System.out.println(testSpeech.getInput());
 		return values;
 	}
 	
