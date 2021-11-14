@@ -14,6 +14,5 @@ public class NullSpeech extends Speech{
 		this.report = new NullSpeechToTextReport();
 		this.speechToText = "";
 		this.speechId = Constants.NULL_SPEECH_ID;
-		this.transcribedSpeechText = new NullTranscribedSpeechText();
 	}
 }

@@ -21,7 +21,6 @@ public class Speech {
 	protected String speechToText;
 	protected String input;
 	protected int speechId;
-	protected TranscribedSpeechText transcribedSpeechText;
 	
 	protected Speech() {
 		
@@ -33,33 +32,6 @@ public class Speech {
 		this.input = sb.input;
 		this.speechId = sb.speechId;
 	}
-	
-	/*public Speech(File speechFile, String speechToText, SpeechToTextReport report) {
-		this.speechFile = speechFile;
-		this.speechToText = speechToText;
-		this.report = report;
-	}
-	
-	public Speech(File speechFile, SpeechToTextReport report) {
-		this.speechFile = speechFile;
-		this.report = report;
-	}
-	
-	public Speech(File speechFile, TranscribedSpeechText transcribedSpeechText) {
-		this.speechFile = speechFile;
-		this.transcribedSpeechText = transcribedSpeechText;
-	}
-	
-	//the transcribedSpeechText object contains the originalText downloaded from the url and parsed text that can be used to compare the original and parsed text
-	public Speech(SpeechToTextReport report, TranscribedSpeechText transcribedSpeechText) {
-		this.report = report;
-		this.transcribedSpeechText = transcribedSpeechText;
-	} 
-	
-	public Speech(File speechFile, String input) {
-		this.speechFile = speechFile;
-		this.input = input;
-	}*/
 	
 	public String getText() {
 		return this.speechToText;
@@ -73,6 +45,10 @@ public class Speech {
 		return this.report;
 	}
 	
+	public void setSpeechToTextReport(SpeechToTextReport s) {
+		this.report = s;
+	}
+	
 	public int getId() {
 		return this.speechId;
 	}
@@ -84,19 +60,7 @@ public class Speech {
 	public String getInput() {
 		return this.input;
 	}
-	
-	public String getOriginalText() {
-		return transcribedSpeechText.getOriginalText();
-	}
-	
-	public String getParsedText() {
-		return transcribedSpeechText.getParsedText();
-	}
-	
-	public void setParsedText(String cleanText) {
-		transcribedSpeechText.setParsedText(cleanText);
-	}
-	
+
 	public void setSpeechToText(String s) {
 		this.speechToText = s;
 	}

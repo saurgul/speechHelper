@@ -86,11 +86,9 @@ public class SpeakingHelperController {
 		//REST Controller converts to json for us, so returning a key value pair will work for our response
 		HashMap<String, String> values = new HashMap();
 		values.put("WordFrequency", parseTextCommand.getWordFrequencyCount().toString());
-		values.put("FillerFrequency", "{um = 3}");
-		values.put("FillerRatio", "3:9");
+		values.put("FillerFrequency", parseTextCommand.getFillerFrequency().toString());
+		values.put("FillerRatio", parseTextCommand.getFillerRatio());
 		values.put("SpeechRate", parseTextCommand.getSpeechRate() + "");
-//		System.out.println(testSpeech.getText());
-//		System.out.println(testSpeech.getInput());
 		return values;
 	}
 	
