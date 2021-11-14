@@ -1,5 +1,6 @@
 package com.speechhelper.parsetext;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.speechhelper.command.Command;
@@ -34,9 +35,12 @@ public class ParseSpeechTextCommand implements Command {
 		fillerRatio = FillerWordsUtility.sharedInstance.getFillerWordsRatio(totalWords);
 		speechRate = SpeechRateUtility.sharedInstance.getSpeechRate(totalWords, speech.getSpeechlength());
 		
-		String datapoints = wordFrequency.toString() + "\n" + fillerFrequency.toString() + "\n" + fillerRatio + "\n" + speechRate;
 		
-		speech.setSpeechToTextReport(new SpeechToTextReport.Builder().datapoints(datapoints).build());
+		speech.setSpeechToTextReport(new SpeechToTextReport.Builder().wordFrequency(wordFrequency.toString())
+																	 .fillerFrequency(fillerFrequency.toString())
+																	 .fillerRatio(fillerRatio)
+																	 .speechRate(speechRate)
+																	 .build());
 	}
 
 	public void unexecute() {

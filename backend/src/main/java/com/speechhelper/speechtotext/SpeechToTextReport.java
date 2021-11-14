@@ -1,15 +1,13 @@
 //@Author Christian Dummer
 package com.speechhelper.speechtotext;
 
-import java.io.File;
-
-import com.speechhelper.constants.Constants;
-import com.speechhelper.nullobjects.NullSpeechToTextReport;
-import com.speechhelper.speechtotext.Speech.Builder;
 
 //Class to store feedback on a particular speech recording.
 public class SpeechToTextReport {
-	protected String datapoints = "";
+	protected String wordFrequency = "";
+	protected String fillerFrequency = "";
+	protected String fillerRatio = "";
+	protected double speechRate = 0;
 	protected String feedback = "";
 	
 	public SpeechToTextReport() {
@@ -18,29 +16,20 @@ public class SpeechToTextReport {
 	
 
 	protected SpeechToTextReport(Builder sb) {
-		this.datapoints = sb.datapoints;
+		this.wordFrequency = sb.wordFrequency;
+		this.fillerFrequency = sb.fillerFrequency;
+		this.fillerRatio = sb.fillerRatio;
+		this.speechRate = sb.speechRate;
 		this.feedback = sb.feedback;
 	}
 	
-	public String getDatapoints() {
-		return this.datapoints;
-	}
-	
-	public String getFeedback() {
-		return this.feedback;
-	}
-	
-	public void setDatapoints(String s) {
-		this.datapoints = s;
-	}
-	
-	public void setFeedback(String s) {
-		
-	}
 	
 	//Implementation of builder pattern
 	public static class Builder{
-		protected String datapoints = "";
+		protected String wordFrequency = "";
+		protected String fillerFrequency = "";
+		protected String fillerRatio = "";
+		protected double speechRate = 0;
 		protected String feedback = "";
 		
 		
@@ -48,8 +37,23 @@ public class SpeechToTextReport {
 			return new SpeechToTextReport(this);
 		}
 		
-		public Builder datapoints(String s) {
-			this.datapoints = s;
+		public Builder wordFrequency(String s) {
+			this.wordFrequency = s;
+			return this;
+		}
+		
+		public Builder fillerFrequency(String s) {
+			this.fillerFrequency = s;
+			return this;
+		}
+		
+		public Builder fillerRatio(String s) {
+			this.fillerRatio = s;
+			return this;
+		}
+		
+		public Builder speechRate(double d) {
+			this.speechRate = d;
 			return this;
 		}
 		 
