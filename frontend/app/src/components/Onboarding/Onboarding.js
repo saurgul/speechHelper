@@ -2,10 +2,10 @@ import React from "react";
 import Login from "./Login";
 import "./Onboarding.css";
 
-function Onboarding({onClick}) {
+function Onboarding() {
     return(
         <div className="loginContainer">
-            <Login onClick = {onClick}/>
+            <Login />
         </div>
     
     )
