@@ -1,6 +1,8 @@
 //@Author Christian Dummer
 package com.speechhelper.main;
 
+import java.util.Collections;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -17,7 +19,12 @@ import com.speechhelper.controller.SpeakingHelperController;
 public class Main {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(Main.class, args);
+		//SpringApplication.run(Main.class, args);
+		SpringApplication app = new SpringApplication(Main.class);
+//		//SpringApplication.run(Main.class, args);
+		app.setDefaultProperties(Collections
+		          .singletonMap("server.port", "8089"));
+		app.run(args);
 	}
 
 }
