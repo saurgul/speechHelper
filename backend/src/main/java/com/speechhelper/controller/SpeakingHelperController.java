@@ -26,6 +26,9 @@ import com.speechhelper.speechtotext.ModifySpeechCommand;
 import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextCommand;
 import com.speechhelper.speechtotext.SpeechToTextReport;
+import com.speechhelper.storage.FileSystemStorageService;
+import com.speechhelper.storage.StorageService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -34,6 +37,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class SpeakingHelperController {
 	@Autowired
 	private Model model;
+	
+	@Autowired
+	private FileSystemStorageService storage;
 	
 	public SpeakingHelperController() {
 		
@@ -59,13 +65,18 @@ public class SpeakingHelperController {
 		
 		Speech testSpeech = new NullSpeech();
 		try {
-			
-			File textFile = new File("E:\\test\\" +files[0].getOriginalFilename());
-			if(!textFile.exists()) textFile.createNewFile();
-			files[0].transferTo(textFile);
-			File audioFile = new File("E:\\test\\" +files[1].getOriginalFilename());
-			if(!audioFile.exists()) audioFile.createNewFile();
-			files[1].transferTo(audioFile);
+			storage.store(files[0]);
+			storage.store(files[1]);
+			String textFileName = files[0].getOriginalFilename();
+			String audioFileName = files[1].getOriginalFilename();
+			//File textFile = new File("E:\\test\\" +files[0].getOriginalFilename());
+			File textFile = new File(storage.loadAsResource(textFileName).getURI());
+			//if(!textFile.exists()) textFile.createNewFile();
+			//files[0].transferTo(textFile);
+			//File audioFile = new File("E:\\test\\" +files[1].getOriginalFilename());
+			File audioFile = new File(storage.loadAsResource(audioFileName).getURI());
+			//if(!audioFile.exists()) audioFile.createNewFile();
+			//files[1].transferTo(audioFile);
 
 			testSpeech = new Speech.Builder().speechFile(audioFile)
 											 .input(new String(Files.readAllBytes(textFile.toPath())))
