@@ -3,7 +3,7 @@ import './Dashboard.css';
 import Header from './Header'
 
 
-function Dashboard(){
+function Dashboard({onClick}){
 	
 	const[fillerWordRatio, setFillerWordRatio] = useState("");
 	const[speechRate, setSpeechRate] = useState("");
@@ -94,7 +94,7 @@ function InputForm(props){
 }
 	return(
 		<div>
-			<Header/>
+			<Header onClick = {onClick}/>
 			<div className="rowAlignment">
 				<InputForm />
 				<Report />

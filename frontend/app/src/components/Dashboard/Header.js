@@ -1,7 +1,7 @@
 import React from "react";
 import temp from "./temp.png"
 
-function Header() {
+function Header({onClick}) {
     return(
         <header>
 			<div className = "nav-bar-container">
@@ -15,7 +15,7 @@ function Header() {
                     </div>
                 </div>
                 <nav id="navbar">
-					<button className="theme-btn" onclick="add(this)">Logout</button>
+					<button className="theme-btn" onClick={onClick}>Logout</button>
                 </nav>
 			</div>
 		</header>
