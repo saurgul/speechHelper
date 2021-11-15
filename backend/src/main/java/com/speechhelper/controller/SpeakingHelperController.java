@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,6 +59,7 @@ public class SpeakingHelperController {
 	}
 	
 	//This endpoint is currently configured to do the whole process of creating a speech and generating feedback
+	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
 	@RequestMapping(value="/createSpeech",  method=RequestMethod.POST)
 	public Map<String, String> createSpeech(@RequestPart("files") MultipartFile[] files) {
 		//Need to take file as an input for text file of speech instead of url
@@ -135,6 +137,7 @@ public class SpeakingHelperController {
 	}
 	
 	
+	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
 	@RequestMapping("/parseText")
 	//Performs content analyzer command
 	public Map<String, String> parseText(@RequestParam int speechId) {
