@@ -54,6 +54,7 @@ public class FileSystemStorageService implements StorageService {
 	@Override
 	public Stream<Path> loadAll() {
 		try {
+			rootLocation = Paths.get(properties.getLocation());
 			return Files.walk(this.rootLocation, 1)
 				.filter(path -> !path.equals(this.rootLocation))
 				.map(this.rootLocation::relativize);
@@ -66,12 +67,14 @@ public class FileSystemStorageService implements StorageService {
 
 	@Override
 	public Path load(String filename) {
+		rootLocation = Paths.get(properties.getLocation());
 		return rootLocation.resolve(filename);
 	}
 
 	@Override
 	public Resource loadAsResource(String filename) {
 		try {
+			rootLocation = Paths.get(properties.getLocation());
 			Path file = load(filename);
 			Resource resource = new UrlResource(file.toUri());
 			if (resource.exists() || resource.isReadable()) {
@@ -90,12 +93,14 @@ public class FileSystemStorageService implements StorageService {
 
 	@Override
 	public void deleteAll() {
+		rootLocation = Paths.get(properties.getLocation());
 		FileSystemUtils.deleteRecursively(rootLocation.toFile());
 	}
 
 	@Override
 	public void init() {
 		try {
+			rootLocation = Paths.get(properties.getLocation());
 			Files.createDirectories(rootLocation);
 		}
 		catch (IOException e) {
