@@ -67,18 +67,18 @@ public class SpeakingHelperController {
 		
 		Speech testSpeech = new NullSpeech();
 		try {
-			storage.store(files[0]);
-			storage.store(files[1]);
-			String textFileName = files[0].getOriginalFilename();
-			String audioFileName = files[1].getOriginalFilename();
-			//File textFile = new File("E:\\test\\" +files[0].getOriginalFilename());
-			File textFile = new File(storage.loadAsResource(textFileName).getURI());
-			//if(!textFile.exists()) textFile.createNewFile();
-			//files[0].transferTo(textFile);
-			//File audioFile = new File("E:\\test\\" +files[1].getOriginalFilename());
-			File audioFile = new File(storage.loadAsResource(audioFileName).getURI());
-			//if(!audioFile.exists()) audioFile.createNewFile();
-			//files[1].transferTo(audioFile);
+		//	storage.store(files[0]);
+		//	storage.store(files[1]);
+		//	String textFileName = files[0].getOriginalFilename();
+		//	String audioFileName = files[1].getOriginalFilename();
+			File textFile = new File("C:\\temp\\" +files[0].getOriginalFilename());
+		//	File textFile = new File(storage.loadAsResource(textFileName).getURI());
+			if(!textFile.exists()) textFile.createNewFile();
+			files[0].transferTo(textFile);
+			File audioFile = new File("C:\\temp\\" +files[1].getOriginalFilename());
+			//File audioFile = new File(storage.loadAsResource(audioFileName).getURI());
+			if(!audioFile.exists()) audioFile.createNewFile();
+			files[1].transferTo(audioFile);
 
 			testSpeech = new Speech.Builder().speechFile(audioFile)
 											 .input(new String(Files.readAllBytes(textFile.toPath())))

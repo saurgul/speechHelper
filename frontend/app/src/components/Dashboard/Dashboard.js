@@ -43,7 +43,9 @@ function InputForm(props){
 		console.log(speechFile.file)
 		console.log(textFile)
 		console.log(speechFile)
-		const response = await fetch(API + `/createSpeech`, {method: "post",body: formData});
+		const response = await fetch(API + `/createSpeech`, {method: "post",body: formData, headers: {
+    'Access-Control-Allow-Origin':'*'
+  }});
         //const response = await fetch(`/createSpeech?textFile=${encodeURIComponent(textFile)}&audioFile=${encodeURIComponent(speechFile)}`, {method: "GET"});
 		const json = await response.json();
 		setFillerWordFrequency(json.FillerFrequency);
