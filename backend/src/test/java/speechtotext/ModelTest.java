@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import com.speechhelper.main.Main;
 import com.speechhelper.model.Model;
+import com.speechhelper.nullobjects.NullSpeechToTextReport;
 import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextReport;
 
@@ -17,7 +18,10 @@ public class ModelTest {
 		File audioFilePath;
 		try {
 			audioFilePath = new File(Main.class.getClassLoader().getResource("test.wav").toURI());
-			Speech speech = new Speech(audioFilePath, "Speech to text", new SpeechToTextReport());
+			Speech speech = new Speech.Builder().speechFile(audioFilePath)
+											    .input("Speech to text")
+											    .report(new NullSpeechToTextReport())
+											    .build();
 			Model model = new Model();
 			model.addSpeech(speech);
 			model.removeSpeech(speech);

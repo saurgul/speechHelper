@@ -3,6 +3,8 @@ package com.speechhelper.speechtotext;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+
 import com.speechhelper.command.Command;
 import com.speechhelper.model.Model;
 import com.speechhelper.nullobjects.NullSpeechToTextReport;
@@ -12,8 +14,9 @@ import com.speechhelper.utilities.FileDownloadUtility;
 public class CreateSpeechCommand implements Command {
 
 	private Model model;
+	private File textFile = new File("");
+	private File speechFile = new File("");
 	private String urlString = "";
-	private File speechFile = null;
 	
 	public CreateSpeechCommand(Model model, String urlString) {
 		this.model = model;
@@ -25,21 +28,26 @@ public class CreateSpeechCommand implements Command {
 		this.speechFile = speechFile;
 	}
 	
-	public CreateSpeechCommand(Model model, String urlString, File speechFile) {
+	public CreateSpeechCommand(Model model, File textFile, File speechFile) {
 		this.model = model;
-		this.urlString = urlString;
+		this.textFile = textFile;
 		this.speechFile = speechFile;
 	}
 	
 	public void execute() {
 		Speech newSpeech;
-		if (urlString.isEmpty()) {
-			newSpeech = new Speech(speechFile, new NullSpeechToTextReport());
+		//if (urlString.isEmpty()) {
+		//	newSpeech = new Speech(speechFile, new NullSpeechToTextReport());
+		//	model.addSpeech(newSpeech);
+		//} else {
+			try {
+			newSpeech = new Speech.Builder().speechFile(speechFile).build();
 			model.addSpeech(newSpeech);
-		} else {
-			newSpeech = new Speech(new NullSpeechToTextReport(), new TranscribedSpeechText(getTextSpeechFrom(urlString)));
-			model.addSpeech(newSpeech);
-		}
+			}
+			catch(Exception ex) {
+				System.out.println(ex);
+			}
+		//}
 	}
 
 	public void unexecute() {

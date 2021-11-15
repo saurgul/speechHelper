@@ -5,16 +5,19 @@ import java.util.Collections;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.speechhelper.controller.SpeakingHelperController;
 
 
 @SpringBootApplication
-@ComponentScan(basePackageClasses = SpeakingHelperController.class)
+@ComponentScan("com.speechhelper")
+@EntityScan("com.speechhelper")
+@EnableJpaRepositories("com.speechhelper")
 public class Main {
-
-	//Currently demoing in main, the front end will take input to make these calls in the future
+	
 	public static void main(String[] args) {
 		//SpringApplication.run(Main.class, args);
 		SpringApplication app = new SpringApplication(Main.class);

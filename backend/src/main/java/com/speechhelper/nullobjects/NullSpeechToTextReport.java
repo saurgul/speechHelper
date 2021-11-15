@@ -6,7 +6,10 @@ import com.speechhelper.speechtotext.SpeechToTextReport;
 public class NullSpeechToTextReport extends SpeechToTextReport{
 
 	public NullSpeechToTextReport() {
-		super();
-		//TODO set any fields to default values
+		this.wordFrequency = "";
+		this.fillerFrequency = "";
+		this.fillerRatio = "";
+		this.speechRate = 0;
+		this.feedback = "";
 	}
 }

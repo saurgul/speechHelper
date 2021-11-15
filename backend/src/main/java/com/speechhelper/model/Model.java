@@ -5,14 +5,18 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Repository;
+
 import com.speechhelper.command.Command;
 import com.speechhelper.command.CommandInvoker;
 import com.speechhelper.main.Main;
 import com.speechhelper.nullobjects.NullSpeech;
+import com.speechhelper.nullobjects.NullSpeechToTextReport;
 import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextReport;
 
 //Basic model with an arraylist of speeches. See speechtotext.Speech for all that class contains.
+@Repository
 public class Model {
 	
 	private ArrayList<Speech> speeches;
@@ -22,18 +26,6 @@ public class Model {
 	public Model() {
 		speeches = new ArrayList<Speech>();
 		this.commandInvoker = new CommandInvoker();
-		
-		File audioFilePath;
-		try {
-			audioFilePath = new File(Main.class.getClassLoader().getResource("test.wav").toURI());
-
-			Speech speech = new Speech(audioFilePath, "Speech to text", new SpeechToTextReport());
-			speeches.add(speech);
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 	}
 	
 	//TODO use a database for this 
@@ -69,7 +61,7 @@ public class Model {
 	
 	public Speech getSpeech(Speech s) {
 		//Returns a copy of a given speech
-		return speeches.get(speeches.indexOf(s)).copy();
+		return speeches.get(speeches.indexOf(s));
 	}
 	
 	//Use commandInvoker

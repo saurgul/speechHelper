@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Dashboard from './Dashboard';
+import Dashboard from './components/Dashboard/Dashboard';
+import Onboarding from './components/Onboarding/Onboarding';
 
 function App() {
   const[speeches, setSpeeches] = useState();
@@ -16,9 +16,11 @@ function App() {
   },[])
 
   return (
-    <div className="App">
+    <div className="App bg-body">
+      <link href='https://fonts.googleapis.com/css?family=Sen' rel='stylesheet'/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/> 
       <header className="App-header">
-		<div> <Dashboard /> </div>
+	   <div> <Onboarding /> </div>
        <div> {speeches} </div>
       </header>
     </div>
