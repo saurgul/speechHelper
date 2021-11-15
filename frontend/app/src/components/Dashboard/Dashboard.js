@@ -8,6 +8,8 @@ function Dashboard({onClick}){
 	const[fillerWordRatio, setFillerWordRatio] = useState("");
 	const[speechRate, setSpeechRate] = useState("");
 	const[fillerWordFrequency, setFillerWordFrequency] = useState("");
+
+	const API = "https://speech-helper-backend.herokuapp.com";
 		
 function Report(){	
 	return(
@@ -41,7 +43,7 @@ function InputForm(props){
 		console.log(speechFile.file)
 		console.log(textFile)
 		console.log(speechFile)
-		const response = await fetch(`/createSpeech`, {method: "post",body: formData});
+		const response = await fetch(API + `/createSpeech`, {method: "post",body: formData});
         //const response = await fetch(`/createSpeech?textFile=${encodeURIComponent(textFile)}&audioFile=${encodeURIComponent(speechFile)}`, {method: "GET"});
 		const json = await response.json();
 		setFillerWordFrequency(json.FillerFrequency);
@@ -58,7 +60,7 @@ function InputForm(props){
     }
 
 	async function getFeedback(){
-		const response = await fetch(`/parseText?speechId=${0}`, {method: "GET"});
+		const response = await fetch(API + `/parseText?speechId=${0}`, {method: "GET"});
 		console.log(response);
 		const json = await response.json();
 		console.log(json);
