@@ -93,11 +93,13 @@ function InputForm(props){
 	);
 }
 	return(
-		<Header/>
-		//<div className="rowAlignment">
-		//<div> <InputForm /> </div>
-		//<div> <Report /> </div>
-		//</div>
+		<div>
+			<Header/>
+			<div className="rowAlignment">
+				<InputForm />
+				<Report />
+			</div>
+		</div>
 	);
 }
 

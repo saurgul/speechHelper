@@ -22,7 +22,7 @@ class Login extends React.Component {
                !this.state.show && 
                <Animated animationIn="fadeInUp" animationOut="fadeInDown" isVisible={this.state.show}>  
                 <h1>Welcome,</h1>
-                </Animated> 
+               </Animated> 
             }
            <div className="login-items-container">
            {
