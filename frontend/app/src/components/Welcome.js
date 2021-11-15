@@ -1,9 +1,9 @@
 import React,{useState, useEffect} from 'react';
-import './Dashboard.css';
-import Header from './Header'
+import './Welcome.css';
+import WelcomeHeader from './WelcomeHeader'
 
 
-function Dashboard(){
+function Welcome(){
 	
 	const[fillerWordRatio, setFillerWordRatio] = useState("");
 	const[speechRate, setSpeechRate] = useState("");
@@ -94,7 +94,7 @@ function InputForm(props){
 }
 	return(
 		<div>
-		<div> <Header/> </div>
+		<div> <WelcomeHeader/> </div>
 		<div className="rowAlignment">
 		<div className = "child"> <InputForm /> </div>
 		<div> <Report /> </div>
@@ -103,4 +103,4 @@ function InputForm(props){
 	);
 }
 
-export default Dashboard;
+export default Welcome;

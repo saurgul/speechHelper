@@ -14,7 +14,7 @@ class Login extends React.Component {
           show: bool
         });
       }
-
+		
     render() {
     return (
        <div className="loginCard">
@@ -42,7 +42,7 @@ class Login extends React.Component {
                 <label for="password"><b>Your Password</b></label>
             <input type="password" placeholder="" name="password" required></input>
             </div>
-            <button className="theme-btn onboarding-btn" onClick="">
+            <button className="theme-btn onboarding-btn" onClick="{login}">
                 {
                 this.state.show && "Sign Up"
                 }
