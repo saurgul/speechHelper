@@ -80,24 +80,34 @@ function InputForm(props){
 	
 	return(
 		<form onSubmit={e => { handleSubmit(e) }}>
-			<label>Upload the text file of your speech:</label>
+			<input type="file" name="file" id="file" class="inputfile" onChange={e=> setTextFile(e.target.files[0])} />
+			<label for="file" className="uploadButton">Upload a text file</label>
 			<br />
-			<input type="file" onChange={e=> setTextFile(e.target.files[0])} />
+			<p>or</p>
+			<input type="file" name="file" id="file" class="inputfile" onChange={e=> setTextFile(e.target.files[0])} />
+			<label for="file" className="uploadButton">Upload an audio file</label>
+			{/* <input type="file" onChange={e=> setTextFile(e.target.files[0])} /> */}
 			<br />
-			<label>Upload the audio file of your speech:</label>
+			<br />
+			{/* <label>Upload the audio file of your speech:</label>
 			<br />
 			<input type="file" onChange={e=> setSpeechFile(e.target.files[0])} />
-			<br />
-			<input type='submit' value='Generate Report' />
+			<br /> */}
+			<input className="theme-btn" type='submit' value='Generate' />
 		</form>
 	);
 }
 	return(
 		<div>
 		<div> <WelcomeHeader/> </div>
-		<div className="rowAlignment">
-		<div className = "child"> <InputForm /> </div>
-		<div> <Report /> </div>
+		<div className="welcomeDashContainer">
+			<div className= "welcomeCard">
+				<div className="rowAlignment">
+				<div className = "child"> <InputForm /> </div>
+				<div> <Report /> </div>
+			</div>
+		</div>
+		
 		</div>
 		</div>
 	);

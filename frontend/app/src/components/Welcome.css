@@ -7,6 +7,13 @@
 	padding-top: 100px;
 }
 
+.welcomeDashContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 50px;
+}
+
 .child{
 	padding-right: 200px;
 }
@@ -92,3 +99,47 @@ nav {
     font-weight: bold;
   }
   
+  .secondary-theme-btn {
+    text-decoration: none;
+    color: #6A71F3;
+    font-weight: 400;
+    padding-left: 10px;
+    font-size: large;
+  }
+
+  .welcomeCard {
+    height: 75vh;
+    background-color: #DDBDD5;
+    width: 75%;
+    border-radius: 50px;
+    color: black;
+}
+
+
+.uploadButton {
+    background-color: #FFFFFF;
+    border: none;
+    color: black;
+    padding: 10px;
+    height: 24px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 8px;
+    width: 195px;
+    font-weight: bold;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+p {
+    font-size: medium;
+}
