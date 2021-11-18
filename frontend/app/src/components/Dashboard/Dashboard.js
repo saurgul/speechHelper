@@ -13,8 +13,8 @@ function Dashboard({onClick}){
 		<div className = "child"> <InputForm /> </div>
 		<div> <Report /> </div>
 		</div> */}
-			<div className="welcomeDashContainer">
-				<div className= "welcomeCard">
+			<div className="mainContainer">
+				<div className= "bgCard">
 					<div className="dashboard-container">
 						<div className="dashboard-container-child">
 							<InputForm />

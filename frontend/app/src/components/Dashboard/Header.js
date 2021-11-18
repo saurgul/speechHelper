@@ -15,30 +15,31 @@ function Header() {
 
     return(
         <header>
-			<div className = "nav-bar-container">
-                <div className="profile-info">
-                    <div className = "header-image">
-                        <img src={temp} alt="header-image" className="avatar"/>
+          <div className = "nav-bar-container">
+                    <div className="profile-info">
+                        <div className = "header-image">
+                            <img src={temp} alt="header-image" className="avatar"/>
+                        </div>
+                        <div className="profile">
+                            <p class="name">Christian</p>
+                            <p class="occupation">Student</p>
+                        </div>
                     </div>
-                    <div className="profile">
-                        <p class="name">Christian</p>
-                        <p class="occupation">Student</p>
-                    </div>
-                </div>
-                <nav>
-                  <div className="header-btn"> 
-                    <p className="header-btn-title">My Progress</p>
-                    <img src ={progress} alt="header-image" className="header-btn-image"/>
-                  </div>
+                    <nav>
+                        <div className="header-btn"> 
+                          <div className="header-btn-title">Help</div>
+                          <img src ={help} alt="header-image" className="header-btn-image"/>
+                        </div>
+                        <div className="header-btn"> 
+                          <div className="header-btn-title">My Progress</div>
+                          <img src ={progress} alt="header-image" className="header-btn-image"/>
+                        </div>
 
-                  <div className="header-btn"> 
-                    <p className="header-btn-title">Help</p>
-                    <img src ={help} alt="header-image" className="header-btn-image"/>
-                  </div>
-                  <button className="theme-btn" onClick={handleRoute} >Logout</button>
-                </nav>
-			</div>
-		</header>
+
+                        <button className="theme-btn" onClick={handleRoute} >Logout</button>
+                    </nav>
+          </div>
+		    </header>
     )
 }
 
