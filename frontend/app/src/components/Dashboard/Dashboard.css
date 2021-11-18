@@ -1,14 +1,11 @@
-.rowAlignment{
-	display:flex; 
-	flex-direction:row;
-	color: black;
-	padding-right: 200px;
-	padding-left: 200px;
-	padding-top: 100px;
+.dashboard-container{
+	margin-top: 8vh;
+    margin-left: 6vw;
 }
 
-.child{
-	padding-right: 200px;
+.dashboard-container-child {
+    display:flex;
+    justify-content: flex-start; 
 }
 
 .profile-info {
@@ -69,12 +66,23 @@ div {
     transition: all 0.2s ease-in-out;
 }
 
+.header-btn-image {
+    vertical-align: middle;
+    width: 21px;
+    height: 22px;
+    object-fit: cover;
+    padding-left: 10px;
+    padding-right: 30px;
+}
+
 nav {
     padding-left: 0px; 
     float: right;
     padding-right: 100px;
     line-height: 100px;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .theme-btn {
@@ -91,4 +99,78 @@ nav {
     width: 121px;
     font-weight: bold;
   }
+
+.generate-btn {
+    width: 12vw;
+    font-size: 0.9vw;
+}
   
+.header-btn {
+    color: black;
+    font-size: large;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+}
+
+textarea {
+    font-size: .8rem;
+    font-family: 'Sen';
+    color: black;
+    font-size: medium;
+}
+
+textarea {
+    padding: 10px;
+    width: 20vw;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 0px;
+    background-color: #F9F8FC;
+}
+
+.input-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.uploadButton {
+    background-color: #FFFFFF;
+    border: none;
+    color: black;
+    height: 1.75vw;
+    text-align: center;
+    font-size: 0.9vw;
+    border-radius: 8px;
+    width: 12vw;
+    font-weight: bold;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+p {
+    font-size: 16px;
+}
+
+
+.report-list-container {
+    height: 625;
+    background-color: #F9F8FC;
+    width: 40%;
+    border-radius: 27px;
+    margin-left: 12vw;
+}
+
+.report-title {
+    font-size: 0.78em;
+}

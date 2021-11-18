@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import './App.css';
-import Welcome from './components/Welcome';
+import Welcome from './components/Onboarding/Welcome';
 import Onboarding from './components/Onboarding/Onboarding';
 import Routing from './Routing';
 

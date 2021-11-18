@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Router, Routes, Route } from "react-router-dom";
 
 import Onboarding from "./components/Onboarding/Onboarding";
-import Welcome from "./components/Welcome";
+import Welcome from "./components/Onboarding/Welcome";
 import Dashboard from "./components/Dashboard/Dashboard";
 import history from './history';
 
