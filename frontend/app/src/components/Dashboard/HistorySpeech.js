@@ -37,6 +37,7 @@ function HistoryReport(speeches) {
                 <HistoryReportItem/>
                 <HistoryReportItem/>
                 <HistoryReportItem/>
+                <HistoryReportItem/>
             </div>
         </div>
     );

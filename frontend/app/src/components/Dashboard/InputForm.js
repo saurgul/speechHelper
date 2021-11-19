@@ -62,7 +62,7 @@ function InputForm(props){
     
     return(
         <form className="input-form" onSubmit={e => { handleSubmit(e) }}>
-            <textarea id="story" name="story" rows="5" cols="33"> Type your text ... </textarea>
+            <textarea id="story" name="story" rows="5" cols="33" > Type your text ... </textarea>
             <p>or</p>
             <input type="file" name="file" id="file" className="inputfile" onChange={e=> setTextFile(e.target.files[0])} />
             <label for="file" className="uploadButton">Upload a text file</label>

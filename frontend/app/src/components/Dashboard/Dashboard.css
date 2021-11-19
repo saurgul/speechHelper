@@ -5,7 +5,8 @@
 
 .dashboard-container-child {
     display:flex;
-    justify-content: center; 
+    margin: 100px;
+    justify-content: space-between;
 }
 
 
@@ -17,7 +18,7 @@
 }
 
 .bgCard {
-    height: 75vh;
+    /* height: 75vh; */
     background-color: #DDBDD5;
     width: 75%;
     border-radius: 50px;
@@ -30,8 +31,6 @@
     font-size: medium;
     transition: all 0.2s ease-in-out;
 }
-
-
 
 .profile-info {
     display:flex; 
@@ -74,13 +73,7 @@
     justify-content: space-between;
 }
 
-@media only screen and (max-width: 1125px) {
-    .report-list-container {
-        display: none;
-    }
-}
-
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1000px) {
     
     nav {
         flex-direction: column;
@@ -112,6 +105,42 @@
         margin-right: 20px;
         scale: 0.85;
     }
+
+    .dashboard-container-child {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .report-list-container  {
+        margin-top: 50px;
+        scale: 0.85;
+    }
+
+    .famous-speech-container  {
+        margin-top: 50px;
+    }
+    /* .history-speech-text-container {
+        margin-right: 0px;
+    } */
+
+    /* .history-speech-text-container {
+        scale: 0.8;
+        margin-left: 0px;
+    }
+    
+    .number-overlay {
+        scale: 0.9;
+        margin-right: 0px;
+        padding-right: 0px;
+    }
+
+    .summary-btn {
+        scale: 0.6;
+    }
+
+    .report-item-right {
+        margin: 0;
+    } */
 }
 
 div {
@@ -226,12 +255,12 @@ p {
     font-size: 16px;
 }
 
+/* History Report Component CSS */
 .report-list-container {
-    height: 625;
     background-color: #F9F8FC;
-    width: 40%;
     border-radius: 27px;
-    margin-left: 12vw;
+    width: 400px;
+    /* margin-left: 12vw; */
 }
 
 .report-title {
@@ -279,7 +308,6 @@ p {
 
 .report-item-child {
     display: flex;
-    
 }
 
 .report-item-left {
@@ -292,36 +320,164 @@ p {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-right: 25px;
+    margin-right: 25px;
+    transition: all 0.2s ease-in-out;
 }
 
 .history-speech-title {
-    font-size: medium;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 550;
 }
 
 .history-speech-subtitle {
-    font-size: 10px;
-}
-
-.report-item-right {
-    margin-left: 45px;
+    font-size: xx-small;
 }
 
 .number-overlay {
     background-color: #F5EFFB;
-    width: 49px;
-    height: 48px;
-    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
     font-size: medium;
     margin-right: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all 0.2s ease-in-out;
 }
 
 .summary-btn {
-    width: 10vw;
-    font-size: 0.75vw;
+    width: 150px ;
+    font-size: 12px;
     border-radius: 14px;
+    transition: all 0.2s ease-in-out;
+}
+
+
+
+/* Famous Speech Compoment CSS */
+.famous-speech-container {
+    background-color: #F9F8FC;
+    width: 400px;
+    border-radius: 27px;
+}
+
+.famous-speech-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+}
+
+.famous-speech-header-text {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.famous-speech-header-title {
+    font-size: large;
+    font-weight: bold;
+}
+
+.famous-speech-header-subtitle {
+    font-size: small;
+    font-weight: bold;
+}
+
+.famous-speech-header-image {
+    vertical-align: middle;
+    width: 54px;
+    height: 54px;
+    object-fit: cover;
+}
+
+
+.famous-list-item-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+}
+
+.famous-list-item-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.famous-list-item-text-title {
+    font-size: medium;
+    font-weight: bold;
+}
+
+
+.famous-list-item-text-subtitle {
+    font-size: small;
+}
+
+.famous-speech-item-image {
+    vertical-align: middle;
+    width: 27px;
+    height: 27px;
+    object-fit: cover;
+}
+
+
+/* Read text Coponent CSS */
+.read-text-container {
+    background-color: #F9F8FC;
+    max-width: 500px;
+    margin-right: 20px;
+    border-radius: 27px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 30px;
+    transition:300ms linear;
+}
+
+.read-text-child-frame-img {
+    vertical-align: middle;
+    width: 27px;
+    height: 27px;
+    object-fit: cover;
+}
+
+.read-text-header-text {
+    font-size: large;
+    font-weight: bold;
+}
+
+.read-text-child-frame {
+    display: flex;
+    padding-top: 30px;
+}
+
+.read-text-child-frame-right-quote {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.read-text-speech-text {
+    font-size: medium;
+    text-align: left;
+    padding-top: 30px;
+}
+
+.read-text-child-view-all-btn-frame {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.read-text-child-view-all-btn {
+    font-size: small;
+    text-decoration: underline;
+    align-items: center;
+    margin: 75px;
 }
