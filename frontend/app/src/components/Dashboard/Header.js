@@ -17,7 +17,7 @@ function Header(props) {
     return(
         <header>
           <div className = "nav-bar-container">
-                    <div className="profile-info" onClick={() => props.changeHelp(false)}>
+                    <div className="profile-info" onClick={() => props.reset(false)}>
                         <div className = "header-image">
                             <img src={temp} alt="header-image" className="avatar"/>
                         </div>
@@ -35,13 +35,20 @@ function Header(props) {
                               <img src ={help} alt="header-image" className="header-btn-image"/>
                             </div>
                         </Animated>
+                      } 
+                      {
+                        !props.showProgress && 
+                        <Animated animationIn="fadeInUp" animationOut="fadeInDown" isVisible={!props.showProgress}>  
+                          <div className="header-btn" onClick={() => props.changeProgress(true)}> 
+                            <div className="header-btn-title">My Progress</div>
+                            <img src ={progress} alt="header-image" className="header-btn-image"/>
+                          </div>
+                        </Animated>  
                       }
-                        <div className="header-btn"> 
-                          <div className="header-btn-title">My Progress</div>
-                          <img src ={progress} alt="header-image" className="header-btn-image"/>
-                        </div>
-                        <button className="theme-btn" onClick={handleRoute} >Logout</button>
+                      <button className="theme-btn" onClick={handleRoute} >Logout</button>
+                      
                     </nav>
+                      
           </div>
 		    </header>
     )

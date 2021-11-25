@@ -484,3 +484,18 @@ p {
     align-items: center;
     margin: 75px;
 }
+
+
+.progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    margin: 9vw;
+    /* padding: 20px; */
+    background-color: #F9F8FC;
+    border-radius: 27px;
+    color: #5744AB;
+    height: 500px;
+    font-size: large;
+}
