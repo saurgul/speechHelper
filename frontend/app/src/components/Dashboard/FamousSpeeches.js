@@ -2,7 +2,7 @@ import React from "react";
 import FamousSpeechImage from "./famousspeeches.png"
 import PlayImage from "./play.png"
 
-function FamousSpeechItem() {
+function FamousSpeechItem(speech) {
     return (
         <div className="famous-list-item-container">
             <div className="famous-list-item-text">
@@ -16,7 +16,7 @@ function FamousSpeechItem() {
 
 
 
-function FamousSpeeches() {
+function FamousSpeeches(speeches) {
 
     return(
         <div className="famous-speech-container">

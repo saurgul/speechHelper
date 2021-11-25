@@ -260,6 +260,7 @@ p {
     background-color: #F9F8FC;
     border-radius: 27px;
     width: 400px;
+    padding: 10px;
     /* margin-left: 12vw; */
 }
 
@@ -360,6 +361,8 @@ p {
     background-color: #F9F8FC;
     width: 400px;
     border-radius: 27px;
+    height: 100%;
+    padding:15px 15px;
 }
 
 .famous-speech-header {
