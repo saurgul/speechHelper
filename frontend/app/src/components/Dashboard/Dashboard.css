@@ -499,3 +499,106 @@ p {
     height: 500px;
     font-size: large;
 }
+
+/* Filler Words card */
+
+.filler-info-container {
+    width: 185px;
+    height: 180px;
+    background-color: #F9F8FC;
+    border-radius: 27px;
+}
+
+.filler-text-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.filler-percent-text-container {
+    display: flex;
+    font-size: larger;
+    color: #FB6660;
+    margin: 5px;
+}
+
+.filler-percent-text {  
+    font-size: 55px;
+}
+
+.filler-percent {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: smaller;
+}
+
+.filler-text-message {
+    font-size: 27px;
+    text-align: left;
+    margin-left: 5px;
+}
+
+.filler-word-color {
+    color: #FB6660;
+}
+
+/* Pace Card */
+
+.pace-container {
+    width: 275px;
+    height: 180px;
+    background-color: #F9F8FC;
+    border-radius: 27px;
+}
+
+.pace-info-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.pace-info-child-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pace-info-child-container1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: baseline;
+    margin-top: 20px;
+}
+
+.pace-info-image {
+    vertical-align: bottom;
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    transform: scaleX(-1);
+}
+
+.pace-info-text {
+    font-size: 55px;
+    color: #FB6660;
+}
+
+.pace-info-subtext {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-size: smaller;
+    color: #FB6660;
+}
+
+.pace-info-message {
+    font-size: large;
+    font-weight: 800;
+    margin-top: 25px;
+}

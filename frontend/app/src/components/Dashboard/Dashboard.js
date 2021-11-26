@@ -8,6 +8,8 @@ import ReadText from './ReadText';
 
 import {Animated} from "react-animated-css";
 import EmptyProgress from './EmptyProgress';
+import FillerCard from './FillerCard';
+import PaceCard from './PaceCard';
 
 function Dashboard({onClick}){
 	const [showHelp, setShow] = useState(false);
@@ -70,7 +72,8 @@ function Dashboard({onClick}){
 						{
 						  showProgress &&
 							<Animated animationIn="fadeOut" animationOut="fadeIn" isVisible={!showProgress}>  
-								<EmptyProgress/>
+								<FillerCard/>
+								<PaceCard/>
 							</Animated> 
 						}
 

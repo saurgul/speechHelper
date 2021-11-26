@@ -1,6 +1,6 @@
 import React from "react";
 
-function HistoryReportItem(speech) {
+function HistoryReportItem(props) {
     return (
         <div className="report-item-container">
             <div className="report-item">
@@ -23,7 +23,7 @@ function HistoryReportItem(speech) {
     );
 } 
 
-function HistoryReport(speeches) {
+function HistoryReport(props) {
     return (
         <div className= "report-list-container">
             <p className="report-title">History</p>
