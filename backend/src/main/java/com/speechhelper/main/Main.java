@@ -3,13 +3,16 @@ package com.speechhelper.main;
 
 import java.util.Collections;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.speechhelper.controller.SpeakingHelperController;
+import com.speechhelper.storage.StorageService;
 
 
 @SpringBootApplication
@@ -22,8 +25,8 @@ public class Main {
 		//SpringApplication.run(Main.class, args);
 		SpringApplication app = new SpringApplication(Main.class);
 //		//SpringApplication.run(Main.class, args);
-		app.setDefaultProperties(Collections
-		          .singletonMap("server.port", "8089"));
+		//app.setDefaultProperties(Collections
+		//          .singletonMap("server.port", "8089"));
 		app.run(args);
 	}
 

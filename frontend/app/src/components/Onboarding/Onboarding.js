@@ -5,7 +5,7 @@ import "./Onboarding.css";
 function Onboarding() {
     return(
         <div className="loginContainer">
-            <Login/>
+            <Login />
         </div>
     
     )

@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,9 @@ import com.speechhelper.speechtotext.ModifySpeechCommand;
 import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextCommand;
 import com.speechhelper.speechtotext.SpeechToTextReport;
+import com.speechhelper.storage.FileSystemStorageService;
+import com.speechhelper.storage.StorageService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -34,6 +38,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class SpeakingHelperController {
 	@Autowired
 	private Model model;
+	
+	@Autowired
+	private FileSystemStorageService storage;
 	
 	public SpeakingHelperController() {
 		
@@ -52,6 +59,7 @@ public class SpeakingHelperController {
 	}
 	
 	//This endpoint is currently configured to do the whole process of creating a speech and generating feedback
+	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
 	@RequestMapping(value="/createSpeech",  method=RequestMethod.POST)
 	public Map<String, String> createSpeech(@RequestPart("files") MultipartFile[] files) {
 		//Need to take file as an input for text file of speech instead of url
@@ -59,13 +67,18 @@ public class SpeakingHelperController {
 		
 		Speech testSpeech = new NullSpeech();
 		try {
-			
-			File textFile = new File("E:\\test\\" +files[0].getOriginalFilename());
-			if(!textFile.exists()) textFile.createNewFile();
-			files[0].transferTo(textFile);
-			File audioFile = new File("E:\\test\\" +files[1].getOriginalFilename());
-			if(!audioFile.exists()) audioFile.createNewFile();
-			files[1].transferTo(audioFile);
+			storage.store(files[0]);
+			storage.store(files[1]);
+			String textFileName = files[0].getOriginalFilename();
+			String audioFileName = files[1].getOriginalFilename();
+		//	File textFile = new File("C:\\temp\\" +files[0].getOriginalFilename());
+			File textFile = new File(storage.load(textFileName).toUri());
+		//	if(!textFile.exists()) textFile.createNewFile();
+		//	files[0].transferTo(textFile);
+			//File audioFile = new File("C:\\temp\\" +files[1].getOriginalFilename());
+			File audioFile = new File(storage.load(audioFileName).toUri());
+			//if(!audioFile.exists()) audioFile.createNewFile();
+			//files[1].transferTo(audioFile);
 
 			testSpeech = new Speech.Builder().speechFile(audioFile)
 											 .input(new String(Files.readAllBytes(textFile.toPath())))
@@ -124,6 +137,7 @@ public class SpeakingHelperController {
 	}
 	
 	
+	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
 	@RequestMapping("/parseText")
 	//Performs content analyzer command
 	public Map<String, String> parseText(@RequestParam int speechId) {
