@@ -10,6 +10,7 @@ import {Animated} from "react-animated-css";
 import EmptyProgress from './EmptyProgress';
 import FillerCard from './FillerCard';
 import PaceCard from './PaceCard';
+import PronounciationCard from './PronounciationCard';
 
 function Dashboard({onClick}){
 	const [showHelp, setShow] = useState(false);
@@ -33,7 +34,7 @@ function Dashboard({onClick}){
 
 	const changeProgress = (show) => {
 	    setProgress(show);
-		setShow(!show)
+		setShow(!show);
 	}
 
 	return(
@@ -72,8 +73,7 @@ function Dashboard({onClick}){
 						{
 						  showProgress &&
 							<Animated animationIn="fadeOut" animationOut="fadeIn" isVisible={!showProgress}>  
-								<FillerCard/>
-								<PaceCard/>
+								<HistoryReport/>
 							</Animated> 
 						}
 
