@@ -11,7 +11,7 @@ function Header(props) {
 	
 	  const handleRoute = () =>{
 		console.log("This needs to actually check login info before routing. Otherwise display an error message");
-		navigate('/login')
+		navigate('/summary')
     }
 
     return(

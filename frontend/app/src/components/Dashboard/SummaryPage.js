@@ -7,12 +7,12 @@ import GrammarFeedback from "./GrammarFeedback";
 import SummaryPageHeader from "./SummaryPageHeader";
 
 
-function SummaryPage(props) {
+function SummaryPage() {
     const name = "Joshua";
     const score = "55";
 
-    const fillerCount = 10;
-    const pace = 123;
+    const fillerCount = 15;
+    const pace = 179;
     return (
         <div className="mainContainer">
             <div className="bgCard"> 

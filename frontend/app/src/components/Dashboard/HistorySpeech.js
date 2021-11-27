@@ -20,9 +20,7 @@ function HistoryReportItem(props) {
                             <div className="history-speech-subtitle">Recorded: 11/10/2021</div>
                         </div>
                     </div>
-                    <div className="report-item-right" onClick={handleRoute}>
-                        <button className="theme-btn summary-btn">Go to Summary</button>
-                    </div>
+                    <button className="theme-btn summary-btn" onClick={handleRoute}>Go to Summary</button>
                 </div>
             </div>
             <div className="separator"></div>

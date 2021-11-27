@@ -5,14 +5,10 @@ import Header from './Header'
 import HistoryReport from './HistorySpeech';
 import InputForm from './InputForm';
 import ReadText from './ReadText';
-
 import {Animated} from "react-animated-css";
 import EmptyProgress from './EmptyProgress';
-import FillerCard from './FillerCard';
-import PaceCard from './PaceCard';
-import PronounciationCard from './PronounciationCard';
 
-function Dashboard({onClick}){
+function Dashboard(){
 	const [showHelp, setShow] = useState(false);
 	const [showProgress, setProgress] = useState(false);
 	const text = {
@@ -40,10 +36,6 @@ function Dashboard({onClick}){
 	return(
 		<div>
 		<div> <Header changeHelp={changeHelp} showHelp={showHelp} changeProgress = {changeProgress}  showProgress = {showProgress} reset = {reset}/> </div>
-		{/* <div className="rowAlignment">
-		<div className = "child"> <InputForm /> </div>
-		<div> <Report /> </div>
-		</div> */}
 			<div className="mainContainer">
 				<div className= "bgCard">
 					<div className="dashboard-container">

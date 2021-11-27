@@ -9,12 +9,12 @@ import SummaryPage from "./components/Dashboard/SummaryPage";
 export default class Routing extends Component {
     render() {
         return (
-                <Routes>
-                    <Route path="/" exact element={<Welcome />} />
-                    <Route path="/login" element={<Onboarding />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/summary" component={<SummaryPage />} />
-                </Routes>
+            <Routes>
+                <Route path="/" exact element={<Welcome />} />
+                <Route path="/login" element={<Onboarding />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/summary" element={<SummaryPage />} />
+            </Routes>
         )
     }
 }

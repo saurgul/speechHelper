@@ -1,11 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import BackButton from "./backButton.png"
 
 function SummaryPageHeader(props) {
+
+    const navigate = useNavigate();
+    const handleRoute = () => {
+        navigate('/dashboard');
+    }
+
     return (
         <div className="summary-page-bg-header">
             <div className="summary-page-header-left">
-                <img src = {BackButton} className="back-button-img"/>
+                <img src = {BackButton} className="back-button-img" onClick={handleRoute}/>
                 <div className="summary-page-header-text-container">
                     <div className="summary-page-header-title">Hello {props.name}</div>
                     <div className="summary-page-header-subtitle">We have the following suggestions for you: </div>
