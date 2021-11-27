@@ -8,7 +8,6 @@ import SummaryPageHeader from "./SummaryPageHeader";
 
 
 function SummaryPage(props) {
-
     const name = "Joshua";
     const score = "55";
 

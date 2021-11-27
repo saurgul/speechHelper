@@ -2,11 +2,11 @@ import React from "react";
 import FamousSpeechImage from "./famousspeeches.png"
 import PlayImage from "./play.png"
 
-function FamousSpeechItem(speech) {
+function FamousSpeechItem(props) {
     return (
         <div className="famous-list-item-container">
             <div className="famous-list-item-text">
-                <div className="famous-list-item-text-title">Winston Churchil</div>
+                <div className="famous-list-item-text-title">{props.speech}</div>
                 <div className="famous-list-item-text-subtitle">Description of the speech</div>
             </div>
             <img src={PlayImage} className="famous-speech-item-image"/>
@@ -16,7 +16,14 @@ function FamousSpeechItem(speech) {
 
 
 
-function FamousSpeeches(speeches) {
+function FamousSpeeches(props) {
+
+    const speeches = {
+        "Winston Churchil" : "",   
+        "Barack Obama" : "",   
+        "Martin Luther King Jr" : "",
+        "Daniel Webster" : "",
+    }
 
     return(
         <div className="famous-speech-container">
@@ -27,15 +34,11 @@ function FamousSpeeches(speeches) {
                 </div>
                 <img src={FamousSpeechImage} className="famous-speech-header-image"/>
             </div> 
-
-            <FamousSpeechItem/>  
-            <FamousSpeechItem/>  
-            <FamousSpeechItem/>  
-            <FamousSpeechItem/>  
-            <FamousSpeechItem/>  
-            <FamousSpeechItem/>  
-            <FamousSpeechItem/>  
-            <FamousSpeechItem/>  
+            {   
+                Object.keys(speeches).map((key, index) => ( 
+                    <FamousSpeechItem speech = {key}/>  
+                ))
+            }
         </div>  
     );
 }

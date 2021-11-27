@@ -6,7 +6,7 @@ import DownArrow from "./downarrow.png";
 function PronounciationCard() {
 
     const [show, setShow] = useState(true); 
-    const words = ["ingenue", "isthmus", "worchestershire"];
+    const words = {"ingenue": "", "isthmus" : "", "worchestershire" : ""};
 
     const changeArrow = (show) => {
         if (show) {
@@ -28,12 +28,12 @@ function PronounciationCard() {
                 <img src={PronounciationHeaderImage} className="card-header-image"/>
                 <div className="pronounciation-card-header-text">Try working on these words, tap the play icon to see how they are correctly pronounced</div>
             </div>
-            <div className="pronounciation-card-item-container">   
-                <PronounciationButton word = {words[0]}/>
-                <PronounciationButton word = {words[2]}/>
-                <PronounciationButton word = {words[1]}/>
-                <PronounciationButton word = {words[1]}/>
-                <PronounciationButton word = {words[1]}/>
+            <div className="pronounciation-card-item-container"> 
+            {   
+                Object.keys(words).map((key, index) => ( 
+                    <PronounciationButton word = {key}/> 
+                ))
+            }
             </div>
             <div className="arrow-btn">
                 <img src={DownArrow} onClick={changeArrow}/>

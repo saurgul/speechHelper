@@ -73,7 +73,7 @@ function Dashboard({onClick}){
 						{
 						  showProgress &&
 							<Animated animationIn="fadeOut" animationOut="fadeIn" isVisible={!showProgress}>  
-								<HistoryReport/>
+								<EmptyProgress/>
 							</Animated> 
 						}
 
