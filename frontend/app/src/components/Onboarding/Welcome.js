@@ -10,14 +10,16 @@ function Welcome() {
 	const [pace, updatePace] = useState(0);
     const [showReport, setShow] = useState(false);
     const [fillerCount, updateCount] = useState(0);
+	const [sentiment, updateSentiment] = useState("");
 
     const changeReport = () => {
         setShow(true);
     }
 
-	const updateFieldFromAnalysis = (p, fC) => {
+	const updateFieldFromAnalysis = (p, fC, sentiment) => {
 		updateCount(fC);
 		updatePace(p);
+		updateSentiment(sentiment);
 	}
 
 	return(
@@ -28,7 +30,7 @@ function Welcome() {
 				<div className="dashboard-container">
 					<div className="dashboard-container-child">
 						<InputForm changeReport = {changeReport} update = {updateFieldFromAnalysis}/>
-						<SampleAnalysis pace = {pace} showReport = {showReport} fillerCount = {fillerCount} changeReport = {changeReport}/>
+						<SampleAnalysis pace = {pace} showReport = {showReport} fillerCount = {fillerCount} changeReport = {changeReport} sentiment = {sentiment}/>
 					</div>
 				</div>
 			</div>

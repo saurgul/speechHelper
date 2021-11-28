@@ -55,7 +55,7 @@ function InputForm(props){
     e.preventDefault();
     // Dummy data
     props.changeReport();
-    props.update(110,17)
+    props.update(110,17, "Calm");
     await generateReport();
     }
     
