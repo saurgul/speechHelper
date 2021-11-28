@@ -61,7 +61,6 @@ function Dashboard(){
 								</Animated> 
 							</div>
 						}
-
 						{
 						  showProgress &&
 							<Animated animationIn="fadeOut" animationOut="fadeIn" isVisible={!showProgress}>  
