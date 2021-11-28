@@ -42,12 +42,8 @@ function Dashboard(){
 						{
 							!showProgress && !showHelp && 
 							<div className="dashboard-container-child">
-							<Animated animationIn="rotateOut" animationOut="rotateIn" isVisible={showHelp}>  
-								<InputForm />
-							</Animated> 
-							<Animated animationIn="rotateOut" animationOut="rotateIn" isVisible={showHelp}>  
+								<InputForm />	
 								<HistoryReport/>
-							</Animated> 
 							</div>
 						}
 						{
