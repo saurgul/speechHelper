@@ -34,7 +34,6 @@ function SummaryPage() {
                 </div>
             </div>
         </Animated>
-       
     );
 }
 
