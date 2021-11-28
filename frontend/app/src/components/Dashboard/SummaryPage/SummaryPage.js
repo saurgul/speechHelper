@@ -6,11 +6,13 @@ import PaceCard from "./PaceCard";
 import GrammarFeedback from "./GrammarFeedback";
 import SummaryPageHeader from "./SummaryPageHeader";
 import { Animated } from "react-animated-css";
+import SentimentCard from "./SentimentCard";
 
 
 function SummaryPage() {
     const name = "Joshua";
     const score = "55";
+    const sentiment = "Calm"
 
     const fillerCount = 15;
     const pace = 179;
@@ -26,6 +28,7 @@ function SummaryPage() {
                                 <FillerCard fillerCount={fillerCount}/>
                                 <PaceCard pace = {pace}/>
                             </div>
+                            <SentimentCard sentiment = {sentiment}/>
                         </div>
                         <div className="summary-container-child-col">
                             <GrammarFeedback/>
