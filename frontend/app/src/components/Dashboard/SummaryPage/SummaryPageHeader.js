@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import BackButton from "./backButton.png"
+import BackButton from "../Assets/backButton.png"
 
 function SummaryPageHeader(props) {
 

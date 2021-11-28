@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import './Dashboard.css';
+import './CSS/Dashboard.css';
 import FamousSpeeches from './FamousSpeeches';
 import Header from './Header'
 import HistoryReport from './HistorySpeech';
@@ -63,7 +63,6 @@ function Dashboard(){
 								<EmptyProgress/>
 							</Animated> 
 						}
-
 					</div>
 				</div>
 			</div>

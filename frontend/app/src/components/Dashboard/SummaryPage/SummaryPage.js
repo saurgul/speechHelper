@@ -1,5 +1,5 @@
 import React from "react";
-import "./Summary.css";
+import "../CSS/Summary.css";
 import PronounciationCard from "./PronounciationCard";
 import FillerCard from "./FillerCard";
 import PaceCard from "./PaceCard";

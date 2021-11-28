@@ -1,6 +1,6 @@
 import React from "react";
-import Quote1 from "./quote1.png";
-import Quote2 from "./quote2.png";
+import Quote1 from "./Assets/quote1.png";
+import Quote2 from "./Assets/quote2.png";
 
 function ReadText(props) {
     return (
