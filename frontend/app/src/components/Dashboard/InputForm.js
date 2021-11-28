@@ -12,13 +12,11 @@ function InputForm(props){
     
     async function generateReport(){
         const formData = new FormData();
-        formData.append("files", textFile);
-        //formData.append("files", speechFile);
-        
-        console.log(textFile.file)
-        // console.log(speechFile.file)
-        // console.log(textFile)
-        // console.log(speechFile)
+        if (textFile == null) {
+            formData.append("files",speechFile);
+        } else {
+            formData.append("files",textFile);
+        }
         const response = await fetch(API + `/createSpeech`, {method: "post",body: formData, headers: {
             'Access-Control-Allow-Origin':'*'
                 }	
@@ -51,7 +49,6 @@ function InputForm(props){
         setFillerWordRatio(json.FillerRatio);
         console.log(json.SpeechRate);
         setSpeechRate(json.SpeechRate);
-        
     }
 
     const handleSubmit= async(e) => {

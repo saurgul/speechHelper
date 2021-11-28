@@ -52,14 +52,14 @@ nav {
 	margin-left: 4vw;
 	color: #A0A5FE;
 	font-weight: bolder;
-	font-size: larger;
+	font-size: 2.3vw;
 }
 
 .welcome-page-subtitle {
 	margin-left: 4vw;
 	color: #A0A5FE;
+	font-size: 0.8vw;
 	font-weight: bold;
-	font-size: medium;
 	text-align: left;
 }
 
@@ -69,4 +69,14 @@ nav {
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;
+}
+
+/* media queries */
+
+@media only screen and (max-width: 600px) {
+
+    .welcome-page-title-text-container {
+        display: none;
+    }
+
 }
