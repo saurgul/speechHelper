@@ -53,6 +53,9 @@ function InputForm(props){
 
     const handleSubmit= async(e) => {
     e.preventDefault();
+    // Dummy data
+    props.changeReport();
+    props.update(110,17)
     await generateReport();
     }
     
@@ -65,7 +68,7 @@ function InputForm(props){
                     return (
                         <div>
                             <p>or</p>
-                            <input type="file" name="file" id="file" className="inputfile" onChange={e=> setTextFile(e.target.files[0])} />
+                            <input type="file" name="file" id="file" className="inputfile" onChange={e=> setTextFile(e.target.files[0])} required/>
                             <label for="file" className="uploadButton">
                             {(() => {
                                 if (textFile != null) return "Uploaded";
