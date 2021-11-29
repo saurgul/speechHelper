@@ -1,5 +1,5 @@
 import React from "react";
-import GrammarImage from "./grammar.png"
+import GrammarImage from "../Assets/grammar.png"
 import GrammarFeedbackItem from "./GrammarFeedBackItem";
 
 function GrammarFeedback(prps) {

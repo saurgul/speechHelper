@@ -4,7 +4,7 @@ import { Router, Routes, Route } from "react-router-dom";
 import Onboarding from "./components/Onboarding/Onboarding";
 import Welcome from "./components/Onboarding/Welcome";
 import Dashboard from "./components/Dashboard/Dashboard";
-import SummaryPage from "./components/Dashboard/SummaryPage";
+import SummaryPage from "./components/Dashboard/SummaryPage/SummaryPage";
 
 export default class Routing extends Component {
     render() {

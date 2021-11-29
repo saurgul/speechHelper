@@ -1,116 +1,43 @@
 import React,{useState, useEffect} from 'react';
 import './Welcome.css';
 import WelcomeHeader from './WelcomeHeader'
+import InputForm from '../Dashboard/InputForm';
+import SampleAnalysis from './SampleAnalysis';
 
 
-function Welcome(){
-	
-	const[fillerWordRatio, setFillerWordRatio] = useState("");
-	const[speechRate, setSpeechRate] = useState("");
-	const[fillerWordFrequency, setFillerWordFrequency] = useState("");
-		
-function Report(){	
-	return(
-		<div>
-		<h3>Report</h3>
-		<br />
-		<label>Filler Word Breakdown: </label>
-		<label>{fillerWordFrequency}</label>
-		<br />
-		<label>Filler Words Ratio: </label>
-		<label>{fillerWordRatio}</label>
-		<br />
-		<label>Speech Rate: </label>
-		<label>{speechRate}</label>
-		<label> Words Per Minute </label>
-		</div>
-	);
-}
+function Welcome() {
 
-function InputForm(props){
-	const[textFile, setTextFile] = useState();
-	const[speechFile, setSpeechFile] = useState();	
-	const[speechId, setSpeechId] = useState();
-	
-	async function generateReport(){
-		const formData = new FormData();
-		formData.append("files", textFile);
-		formData.append("files", speechFile);
-		
-		console.log(textFile.file)
-		console.log(speechFile.file)
-		console.log(textFile)
-		console.log(speechFile)
-		const response = await fetch(`/createSpeech`, {method: "post",body: formData});
-        //const response = await fetch(`/createSpeech?textFile=${encodeURIComponent(textFile)}&audioFile=${encodeURIComponent(speechFile)}`, {method: "GET"});
-		const json = await response.json();
-		setFillerWordFrequency(json.FillerFrequency);
-		console.log(json.FillerRatio);
-		setFillerWordRatio(json.FillerRatio);
-		console.log(json.SpeechRate);
-		setSpeechRate(json.SpeechRate);
-	   // const response = await fetch(`/createSpeech?textFile=${textFileData}&audioFile=${speechFileData}`, {method: "POST"});
-      //  console.log(response);
-	//	console.log(response.json);
-	//	await setSpeechId(response.json).then(res => {
-			//getFeedback();
-	//	})
+	const [pace, updatePace] = useState(0);
+    const [showReport, setShow] = useState(false);
+    const [fillerCount, updateCount] = useState(0);
+	const [sentiment, updateSentiment] = useState("");
+
+    const changeReport = () => {
+        setShow(true);
     }
 
-	async function getFeedback(){
-		const response = await fetch(`/parseText?speechId=${0}`, {method: "GET"});
-		console.log(response);
-		const json = await response.json();
-		console.log(json);
-		console.log(json.WordFrequency);
-		console.log(json.FillerFrequency);
-		setFillerWordFrequency(json.FillerFrequency);
-		console.log(json.FillerRatio);
-		setFillerWordRatio(json.FillerRatio);
-		console.log(json.SpeechRate);
-		setSpeechRate(json.SpeechRate);
-		
+	const updateFieldFromAnalysis = (p, fC, sentiment) => {
+		updateCount(fC);
+		updatePace(p);
+		updateSentiment(sentiment);
 	}
 
-	const handleSubmit= async(e) => {
-	
-      e.preventDefault();
-	  await generateReport();
-    }
-	
-	return(
-		<form onSubmit={e => { handleSubmit(e) }}>
-			<input type="file" name="file" id="file" class="inputfile" onChange={e=> setTextFile(e.target.files[0])} />
-			<label for="file" className="uploadButton">Upload a text file</label>
-			<br />
-			<p>or</p>
-			<input type="file" name="file" id="file" class="inputfile" onChange={e=> setTextFile(e.target.files[0])} />
-			<label for="file" className="uploadButton">Upload an audio file</label>
-			{/* <input type="file" onChange={e=> setTextFile(e.target.files[0])} /> */}
-			<br />
-			<br />
-			{/* <label>Upload the audio file of your speech:</label>
-			<br />
-			<input type="file" onChange={e=> setSpeechFile(e.target.files[0])} />
-			<br /> */}
-			<input className="theme-btn" type='submit' value='Generate' />
-		</form>
-	);
-}
 	return(
 		<div>
 		<div> <WelcomeHeader/> </div>
-		<div className="welcomeDashContainer">
-			<div className= "welcomeCard">
-				<div className="rowAlignment">
-				<div className = "child"> <InputForm /> </div>
-				<div> <Report /> </div>
+		<div className="mainContainer">
+			<div className= "welcome-bg">
+				<div className="dashboard-container">
+					<div className="dashboard-container-child">
+						<InputForm changeReport = {changeReport} update = {updateFieldFromAnalysis}/>
+						<SampleAnalysis pace = {pace} showReport = {showReport} fillerCount = {fillerCount} changeReport = {changeReport} sentiment = {sentiment}/>
+					</div>
+				</div>
 			</div>
-		</div>
-		
 		</div>
 		</div>
 	);
 }
+	
 
 export default Welcome;

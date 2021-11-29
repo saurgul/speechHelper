@@ -11,11 +11,18 @@ function WelcomeHeader() {
 		navigate('/login')
   }
     return(
-        <header>
+    <header>
 			<div className = "nav-bar-container">
           <div className="profile-info">
+            <div className="welcome-page-title-text-container">
+                <div className="welcome-page-title">Welcome to Speech helper</div>
+                <div className="welcome-page-subtitle">This is a demo of what your report will look like. To get full analyis on your speech. 
+                <br/>
+                Login or Signup now!!</div>
+            </div>
+           
           </div>
-          <nav id="navbar">
+          <nav>
 				    <button className="theme-btn" onClick={handleRoute}>Log In</button>
             <a className="secondary-theme-btn" onClick={handleRoute}>Sign up</a>
           </nav>

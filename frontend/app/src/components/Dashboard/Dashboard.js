@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import './Dashboard.css';
+import './CSS/Dashboard.css';
 import FamousSpeeches from './FamousSpeeches';
 import Header from './Header'
 import HistoryReport from './HistorySpeech';
@@ -42,12 +42,8 @@ function Dashboard(){
 						{
 							!showProgress && !showHelp && 
 							<div className="dashboard-container-child">
-							<Animated animationIn="rotateOut" animationOut="rotateIn" isVisible={showHelp}>  
-								<InputForm />
-							</Animated> 
-							<Animated animationIn="rotateOut" animationOut="rotateIn" isVisible={showHelp}>  
+								<InputForm />	
 								<HistoryReport/>
-							</Animated> 
 							</div>
 						}
 						{
@@ -61,14 +57,12 @@ function Dashboard(){
 								</Animated> 
 							</div>
 						}
-
 						{
 						  showProgress &&
 							<Animated animationIn="fadeOut" animationOut="fadeIn" isVisible={!showProgress}>  
 								<EmptyProgress/>
 							</Animated> 
 						}
-
 					</div>
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 import React from "react";
-import Play from "./playWhite.png";
+import Play from "../Assets/playWhite.png";
 
 function PronounciationButton(props) {
 

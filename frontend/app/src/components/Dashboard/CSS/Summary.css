@@ -344,6 +344,41 @@
     margin-right: 10px;
 }
 
+/* Sentiment Card */
+
+.sentiment-card-container {
+    /* height: 280px; */
+    background-color: #F9F8FC;
+    border-radius: 27px;
+    margin-top: 10px;
+    height: 180px;
+    padding: 20px;
+    transition:300ms linear;
+    display: flex;
+    justify-content: center;
+    max-width: 450px;
+    align-items: center;
+    
+}
+
+.summary-reaction-img {
+    vertical-align: auto;
+    width: 64px;
+    height: 64px;
+    padding: 10px;
+    object-fit: cover;
+}
+
+.summary-text {
+    font-size: 15px;
+    color: black;
+    font-weight: bold;
+    margin: 20px;
+    opacity: 0.5;
+}
+
+
+
 /* media query */
 
 @media only screen and (max-width: 1000px) {
@@ -379,6 +414,15 @@
         font-size: 10px;
     }
 
+    .summary-text {
+        scale: 0.7;
+        margin: 20px;
+    }
+
+    .summary-reaction-img {
+        scale:0.5;
+        padding: 0px;
+    }
 
 
 }

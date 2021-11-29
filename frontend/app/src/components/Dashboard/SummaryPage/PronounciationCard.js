@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
-import PronounciationHeaderImage from "./pHeader.png"
+import PronounciationHeaderImage from "../Assets/pHeader.png"
 import PronounciationButton from "./PronounciationButton";
-import DownArrow from "./downarrow.png";
+import DownArrow from "../Assets/downarrow.png";
 
 function PronounciationCard() {
 

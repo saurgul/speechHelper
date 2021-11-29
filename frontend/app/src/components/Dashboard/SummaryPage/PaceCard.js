@@ -1,7 +1,7 @@
 import React from "react";
-import Fastpace from "./fastpace.png"
-import Slowpace from "./slowPace.png"
-import Normalpace from "./normalPace.png"
+import Fastpace from "../Assets/fastpace.png"
+import Slowpace from "../Assets/slowPace.png"
+import Normalpace from "../Assets/normalPace.png"
 
 function PaceCard(props) {
     return (

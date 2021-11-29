@@ -1,6 +1,6 @@
 import React from "react";
-import FamousSpeechImage from "./famousspeeches.png"
-import PlayImage from "./play.png"
+import FamousSpeechImage from "./Assets/famousspeeches.png"
+import PlayImage from "./Assets/play.png"
 
 function FamousSpeechItem(props) {
     return (
