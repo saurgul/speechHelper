@@ -15,8 +15,8 @@ function WelcomeHeader() {
 			<div className = "nav-bar-container">
           <div className="profile-info">
             <div className="welcome-page-title-text-container">
-                <div className="welcome-page-title">Welcome to Speech helper</div>
-                <div className="welcome-page-subtitle">This is a demo of what your report will look like. To get full analyis on your speech. 
+                <div className="welcome-page-title">Welcome to Speech Helper</div>
+                <div className="welcome-page-subtitle">This page contains a demo of speech analysis. For details and tracking over time
                 <br/>
                 Login or Signup now!!</div>
             </div>
