@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import './Welcome.css';
 
 function WelcomeHeader() {
 	
@@ -12,11 +13,12 @@ function WelcomeHeader() {
     return(
         <header>
 			<div className = "nav-bar-container">
-                <div className="profile-info">
-                </div>
-                <nav id="navbar">
-					<button className="theme-btn" onClick={handleRoute}>Log In or Sign Up</button>
-                </nav>
+          <div className="profile-info">
+          </div>
+          <nav id="navbar">
+				    <button className="theme-btn" onClick={handleRoute}>Log In</button>
+            <a className="secondary-theme-btn" onClick={handleRoute}>Sign up</a>
+          </nav>
 			</div>
 		</header>
     )

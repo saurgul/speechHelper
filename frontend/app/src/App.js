@@ -1,9 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import './App.css';
-import Welcome from './components/Welcome';
-import Onboarding from './components/Onboarding/Onboarding';
 import Routing from './Routing';
-
 
 import {
     BrowserRouter as Router,
@@ -30,10 +27,10 @@ function App() {
       <link href='https://fonts.googleapis.com/css?family=Sen' rel='stylesheet'/>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/> 
       <header className="App-header">
-		<Routing />
+		    <Routing/>
       </header>
     </div>
-</Router>
+  </Router>
   );
 }
 
