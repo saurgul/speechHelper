@@ -20,16 +20,11 @@ function ProgressChart(props) {
         <Axis points = {`${padding},${props.height - padding} ${props.width - padding}, ${props.height - padding}`}/>
     );
 
-    const YAxis = ()  => (
-        <Axis points = {`${padding},${padding} ${padding}, ${props.height - padding}`}/>
-    );
-
     const points = props.data.map(e => {
       const x = (e.x / maxXFromData) * chartWidth + padding;
       const y =chartHeight - (e.y / maxYFromData) * chartHeight + padding;
       return `${x},${y}`;
     })
-
     .join(' ');
 
     const HorizontalGuides = () => {
@@ -76,8 +71,6 @@ function ProgressChart(props) {
     return (
         <svg viewBox = {`0 0 ${props.width} ${props.height}`}>
             <XAxis/>
-            {/* <YAxis/>  */}
-            {/* {props.verticalGuides && <VerticalGuides/>} */}
             <LabelsXAxis/>
             <LabelsYAxis/>
             <HorizontalGuides/>

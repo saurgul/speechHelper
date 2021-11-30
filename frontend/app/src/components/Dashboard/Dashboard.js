@@ -20,8 +20,8 @@ function Dashboard(){
 
 
 	const data = [
-		{ label: "Jan", x: 0, y: 0 },
-		{ label: "Feb", x: 1, y: 20 },
+		{ label: "Jan", x: 0, y: 5 },
+		{ label: "Feb", x: 1, y: 10 },
 		{ label: "Mar", x: 2, y: 46 },
 		{ label: "Jun", x: 3, y: 50 },
 		{ label: "Jul", x: 4, y: 55 },
