@@ -7,6 +7,8 @@ import InputForm from './InputForm';
 import ReadText from './ReadText';
 import {Animated} from "react-animated-css";
 import EmptyProgress from './EmptyProgress';
+import ProgressChart from './ProgressChart';
+
 
 function Dashboard(){
 	const [showHelp, setShow] = useState(false);
@@ -15,6 +17,18 @@ function Dashboard(){
 		id: "1",
 		description: "I have a dream that one day down in Alabama, with its vicious racists, with its governor having his lips dripping with the words of interposition and nullification – one day right there in Alabama little black boys and black girls will be able to join hands with little white boys and white girls as sisters and brothers. I have a dream today. I have a dream that one day every valley shall be exalted and every hill and mountain shall be made low, the rough places will be made plain, and the crooked places will be made straight, and the glory of the Lord shall be revealed and all flesh shall see it together."
 	}
+
+
+	const data = [
+		{ label: "Jan", x: 0, y: 0 },
+		{ label: "Feb", x: 1, y: 20 },
+		{ label: "Mar", x: 2, y: 46 },
+		{ label: "Jun", x: 3, y: 50 },
+		{ label: "Jul", x: 4, y: 55 },
+		{ label: "Aug", x: 5, y: 40 },
+		{ label: "Sep", x: 6, y: 98 }
+	];
+
 
 	const texts = [text];
 
@@ -60,7 +74,15 @@ function Dashboard(){
 						{
 						  showProgress &&
 							<Animated animationIn="fadeOut" animationOut="fadeIn" isVisible={!showProgress}>  
-								<EmptyProgress/>
+								<div className="progress-main-container">
+									<div className="progress-chart-header">
+										<div className="progress-chart-title">Progress Chart</div>
+										<div className="progress-chart-subtitle">A little description of what the chart means</div>
+									</div>
+									<div className="progress-container">
+										<ProgressChart data={data} width = {500} height= {300} horizontalGuides={5} precision={0} />
+									</div>
+								</div>	
 							</Animated> 
 						}
 					</div>

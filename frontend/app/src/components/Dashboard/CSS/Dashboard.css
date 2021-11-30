@@ -486,7 +486,7 @@ p {
     opacity: 0.50;
 }
 
-.progress-container {
+.empty-progress-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -500,3 +500,38 @@ p {
     font-size: large;
 }
 
+.progress-main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F9F8FC;
+    border-radius: 27px;
+    padding: 10px;
+    margin: 100px;
+}
+
+.progress-chart-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+}
+
+.progress-chart-title {
+    font-size: large;
+}
+
+.progress-chart-subtitle {
+    font-size: medium;
+    color: #ccc;
+}
+
+.progress-container {
+    width: 75%;
+    padding: 20px;
+}
+
+svg {
+    filter: drop-shadow(0px 5px 10px #CDA6EB);
+}
