@@ -1,4 +1,4 @@
-package com.speechhelper.databasemanager;
+package com.speechhelper.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.speechhelper.databasemanager.UserEntity;
+import com.speechhelper.databasemanager.UserRepository;
 
 @Controller
 @RequestMapping(path="/speech_helper")
