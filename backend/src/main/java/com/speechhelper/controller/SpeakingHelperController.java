@@ -1,11 +1,14 @@
 //@Author Christian Dummer
 package com.speechhelper.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,6 +61,32 @@ public class SpeakingHelperController {
 		return "<h1>Hello World!</h1>";
 	}
 	
+	public void runPythonScript() {
+		try {
+
+			//String command = "python /c start python " + Paths.get(this.getClass().getResource("src/main/resources/liveAudio.py").toURI()).toFile();
+			//String path = Paths.get(this.getClass().getClassLoader().getResource("liveAudio.py").toURI()).toString();
+			//System.out.println(path);
+			String path = "C:\\Users\\shado\\Desktop\\SoftwareRepos\\team2-project\\backend\\src\\main\\resources\\liveAudio.py";
+			System.out.println(path);
+			Process p = new ProcessBuilder("python", path).start();
+			int exitCode = p.waitFor();
+			System.out.println("Exit Code: " + exitCode);
+			String line;
+			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			while ((line = input.readLine()) != null) {
+	            System.out.println(line);
+	        }
+			System.out.println(line);
+	        input.close();
+		}
+		
+		catch(Exception ioe) {
+			System.out.println("error happened");
+			ioe.printStackTrace();
+		}
+	}
+	
 	//This endpoint is currently configured to do the whole process of creating a speech and generating feedback
 	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
 	@RequestMapping(value="/createSpeech",  method=RequestMethod.POST)
@@ -106,6 +135,8 @@ public class SpeakingHelperController {
 		Command createSpeechCommand = new CreateSpeechCommand(model, urlString);
 		model.receiveCommand(createSpeechCommand);
 	}
+	
+	
 	
 	//Create a speech from the audio file Content
 	public void createSpeech(@RequestParam File file) {
