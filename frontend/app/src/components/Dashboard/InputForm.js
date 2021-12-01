@@ -65,28 +65,27 @@ function InputForm(props){
         <form className="input-form" onSubmit={e => { handleSubmit(e) }}>
 			<div>
 			{(() => {
-			if (textFile == null){
-				return (
-			<div>
-            <textarea id="story" name="story" rows="5" cols="33" onChange={e => setTextArea(e.target.value)}> Type your text ... </textarea>
-			</div> 
-			);
-			}
-			}
+                    if (textFile == null){
+                        return (
+                            <div>
+                                <textarea id="story" name="story" rows="5" cols="33" onChange={e => setTextArea(e.target.value)}> Type your text ... </textarea>
+                            </div> 
+                        );
+                    }
+			    }
             )()}
 			</div>
 			<div>
 			{(() => {
-				if(textFile == null && textArea == null){
-					return(
-						<div>
-						<p>or</p>
-						</div>
-					);
-				}
-			}
-			)	
-			()}
+                    if(textFile == null && textArea == null){
+                        return(
+                            <div>
+                            <p>or</p>
+                            </div>
+                        );
+                    }
+			    }
+			)()}
 			</div>
             <div>
             {(() => {
@@ -112,7 +111,7 @@ function InputForm(props){
             {(() => {
                     return (
                         <div>
-                            <input type="file" name="file1" id="file1" className="inputfile" onChange={e=> setSpeechFile(e.target.files[0])} />
+                            <input type="file" name="file1" id="file1" className="inputfile" onChange={e=> setSpeechFile(e.target.files[0])} required/>
                             <label for="file1" className="uploadButton">
                             {(() => {
                                 if (speechFile != null) return "Uploaded";
