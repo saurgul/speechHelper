@@ -18,46 +18,49 @@ public class UserEntity{
   @Column(name="userId")
   private Long userId;
   
-  @Column(name="userName")
-  private String userName;
+  @Column(name="username")
+  private String username;
   
   @Column(name="password")
   private String password;
   
-  @Column(name="name")
-  private String name;
+  @Column(name="firstName")
+  private String firstName;
+  
+  @Column(name="lastName")
+  private String lastName;
   
   @Column(name="age")
   private int age;
 
-  protected UserEntity() {}
+  public UserEntity() {}
 
   @Override
   public String toString() {
     return String.format(
-        "User[userId=%d, userName='%s', password='%s', name='%s', age='%d']",
-        userId, userName, password, name, age);
+        "User[userId=%d, username='%s', password='%s', firstName='%s', lastName='%s', age='%d']",
+        userId, username, password, firstName, lastName, age);
   }
 
   public Long getUserId() {
     return userId;
   }
 
-  public String getName() {
-    return name;
+  public String getFirstName() {
+    return firstName;
   }
   
-  public void setName(String name) {
-	  this.name = name;
+  public void setFirstName(String firstName) {
+	  this.firstName = firstName;
   }
 
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 	
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	public String getPassword() {
@@ -74,6 +77,10 @@ public class UserEntity{
 	
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 }
 

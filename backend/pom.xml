@@ -119,11 +119,11 @@
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.mindrot.bcrypt/bcrypt -->
-		<dependency>
+		<!--<dependency>
 		    <groupId>org.mindrot.bcrypt</groupId>
 		    <artifactId>bcrypt</artifactId>
 		    <version>0.3</version>
-		</dependency>
+		</dependency> -->
 		
 		
 		

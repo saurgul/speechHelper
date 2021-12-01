@@ -12,8 +12,13 @@ public class User {
 	private String email;
 	private ArrayList<Speech> speeches;
 	
-	public User() {
-		
+	public User(String username, String password, String firstName, String lastName, String email) {
+		this.username  = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.speeches = new ArrayList<Speech>();
+		//Uses bcrypt to hash password
 	}
 	
 	public String getUsername() {

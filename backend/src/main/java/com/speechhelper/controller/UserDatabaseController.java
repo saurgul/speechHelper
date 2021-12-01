@@ -26,10 +26,11 @@ public class UserDatabaseController {
 	private UserRepository userRepository;
 	
 	@PostMapping(path="/add_user") // Map ONLY POST Requests
-	public String addNewUser (@RequestParam String name, @RequestParam String userName, @RequestParam String password, @RequestParam int age ) {
+	public String addNewUser (@RequestParam String firstName, @RequestParam String lastName, @RequestParam String username, @RequestParam String password, @RequestParam int age ) {
 		UserEntity n = new UserEntity();
-		n.setName(name);
-		n.setUserName(userName);
+		n.setFirstName(firstName);
+		n.setLastName(lastName);
+		n.setUsername(username);
 		n.setPassword(password);
 		n.setAge(age);
 		userRepository.save(n);
