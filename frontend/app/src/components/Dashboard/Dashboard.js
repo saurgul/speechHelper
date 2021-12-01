@@ -52,7 +52,7 @@ function Dashboard(){
 						{
 							!showProgress && !showHelp && 
 							<div className="dashboard-container-child">
-								<InputForm />	
+								<InputForm userLoggedIn = {true}/>	
 								<HistoryReport/>
 							</div>
 						}

@@ -56,8 +56,11 @@ function InputForm(props){
     e.preventDefault();
 	console.log(textArea)
     // Dummy data
-    props.changeReport();
-    props.update(110,17, "Calm");
+    if (!props.userLoggedIn) {
+        props.changeReport();
+        props.update(110,17, "Calm");
+    }
+   
     await generateReport();
     }
     
@@ -130,7 +133,7 @@ function InputForm(props){
             <br />
             <input type="file" onChange={e=> setSpeechFile(e.target.files[0])} />
             <br /> */}
-            <input className="theme-btn generate-btn" type='submit' value='Generate'/>
+            <input className="theme-btn generate-btn"  type='submit' value='Generate'/>
     </form>
     );
 }
