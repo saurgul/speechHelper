@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react';
 
 function InputForm(props){
     const[textFile, setTextFile] = useState();
+	const[textArea, setTextArea] = useState();
     const[speechFile, setSpeechFile] = useState();	
     const[speechId, setSpeechId] = useState();
 
@@ -53,9 +54,8 @@ function InputForm(props){
 
     const handleSubmit= async(e) => {
     e.preventDefault();
+	console.log(textArea)
     // Dummy data
-    //1, Connect for real data
-    //2. Flow for when user is looged IN
     props.changeReport();
     props.update(110,17, "Calm");
     await generateReport();
@@ -63,13 +63,36 @@ function InputForm(props){
     
     return(
         <form className="input-form" onSubmit={e => { handleSubmit(e) }}>
-            <textarea id="story" name="story" rows="5" cols="33" > Type your text ... </textarea>
+			<div>
+			{(() => {
+			if (textFile == null){
+				return (
+			<div>
+            <textarea id="story" name="story" rows="5" cols="33" onChange={e => setTextArea(e.target.value)}> Type your text ... </textarea>
+			</div> 
+			);
+			}
+			}
+            )()}
+			</div>
+			<div>
+			{(() => {
+				if(textFile == null && textArea == null){
+					return(
+						<div>
+						<p>or</p>
+						</div>
+					);
+				}
+			}
+			)	
+			()}
+			</div>
             <div>
             {(() => {
-                if (speechFile == null) {
+                if (textArea == null) {
                     return (
                         <div>
-                            <p>or</p>
                             <input type="file" name="file" id="file" className="inputfile" onChange={e=> setTextFile(e.target.files[0])} required/>
                             <label for="file" className="uploadButton">
                             {(() => {
@@ -89,7 +112,7 @@ function InputForm(props){
             {(() => {
                     return (
                         <div>
-                            <input type="file" name="file1" id="file1" className="inputfile" onChange={e=> setSpeechFile(e.target.files[0])} required/>
+                            <input type="file" name="file1" id="file1" className="inputfile" onChange={e=> setSpeechFile(e.target.files[0])} />
                             <label for="file1" className="uploadButton">
                             {(() => {
                                 if (speechFile != null) return "Uploaded";
@@ -101,8 +124,13 @@ function InputForm(props){
             }
             )()}
             </div>
+            {/* <input type="file" onChange={e=> setTextFile(e.target.files[0])} /> */}
             <br />
             <br />
+            {/* <label>Upload the audio file of your speech:</label>
+            <br />
+            <input type="file" onChange={e=> setSpeechFile(e.target.files[0])} />
+            <br /> */}
             <input className="theme-btn generate-btn" type='submit' value='Generate'/>
     </form>
     );
