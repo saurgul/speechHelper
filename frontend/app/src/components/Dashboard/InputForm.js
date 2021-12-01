@@ -54,6 +54,8 @@ function InputForm(props){
     const handleSubmit= async(e) => {
     e.preventDefault();
     // Dummy data
+    //1, Connect for real data
+    //2. Flow for when user is looged IN
     props.changeReport();
     props.update(110,17, "Calm");
     await generateReport();
@@ -85,11 +87,9 @@ function InputForm(props){
             <br/>
             <div>
             {(() => {
-                if (textFile == null) {
                     return (
                         <div>
-                            <p>or</p>
-                            <input type="file" name="file1" id="file1" className="inputfile" onChange={e=> setSpeechFile(e.target.files[0])} />
+                            <input type="file" name="file1" id="file1" className="inputfile" onChange={e=> setSpeechFile(e.target.files[0])} required/>
                             <label for="file1" className="uploadButton">
                             {(() => {
                                 if (speechFile != null) return "Uploaded";
@@ -98,17 +98,11 @@ function InputForm(props){
                             )()}</label>
                         </div>
                     );
-                }
             }
             )()}
             </div>
-            {/* <input type="file" onChange={e=> setTextFile(e.target.files[0])} /> */}
             <br />
             <br />
-            {/* <label>Upload the audio file of your speech:</label>
-            <br />
-            <input type="file" onChange={e=> setSpeechFile(e.target.files[0])} />
-            <br /> */}
             <input className="theme-btn generate-btn" type='submit' value='Generate'/>
     </form>
     );

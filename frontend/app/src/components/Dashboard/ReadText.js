@@ -9,14 +9,14 @@ function ReadText(props) {
             <div className="read-text-child-frame">
                 <img src={Quote1} className="read-text-child-frame-img"/> 
                 <div className="read-text-speech-text">
-                {props.texts[0].description}
+                {props.text}
                 </div>
                 <div className="read-text-child-frame-right-quote"> <img src={Quote2} className="read-text-child-frame-img"/></div>   
             </div>
-            <div className="view-all-btn-frame">
+            {/* <div className="view-all-btn-frame">
                 <div className="view-all-btn">View all</div>
             </div>
-            
+             */}
         </div>
     );
 }
