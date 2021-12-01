@@ -77,7 +77,7 @@ function Dashboard(){
 										<div className="progress-chart-subtitle">A little description of what the chart means</div>
 									</div>
 									<div className="progress-container">
-										<ProgressChart data={data} width = {500} height= {300} horizontalGuides={5} precision={0} />
+										<ProgressChart data={data} width = {500} height= {300} horizontalGuides={5} precision={0} color="#5744AB"/>
 									</div>
 								</div>	
 							</Animated> 

@@ -74,7 +74,7 @@ function ProgressChart(props) {
             <LabelsXAxis/>
             <LabelsYAxis/>
             <HorizontalGuides/>
-            <polyline className="progress-line" fill="none" stroke="#5744AB" strokeWidth="4.0" points = {points} strokeLinejoin="round" strokeLinecap="round" />
+            <polyline className="progress-line" fill="none" stroke={props.color} strokeWidth="4.0" points = {points} strokeLinejoin="round" strokeLinecap="round" />
         </svg>
     );
 
