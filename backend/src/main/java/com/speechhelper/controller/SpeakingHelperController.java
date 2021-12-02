@@ -11,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import org.python.util.PythonInterpreter;
+import org.python.core.*;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,8 @@ import com.speechhelper.speechtotext.SpeechToTextCommand;
 import com.speechhelper.speechtotext.SpeechToTextReport;
 import com.speechhelper.storage.FileSystemStorageService;
 import com.speechhelper.storage.StorageService;
+
+import freemarker.ext.jython.JythonModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -62,7 +66,7 @@ public class SpeakingHelperController {
 	}
 	
 	public void runPythonScript() {
-		try {
+		/*try {
 
 			//String command = "python /c start python " + Paths.get(this.getClass().getResource("src/main/resources/liveAudio.py").toURI()).toFile();
 			//String path = Paths.get(this.getClass().getClassLoader().getResource("liveAudio.py").toURI()).toString();
@@ -84,8 +88,33 @@ public class SpeakingHelperController {
 		catch(Exception ioe) {
 			System.out.println("error happened");
 			ioe.printStackTrace();
-		}
+		}*/
+		 
+		 PythonInterpreter pi = new PythonInterpreter();
+		// runEnsurePip(pi);
+	    // upgradePip(pi);
+		 try {
+	     pi.execfile(Paths.get(this.getClass().getClassLoader().getResource("liveAudio.py").toURI()).toString());
+		 }
+		 catch(Exception ex) {
+			 ex.printStackTrace();
+		 } 
+		
 	}
+	
+	private void runEnsurePip(PythonInterpreter python){
+        StringBuilder script = new StringBuilder();
+        script.append("import ensurepip\n");
+        script.append("ensurepip._main()\n");
+        python.exec(script.toString());
+    }
+
+    private void upgradePip(PythonInterpreter python){
+        StringBuilder script = new StringBuilder(); 
+        script.append("import pip\n");
+        script.append("pip.main(['install', '--upgrade', 'pip'])"); 
+        python.exec(script.toString());
+    }
 	
 	//This endpoint is currently configured to do the whole process of creating a speech and generating feedback
 	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
