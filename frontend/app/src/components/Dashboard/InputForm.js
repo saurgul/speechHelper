@@ -13,12 +13,10 @@ function InputForm(props){
     
     async function generateReport(){
         const formData = new FormData();
-        if (textFile == null) {
-            formData.append("files",speechFile);
-        } else {
-            formData.append("files",textFile);
-        }
-        const response = await fetch(API + `/createSpeech`, {method: "post",body: formData, headers: {
+        formData.append("files",speechFile);
+        formData.append("files",textFile);
+
+        const response = await fetch(`/createSpeech`, {method: "post",body: formData, headers: {
             'Access-Control-Allow-Origin':'*'
                 }	
             }
@@ -58,7 +56,7 @@ function InputForm(props){
     // Dummy data
     if (!props.userLoggedIn) {
         props.changeReport();
-        props.update(110,17, "Calm");
+        props.update(110,17, "Sad");
     }
    
     await generateReport();
