@@ -6,6 +6,7 @@ import keras
 import librosa
 import numpy as np
 import sys
+import tensorflow
 
 
 # In[3]:
@@ -67,7 +68,7 @@ class LivePredictions:
 if __name__ == '__main__':
     EXAMPLES_PATH = 'AudioData/examples/'
     live_prediction = LivePredictions(file=EXAMPLES_PATH + 'Neutral.wav')
-    #live_prediction.loaded_model.summary()
+    live_prediction.loaded_model.summary()
     live_prediction.make_predictions()
     #live_prediction = LivePredictions(file=EXAMPLES_PATH + 'Angry.wav')
     #live_prediction.make_predictions()

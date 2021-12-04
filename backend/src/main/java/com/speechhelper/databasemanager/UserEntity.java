@@ -33,7 +33,9 @@ public class UserEntity{
   @Column(name="age")
   private int age;
 
-  public UserEntity() {}
+  public UserEntity() {
+	  
+  }
 
   @Override
   public String toString() {

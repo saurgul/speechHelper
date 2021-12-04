@@ -1,7 +1,6 @@
 package com.speechhelper.databasemanager;
 
 import java.util.ArrayList;
-
 import com.speechhelper.speechtotext.Speech;
 
 public class User {
@@ -19,6 +18,7 @@ public class User {
 		this.email = email;
 		this.speeches = new ArrayList<Speech>();
 		//Uses bcrypt to hash password
+		hashPassword(password);
 	}
 	
 	public String getUsername() {
@@ -56,6 +56,12 @@ public class User {
 	}
 	public void setSpeeches(ArrayList<Speech> speeches) {
 		this.speeches = speeches;
+	}
+	
+	private void hashPassword(String password) {
+		String hashed = "";
+		
+		this.hashedPassword = hashed;
 	}
 	
 	

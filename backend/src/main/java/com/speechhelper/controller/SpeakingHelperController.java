@@ -65,56 +65,17 @@ public class SpeakingHelperController {
 		return "<h1>Hello World!</h1>";
 	}
 	
+	/*
 	public void runPythonScript() {
-		/*try {
-
-			//String command = "python /c start python " + Paths.get(this.getClass().getResource("src/main/resources/liveAudio.py").toURI()).toFile();
-			//String path = Paths.get(this.getClass().getClassLoader().getResource("liveAudio.py").toURI()).toString();
-			//System.out.println(path);
-			String path = "C:\\Users\\shado\\Desktop\\SoftwareRepos\\team2-project\\backend\\src\\main\\resources\\liveAudio.py";
-			System.out.println(path);
-			Process p = new ProcessBuilder("python", path).start();
-			int exitCode = p.waitFor();
-			System.out.println("Exit Code: " + exitCode);
-			String line;
-			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			while ((line = input.readLine()) != null) {
-	            System.out.println(line);
-	        }
-			System.out.println(line);
-	        input.close();
-		}
-		
-		catch(Exception ioe) {
-			System.out.println("error happened");
-			ioe.printStackTrace();
-		}*/
-		 
 		 PythonInterpreter pi = new PythonInterpreter();
-		// runEnsurePip(pi);
-	    // upgradePip(pi);
 		 try {
-	     pi.execfile(Paths.get(this.getClass().getClassLoader().getResource("liveAudio.py").toURI()).toString());
+			 pi.execfile(Paths.get(this.getClass().getClassLoader().getResource("liveAudio.py").toURI()).toString());
 		 }
 		 catch(Exception ex) {
 			 ex.printStackTrace();
 		 } 
 		
-	}
-	
-	private void runEnsurePip(PythonInterpreter python){
-        StringBuilder script = new StringBuilder();
-        script.append("import ensurepip\n");
-        script.append("ensurepip._main()\n");
-        python.exec(script.toString());
-    }
-
-    private void upgradePip(PythonInterpreter python){
-        StringBuilder script = new StringBuilder(); 
-        script.append("import pip\n");
-        script.append("pip.main(['install', '--upgrade', 'pip'])"); 
-        python.exec(script.toString());
-    }
+	}*/
 	
 	//This endpoint is currently configured to do the whole process of creating a speech and generating feedback
 	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")

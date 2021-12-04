@@ -27,9 +27,7 @@ public class Main {
 //		//SpringApplication.run(Main.class, args);
 		//app.setDefaultProperties(Collections
 		//          .singletonMap("server.port", "8089"));
-		//app.run(args);
-		SpeakingHelperController c = new SpeakingHelperController();
-		c.runPythonScript();
+		app.run(args);
 	}
 
 }
