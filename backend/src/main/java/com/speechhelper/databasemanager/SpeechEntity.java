@@ -31,7 +31,7 @@ public class SpeechEntity implements Serializable{
 	  @Column(name="convertedSpeechText")
 	  private String convertedSpeechText;
 
-	  protected SpeechEntity() {}
+	  public SpeechEntity() {}
 
 
 	  @Override

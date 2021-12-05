@@ -1,8 +1,10 @@
 //@Author Christian Dummer
 package com.speechhelper.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -56,6 +58,54 @@ public class SpeakingHelperController {
 	public String getTest() {
 		//System.out.println("Hello World!");
 		return "<h1>Hello World!</h1>";
+	}
+	
+	public void runPythonScript_liveprediction() {
+		ProcessBuilder builder = new ProcessBuilder("python",
+				System.getProperty("user.dir")+ "\\src\\main\\resources\\liveAudio.py");
+		
+				
+		try {
+			Process process = builder.start();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			BufferedReader errors = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			String lines = null;
+			while((lines=reader.readLine())!=null) {
+				System.out.println(lines);
+			}
+			
+			while((lines=errors.readLine())!=null) {
+				System.out.println(" Error lines"+lines);
+			}
+				} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void runPythonScript_recordaudio() {
+		
+		ProcessBuilder builder = new ProcessBuilder("python",
+						System.getProperty("user.dir")+ "\\src\\main\\resources\\audioRecord.py");
+				
+		try {
+			Process process = builder.start();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			BufferedReader errors = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			String lines = null;
+			while((lines=reader.readLine())!=null) {
+				System.out.println("lines"+lines);
+			}
+			
+			while((lines=errors.readLine())!=null) {
+				System.out.println(" Error lines"+lines);
+			}
+				} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	//This endpoint is currently configured to do the whole process of creating a speech and generating feedback
