@@ -60,7 +60,7 @@ public class User {
 	
 	private void hashPassword(String password) {
 		String hashed = "";
-		BCrypt.gensalt();
+		//BCrypt.gensalt();
 		this.hashedPassword = hashed;
 	}
 	
