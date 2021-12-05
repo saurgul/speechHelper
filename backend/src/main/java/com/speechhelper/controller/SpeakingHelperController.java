@@ -90,12 +90,13 @@ public class SpeakingHelperController {
 						System.getProperty("user.dir")+ "\\src\\main\\resources\\audioRecord.py");
 				
 		try {
+			System.out.println("Start recording in 4 seconds");
 			Process process = builder.start();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			BufferedReader errors = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String lines = null;
 			while((lines=reader.readLine())!=null) {
-				System.out.println("lines"+lines);
+				System.out.println(lines);
 			}
 			
 			while((lines=errors.readLine())!=null) {
