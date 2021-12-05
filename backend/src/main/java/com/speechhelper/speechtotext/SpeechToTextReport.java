@@ -1,6 +1,7 @@
 //@Author Christian Dummer
 package com.speechhelper.speechtotext;
 
+import java.util.HashMap;
 
 //Class to store feedback on a particular speech recording.
 public class SpeechToTextReport {
@@ -9,6 +10,7 @@ public class SpeechToTextReport {
 	protected String fillerRatio = "";
 	protected double speechRate = 0;
 	protected String feedback = "";
+	protected HashMap<String, String> spellingFixes = new HashMap();
 	
 	public SpeechToTextReport() {
 		
@@ -43,6 +45,10 @@ public class SpeechToTextReport {
 		return this.feedback;
 	}
 	
+	public HashMap<String,String> getSpellingFixes(){
+		return this.spellingFixes;
+	}
+	
 	//Setter methods
 	public void setWordFrequency(String s) {
 		this.wordFrequency = s;
@@ -64,6 +70,10 @@ public class SpeechToTextReport {
 		this.feedback = s;
 	}
 	
+	public void setSpellingFixes(HashMap<String,String> fixes) {
+		this.spellingFixes = fixes;
+	}
+	
 	
 	//Implementation of builder pattern
 	public static class Builder{
@@ -72,6 +82,7 @@ public class SpeechToTextReport {
 		protected String fillerRatio = "";
 		protected double speechRate = 0;
 		protected String feedback = "";
+		protected HashMap<String, String> spellingFixes = new HashMap();
 		
 		
 		public SpeechToTextReport build() {
@@ -100,6 +111,11 @@ public class SpeechToTextReport {
 		 
 		public Builder feedback(String s) {
 			this.feedback = s;
+			return this;
+		}
+		
+		public Builder spellingFixes(HashMap<String,String> h) {
+			this.spellingFixes = h;
 			return this;
 		}
 	

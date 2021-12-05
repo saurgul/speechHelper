@@ -8,7 +8,7 @@ import com.speechhelper.grammar.GrammarAnalysisCommand;
 import com.speechhelper.model.Model;
 import com.speechhelper.speechtotext.Speech;
 
-class GrammarAnalysisText {
+class GrammarAnalysisTest {
 
 	@Test
 	void test() {
