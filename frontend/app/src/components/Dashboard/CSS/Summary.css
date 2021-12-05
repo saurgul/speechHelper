@@ -20,7 +20,7 @@
 }
 
 .text-green {
-    color:#74E59F
+    color:#31D871
 }
 
 .text-red {
@@ -211,7 +211,6 @@
 .grammar-feed-flex {
     display: flex;
     flex-direction: column;
-    
 }
 
 .grammar-feed-header {
