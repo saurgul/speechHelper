@@ -1,18 +1,10 @@
 //@Author Christian Dummer
 package com.speechhelper.controller;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import org.python.util.PythonInterpreter;
-import org.python.core.*;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,9 +25,6 @@ import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextCommand;
 import com.speechhelper.speechtotext.SpeechToTextReport;
 import com.speechhelper.storage.FileSystemStorageService;
-import com.speechhelper.storage.StorageService;
-
-import freemarker.ext.jython.JythonModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

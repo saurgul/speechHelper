@@ -109,10 +109,7 @@
             <artifactId>junit-platform-runner</artifactId>
             <version>${junit.platform.version}</version>
             <scope>test</scope>
-        </dependency>
-		
-		
-		
+        </dependency>		
 		
 	</dependencies>
   
