@@ -15,7 +15,7 @@ public class ReportDatabaseController {
 	private ReportRepository reportRepository;
 	
 	@PostMapping(path="/add_user") // Map ONLY POST Requests
-	public String addNewUser (@RequestParam Long speechId, @RequestParam Long userId) {
+	public String addNewReport (@RequestParam Long speechId, @RequestParam Long userId) {
 		ReportEntity n = new ReportEntity();
 		n.setSpeechId(speechId);
 		n.setUserId(userId);
@@ -34,7 +34,7 @@ public class ReportDatabaseController {
 		return reportRepository.findById(reportId).get();
 	}
 	
-	@GetMapping(path = "/report_by_speech_id/{:speechId}")
+	@GetMapping(path = "/report_speech_id/{:speechId}")
 	public ReportEntity findBySpeechId(@Param("speechId") Long speechId){
 		return reportRepository.findBySpeechId(speechId);
 	}

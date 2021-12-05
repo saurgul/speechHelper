@@ -30,16 +30,16 @@ public class UserEntity{
   @Column(name="lastName")
   private String lastName;
   
-  @Column(name="age")
-  private int age;
+  @Column(name="email")
+  private String email;
 
   public UserEntity() {}
 
   @Override
   public String toString() {
     return String.format(
-        "User[userId=%d, username='%s', password='%s', firstName='%s', lastName='%s', age='%d']",
-        userId, username, password, firstName, lastName, age);
+        "User[userId=%d, username='%s', password='%s', firstName='%s', lastName='%s', email='%s']",
+        userId, username, password, firstName, lastName, email);
   }
 
   public Long getUserId() {
@@ -71,14 +71,18 @@ public class UserEntity{
 		this.password = password;
 	}
 	
-	public int getAge() {
-		return age;
+	public String getEmail() {
+		return email;
 	}
 	
-	public void setAge(int age) {
-		this.age = age;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-
+	
+	public String getLastName(){
+		return lastName;
+	}
+	
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}

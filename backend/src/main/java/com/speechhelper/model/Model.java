@@ -9,6 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import com.speechhelper.command.Command;
 import com.speechhelper.command.CommandInvoker;
+import com.speechhelper.controller.ReportDatabaseController;
+import com.speechhelper.controller.SpeechDatabaseController;
+import com.speechhelper.controller.UserDatabaseController;
+import com.speechhelper.databasemanager.SpeechEntity;
+import com.speechhelper.databasemanager.UserEntity;
+import com.speechhelper.databasemanager.UserRepository;
 import com.speechhelper.main.Main;
 import com.speechhelper.nullobjects.NullSpeech;
 import com.speechhelper.nullobjects.NullSpeechToTextReport;
@@ -23,15 +29,43 @@ public class Model {
 	private CommandInvoker commandInvoker;
 	private int currentId = 0;
 	
+	private UserDatabaseController userDatabaseController = new UserDatabaseController();
+	private SpeechDatabaseController speechDatabaseController = new SpeechDatabaseController();
+	private ReportDatabaseController reportDatabaseController = new ReportDatabaseController();
+	
 	public Model() {
 		speeches = new ArrayList<Speech>();
 		this.commandInvoker = new CommandInvoker();
+	}
+	
+	public Long addUser(UserEntity user) {
+		String username = user.getUsername();
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
+		String password = user.getPassword();
+		String email = user.getEmail();
+		userDatabaseController.addNewUser(firstName, lastName, username, password, email);
+		
+		return user.getUserId();
+	}
+	
+	public UserEntity getUserByUserId(Long UserId) {
+		return userDatabaseController.findByUserId(UserId);
+	}
+	
+	public UserEntity getUserByUserName(String username) {
+		return userDatabaseController.findByUsername(username);
 	}
 	
 	//TODO use a database for this 
 	//Add, remove, and get list of speech transcriptions
 	public ArrayList<Speech> getSpeeches(){
 		return this.speeches;
+	}
+	
+	//Getting a list of speech from the 
+	public ArrayList<SpeechEntity> getSpeechesByUserId(Long userId){
+		return (ArrayList<SpeechEntity>) speechDatabaseController.findByUserId(userId);
 	}
 	
 	//TODO assign speech objects an ID when they are added. 
@@ -41,6 +75,10 @@ public class Model {
 		speeches.add(s);
 	}
 	
+	public void addSpeech(SpeechEntity speech) {
+		speechDatabaseController.addNewSpeech(speech.getUserId(), speech.getTranscribedSpeechText(), speech.getConvertedSpeechText());
+	}
+	
 	public Speech getSpeechById(int id) {
 		for(Speech s: speeches) {
 			if(s.getId() == id) {
@@ -48,6 +86,10 @@ public class Model {
 			}
 		}
 		return new NullSpeech();
+	}
+	
+	public SpeechEntity getSpeechById(Long speechId) {
+		return speechDatabaseController.findBySpeechId(speechId);
 	}
 	
 	public void removeSpeech(Speech s) {

@@ -39,7 +39,7 @@ public class SpeechDatabaseController {
 	    return speechRepository.findAll();
 	}
 	
-	@GetMapping(path = "/user_id/{:userId}")
+	@GetMapping(path = "/speech_user_id/{:userId}")
 	public Iterable<SpeechEntity> findByUserId(@Param("userId") Long userId){
 		return speechRepository.findByUserId(userId);
 	}

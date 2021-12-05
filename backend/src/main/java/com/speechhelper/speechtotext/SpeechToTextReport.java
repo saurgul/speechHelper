@@ -14,7 +14,6 @@ public class SpeechToTextReport {
 		
 	}
 	
-
 	protected SpeechToTextReport(Builder sb) {
 		this.wordFrequency = sb.wordFrequency;
 		this.fillerFrequency = sb.fillerFrequency;
