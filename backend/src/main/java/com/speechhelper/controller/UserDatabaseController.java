@@ -26,13 +26,13 @@ public class UserDatabaseController {
 	private UserRepository userRepository;
 	
 	@PostMapping(path="/add_user") // Map ONLY POST Requests
-	public String addNewUser (@RequestParam String firstName, @RequestParam String lastName, @RequestParam String username, @RequestParam String password, @RequestParam int age ) {
+	public String addNewUser (@RequestParam String firstName, @RequestParam String lastName, @RequestParam String username, @RequestParam String password, @RequestParam String email ) {
 		UserEntity n = new UserEntity();
 		n.setFirstName(firstName);
 		n.setLastName(lastName);
 		n.setUsername(username);
 		n.setPassword(password);
-		n.setAge(age);
+		n.setEmail(email);
 		userRepository.save(n);
 		return "Saved";
 	}
@@ -47,4 +47,10 @@ public class UserDatabaseController {
 	public UserEntity findByUserId(@Param("userId") Long userId) {
 		return userRepository.findById(userId).get();
 	}
+	
+	@GetMapping(path="/user_name/{:userName}")
+	public UserEntity findByUsername(@Param("username") String username) {
+		return userRepository.findByUsername(username);
+	}
+	
 }
