@@ -51,8 +51,8 @@ wf.close()
 
 data, sampling_rate = librosa.load('AudioData/examples/liveaudio.wav')
 
-plt.figure(figsize=(15, 5))
-librosa.display.waveplot(data, sr=sampling_rate)
+#plt.figure(figsize=(15, 5))
+#librosa.display.waveplot(data, sr=sampling_rate)
 
 r = sr.Recognizer()
 with sr.AudioFile(WAVE_OUTPUT_FILENAME) as source:

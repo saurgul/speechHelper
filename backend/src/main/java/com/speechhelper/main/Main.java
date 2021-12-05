@@ -28,8 +28,6 @@ public class Main {
 		//app.setDefaultProperties(Collections
 		//          .singletonMap("server.port", "8089"));
 		app.run(args);
-		//SpeakingHelperController c = new SpeakingHelperController();
-		//c.runPythonScript();
 	}
 
 }
