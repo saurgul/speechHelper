@@ -36,7 +36,7 @@ public class GrammarAnalysisCommand implements Command {
 	
 	public void execute() {
 		HashMap<String, String> grammarSuggestions = GrammarUtility.sharedInstance.evaluate(speech.getInput());
-		speech.getReport()
+		speech.getReport().setSpellingFixes(grammarSuggestions);
 	}
 
 	
