@@ -45,7 +45,6 @@ public class Model {
 		String password = user.getPassword();
 		String email = user.getEmail();
 		userDatabaseController.addNewUser(firstName, lastName, username, password, email);
-		
 		return user.getUserId();
 	}
 	
