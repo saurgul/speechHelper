@@ -582,14 +582,14 @@ svg {
     font-weight: bolder;
 }
 
-.spinner {
+.loading-spinner {
     width: 64px;
     height: 64px;
     position: relative;
     margin: 100px auto;
 }
 
-.double-bounce1,.double-bounce2 {
+.bounce1, .bounce2 {
     width: 100%;
     height: 100%;
     border-radius: 50%;
@@ -598,16 +598,16 @@ svg {
     position: absolute;
     top: 0;
     left: 0;
-    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-    animation: sk-bounce 2.0s infinite ease-in-out;
+    -webkit-animation: scaleInOut 2.0s infinite ease-in-out;
+    animation: scaleInOut 2.0s infinite ease-in-out;
 }
 
-.double-bounce2 {
+.bounce2 {
     -webkit-animation-delay: -1.0s;
     animation-delay: -1.0s;
 }
 
-@keyframes sk-bounce {
+@keyframes scaleInOut {
     0%, 100% {
         transform: scale(0.0);
         -webkit-transform: scale(0.0);

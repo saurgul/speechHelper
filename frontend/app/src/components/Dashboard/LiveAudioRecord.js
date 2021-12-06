@@ -48,9 +48,9 @@ function LiveAudioRecord(props) {
 
 function Record() {
     return (
-        <div class="spinner">
-                <div class="double-bounce1"></div>
-                <div class="double-bounce2"></div>
+        <div class="loading-spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
         </div>
     );
 
