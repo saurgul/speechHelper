@@ -22,8 +22,8 @@ function HistoryReportItem(props) {
                     </div>
                     <button className="theme-btn summary-btn" onClick={handleRoute}>Go to Summary</button>
                 </div>
+                {/* <div className="separator"></div> */}
             </div>
-            <div className="separator"></div>
         </div>
 
     );

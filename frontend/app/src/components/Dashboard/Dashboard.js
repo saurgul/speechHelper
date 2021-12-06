@@ -7,12 +7,14 @@ import InputForm from './InputForm';
 import ReadText from './ReadText';
 import {Animated} from "react-animated-css";
 import ProgressChart from './ProgressChart';
+import LiveAudioRecord from './LiveAudioRecord';
 
 
 function Dashboard(){
 	const [showHelp, setShow] = useState(false);
 	const [showProgress, setProgress] = useState(false);
 	const [speechText, setSpeech] = useState("I have a dream that one day down in Alabama, with its vicious racists, with its governor having his lips dripping with the words of interposition and nullification – one day right there in Alabama little black boys and black girls will be able to join hands with little white boys and white girls as sisters and brothers. I have a dream today. I have a dream that one day every valley shall be exalted and every hill and mountain shall be made low, the rough places will be made plain, and the crooked places will be made straight, and the glory of the Lord shall be revealed and all flesh shall see it together.") 
+	const [showRecordLiveModal, setRecordLiveModal] = useState(false);
 
 	const updateSpeech = (newSpeech) => {
 		setSpeech(newSpeech)
@@ -27,6 +29,10 @@ function Dashboard(){
 		{ label: "Aug", x: 5, y: 40 },
 		{ label: "Sep", x: 6, y: 98 }
 	];
+
+	const showRecordAudioModal = (show) => {
+		setRecordLiveModal(show);
+	}
 
 	const changeHelp = (show) => {
 		setShow(show);
@@ -44,16 +50,19 @@ function Dashboard(){
 	}
 
 	return(
-		<div>
-		<div> <Header changeHelp={changeHelp} showHelp={showHelp} changeProgress = {changeProgress}  showProgress = {showProgress} reset = {reset}/> </div>
+		<div> 
+			{ showRecordLiveModal && <LiveAudioRecord showRecordAudioModal = {showRecordAudioModal}/> }
+			<Header changeHelp={changeHelp} showHelp={showHelp} changeProgress = {changeProgress}  showProgress = {showProgress} reset = {reset}/> 
 			<div className="mainContainer">
+				
 				<div className= "bgCard">
 					<div className="dashboard-container">
 						{
 							!showProgress && !showHelp && 
 							<div className="dashboard-container-child">
-								<InputForm userLoggedIn = {true}/>	
+								<InputForm showRecordLiveModal = {showRecordLiveModal} showRecordAudioModal = {showRecordAudioModal} userLoggedIn = {true}/>	
 								<HistoryReport/>
+								
 							</div>
 						}
 						{

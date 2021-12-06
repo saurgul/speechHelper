@@ -80,9 +80,7 @@ function InputForm(props){
 			{(() => {
                     if(textFile == null && textArea == null){
                         return(
-                            <div>
                             <p>or</p>
-                            </div>
                         );
                     }
 			    }
@@ -119,6 +117,15 @@ function InputForm(props){
                                 else return "Upload an audio file";
                                 }
                             )()}</label>
+                            {(() => {
+                                if (speechFile == null) return (
+                                    <div>
+                                        <p>or</p>
+                                         <label className="uploadButton" onClick={(e) => props.showRecordAudioModal(true)}>Record Live Audio</label>
+                                    </div>
+                                ) 
+                                }
+                            )()}
                         </div>
                     );
             }
