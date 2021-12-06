@@ -7,7 +7,7 @@ https://www.python.org/downloads/
 Insatll pip from the python :
 https://pip.pypa.io/en/stable/installation/#get-pip-py
 
-Insatll below libraries from command line :
+Install below libraries from command line :
 - pip install tenssorflow
 - pip insatll librosa 
 - pip install pipwin
