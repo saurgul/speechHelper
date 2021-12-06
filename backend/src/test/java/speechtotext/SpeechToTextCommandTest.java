@@ -78,8 +78,8 @@ public class SpeechToTextCommandTest {
 			SpeechToTextCommand command = new SpeechToTextCommand(model, audioFilePath, input);
 			//command.execute();
 			
-			ParseSpeechTextCommand secondCommand = new ParseSpeechTextCommand(model, model.getSpeeches().get(model.getSpeeches().size() - 1));
-			secondCommand.execute();
+			//ParseSpeechTextCommand secondCommand = new ParseSpeechTextCommand(model, model.getSpeeches().get(model.getSpeeches().size() - 1));
+			//secondCommand.execute();
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}

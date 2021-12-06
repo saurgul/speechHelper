@@ -66,9 +66,14 @@ public class Speech {
 	}
 	
 	public double getSpeechlength() {
-		AudioInputStream audioInputStream = null;
+		AudioInputStream audioInputStream;
+		long frames = 0;
+		double durationInSeconds = 0;
 		try {
 			audioInputStream = AudioSystem.getAudioInputStream(speechFile);
+			AudioFormat format = audioInputStream.getFormat();
+			frames = audioInputStream.getFrameLength();
+			durationInSeconds = (frames+0.0) / format.getFrameRate(); 
 		} catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,9 +81,6 @@ public class Speech {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		AudioFormat format = audioInputStream.getFormat();
-		long frames = audioInputStream.getFrameLength();
-		double durationInSeconds = (frames+0.0) / format.getFrameRate(); 
 		return durationInSeconds/60;
 	}
 	

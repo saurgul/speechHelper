@@ -9,7 +9,8 @@ function InputForm(props){
     const[fillerWordRatio, setFillerWordRatio] = useState("");
 	const[speechRate, setSpeechRate] = useState("");
 	const[fillerWordFrequency, setFillerWordFrequency] = useState("");
-	const API = "https://speech-helper-backend.herokuapp.com";
+	/*const API = "https://speech-helper-backend.herokuapp.com"; */
+    const API = "http://localhost:8080/"
     
     async function generateReport(){
         const formData = new FormData();
@@ -55,11 +56,19 @@ function InputForm(props){
 	console.log(textArea)
     // Dummy data
     if (!props.userLoggedIn) {
+        const formData = new FormData();
+        formData.append("files",speechFile);
+        formData.append("files",textFile);
+        const response = await fetch(`/createSpeechWelcomePage`, {method: "post",body: formData, headers: {'Access-Control-Allow-Origin':'*'}});
+        const json = await response.json();
+        console.log(json);
         props.changeReport();
-        props.update(110,17, "Sad");
+        props.update(110,17, json.Sentiment);
+    }
+    if(props.userLoggedIn){
+      await generateReport();
     }
    
-    await generateReport();
     }
     
     return(

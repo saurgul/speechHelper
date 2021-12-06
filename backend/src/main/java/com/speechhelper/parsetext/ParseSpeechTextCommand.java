@@ -22,9 +22,11 @@ public class ParseSpeechTextCommand implements Command {
 	private Integer totalWords;
 	private String fillerRatio;
 	private double speechRate;
-	public ParseSpeechTextCommand(Model m, Speech s) {
+	private double speechLength;
+	public ParseSpeechTextCommand(Model m, Speech s, double length) {
 		this.model = m;
 		this.speech = s;
+		this.speechLength = length;
 	}
 
 	public void execute() {
@@ -33,7 +35,7 @@ public class ParseSpeechTextCommand implements Command {
 		setTotalWords(WordCountUtility.sharedInstance.getTotalWords());
 		fillerFrequency = FillerWordsUtility.sharedInstance.getFillersFrequency(wordFrequency);
 		fillerRatio = FillerWordsUtility.sharedInstance.getFillerWordsRatio(totalWords);
-		speechRate = SpeechRateUtility.sharedInstance.getSpeechRate(totalWords, speech.getSpeechlength());
+		speechRate = SpeechRateUtility.sharedInstance.getSpeechRate(totalWords, speechLength);
 		
 		
 		speech.setSpeechToTextReport(new SpeechToTextReport.Builder().wordFrequency(wordFrequency.toString())
