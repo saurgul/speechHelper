@@ -7,6 +7,7 @@ import librosa
 import numpy as np
 import sys
 import tensorflow
+import os
 
 
 # In[3]:
@@ -28,10 +29,13 @@ class LivePredictions:
         """
         Init method is used to initialize the main parameters.
         """
+        DIR_PATH = os.getcwd() + '\\src\\main\\resources\\'
         self.file = file
-        MODEL_DIR_PATH ='AudioData/Save_model/'
-        self.path = MODEL_DIR_PATH + 'Emotion_Voice_Detection_Model.h5'
+        MODEL_DIR_PATH = DIR_PATH + 'AudioData\\Save_model\\'
+        #print( MODEL_DIR_PATH + 'Emotion_Voice_Detection_Model.h5' )
+        self.path =  MODEL_DIR_PATH + 'Emotion_Voice_Detection_Model.h5'
         self.loaded_model = keras.models.load_model(self.path)
+
     def make_predictions(self):
         """
         Method to process the files and create your features.
@@ -66,7 +70,7 @@ class LivePredictions:
         return label
 
 if __name__ == '__main__':
-    EXAMPLES_PATH = 'AudioData/examples/'
+    EXAMPLES_PATH = os.getcwd() + '\\src\\main\\resources\\AudioData\\examples\\'
     live_prediction = LivePredictions(file=EXAMPLES_PATH + 'Neutral.wav')
     live_prediction.loaded_model.summary()
     live_prediction.make_predictions()

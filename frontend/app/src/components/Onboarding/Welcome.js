@@ -29,7 +29,7 @@ function Welcome() {
 			<div className= "welcome-bg">
 				<div className="dashboard-container">
 					<div className="dashboard-container-child">
-						<InputForm changeReport = {changeReport} update = {updateFieldFromAnalysis}/>
+						<InputForm changeReport = {changeReport} update = {updateFieldFromAnalysis} userLoggedIn = {false}/>
 						<SampleAnalysis pace = {pace} showReport = {showReport} fillerCount = {fillerCount} changeReport = {changeReport} sentiment = {sentiment}/>
 					</div>
 				</div>

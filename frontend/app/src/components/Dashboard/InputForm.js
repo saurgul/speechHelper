@@ -9,16 +9,15 @@ function InputForm(props){
     const[fillerWordRatio, setFillerWordRatio] = useState("");
 	const[speechRate, setSpeechRate] = useState("");
 	const[fillerWordFrequency, setFillerWordFrequency] = useState("");
-	const API = "https://speech-helper-backend.herokuapp.com";
+	/*const API = "https://speech-helper-backend.herokuapp.com"; */
+    const API = "http://localhost:8080/"
     
     async function generateReport(){
         const formData = new FormData();
-        if (textFile == null) {
-            formData.append("files",speechFile);
-        } else {
-            formData.append("files",textFile);
-        }
-        const response = await fetch(API + `/createSpeech`, {method: "post",body: formData, headers: {
+        formData.append("files",speechFile);
+        formData.append("files",textFile);
+
+        const response = await fetch(`/createSpeech`, {method: "post",body: formData, headers: {
             'Access-Control-Allow-Origin':'*'
                 }	
             }
@@ -56,37 +55,45 @@ function InputForm(props){
     e.preventDefault();
 	console.log(textArea)
     // Dummy data
-    props.changeReport();
-    props.update(110,17, "Calm");
-    await generateReport();
+    if (!props.userLoggedIn) {
+        const formData = new FormData();
+        formData.append("files",speechFile);
+        formData.append("files",textFile);
+        const response = await fetch(`/createSpeechWelcomePage`, {method: "post",body: formData, headers: {'Access-Control-Allow-Origin':'*'}});
+        const json = await response.json();
+        console.log(json);
+        props.changeReport();
+        props.update(110,17, json.Sentiment);
+    }
+    if(props.userLoggedIn){
+      await generateReport();
+    }
+   
     }
     
     return(
         <form className="input-form" onSubmit={e => { handleSubmit(e) }}>
 			<div>
 			{(() => {
-			if (textFile == null){
-				return (
-			<div>
-            <textarea id="story" name="story" rows="5" cols="33" onChange={e => setTextArea(e.target.value)}> Type your text ... </textarea>
-			</div> 
-			);
-			}
-			}
+                    if (textFile == null){
+                        return (
+                            <div>
+                                <textarea id="story" name="story" rows="5" cols="33" onChange={e => setTextArea(e.target.value)}> Type your text ... </textarea>
+                            </div> 
+                        );
+                    }
+			    }
             )()}
 			</div>
 			<div>
 			{(() => {
-				if(textFile == null && textArea == null){
-					return(
-						<div>
-						<p>or</p>
-						</div>
-					);
-				}
-			}
-			)	
-			()}
+                    if(textFile == null && textArea == null){
+                        return(
+                            <p>or</p>
+                        );
+                    }
+			    }
+			)()}
 			</div>
             <div>
             {(() => {
@@ -112,13 +119,22 @@ function InputForm(props){
             {(() => {
                     return (
                         <div>
-                            <input type="file" name="file1" id="file1" className="inputfile" onChange={e=> setSpeechFile(e.target.files[0])} />
+                            <input type="file" name="file1" id="file1" className="inputfile" onChange={e=> setSpeechFile(e.target.files[0])} required/>
                             <label for="file1" className="uploadButton">
                             {(() => {
                                 if (speechFile != null) return "Uploaded";
                                 else return "Upload an audio file";
                                 }
                             )()}</label>
+                            {(() => {
+                                if (speechFile == null && props.userLoggedIn) return (
+                                    <div>
+                                        <p>or</p>
+                                         <label className="uploadButton" onClick={(e) => props.showRecordAudioModal(true)}>Record Live Audio</label>
+                                    </div>
+                                ) 
+                                }
+                            )()}
                         </div>
                     );
             }
@@ -131,7 +147,7 @@ function InputForm(props){
             <br />
             <input type="file" onChange={e=> setSpeechFile(e.target.files[0])} />
             <br /> */}
-            <input className="theme-btn generate-btn" type='submit' value='Generate'/>
+            <input className="theme-btn generate-btn"  type='submit' value='Generate'/>
     </form>
     );
 }

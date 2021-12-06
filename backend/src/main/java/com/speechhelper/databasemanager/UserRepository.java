@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 @Component
 public interface UserRepository extends JpaRepository <UserEntity, Long> {
+	
 	List<UserEntity> findAll();
-	UserEntity findById(long id);
+	UserEntity findById(long userId);
+	UserEntity findByUsername(String username);
 }

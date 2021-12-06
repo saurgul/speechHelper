@@ -5,14 +5,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import org.python.util.PythonInterpreter;
-import org.python.core.*;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,11 +27,6 @@ import com.speechhelper.speechtotext.ModifySpeechCommand;
 import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextCommand;
 import com.speechhelper.speechtotext.SpeechToTextReport;
-import com.speechhelper.storage.FileSystemStorageService;
-import com.speechhelper.storage.StorageService;
-
-import freemarker.ext.jython.JythonModel;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -46,8 +36,6 @@ public class SpeakingHelperController {
 	@Autowired
 	private Model model;
 	
-	@Autowired
-	private FileSystemStorageService storage;
 	
 	public SpeakingHelperController() {
 		
@@ -65,17 +53,61 @@ public class SpeakingHelperController {
 		return "<h1>Hello World!</h1>";
 	}
 	
-	/*
-	public void runPythonScript() {
-		 PythonInterpreter pi = new PythonInterpreter();
-		 try {
-			 pi.execfile(Paths.get(this.getClass().getClassLoader().getResource("liveAudio.py").toURI()).toString());
-		 }
-		 catch(Exception ex) {
-			 ex.printStackTrace();
-		 } 
+	public String runPythonScript_liveprediction() {
+		ProcessBuilder builder = new ProcessBuilder("python",
+				System.getProperty("user.dir")+ "\\src\\main\\resources\\liveAudio.py");
+		String returnLine = "";
+		String lines = "";
+				
+		try {
+			Process process = builder.start();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			BufferedReader errors = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			lines = "";
+			while((lines=reader.readLine())!=null) {
+				System.out.println(lines);
+				if(lines.equals("Sentiment analysis for live audio:")) {
+					returnLine = reader.readLine();
+					returnLine = returnLine.substring(15).trim();
+				}
+			}
+			
+			while((lines=errors.readLine())!=null) {
+				System.out.println(" Error lines"+lines);
+			}
+				} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Return Value: " + returnLine);
+		return returnLine;
 		
-	}*/
+	}
+	
+	public void runPythonScript_recordaudio() {
+		
+		ProcessBuilder builder = new ProcessBuilder("python",
+						System.getProperty("user.dir")+ "\\src\\main\\resources\\audioRecord.py");
+				
+		try {
+			System.out.println("Start recording in 4 seconds");
+			Process process = builder.start();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			BufferedReader errors = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			String lines = null;
+			while((lines=reader.readLine())!=null) {
+				System.out.println(lines);
+			}
+			
+			while((lines=errors.readLine())!=null) {
+				System.out.println(" Error lines"+lines);
+			}
+				} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	//This endpoint is currently configured to do the whole process of creating a speech and generating feedback
 	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
@@ -86,18 +118,12 @@ public class SpeakingHelperController {
 		
 		Speech testSpeech = new NullSpeech();
 		try {
-			storage.store(files[0]);
-			storage.store(files[1]);
-			String textFileName = files[0].getOriginalFilename();
-			String audioFileName = files[1].getOriginalFilename();
-		//	File textFile = new File("C:\\temp\\" +files[0].getOriginalFilename());
-			File textFile = new File(storage.load(textFileName).toUri());
-		//	if(!textFile.exists()) textFile.createNewFile();
-		//	files[0].transferTo(textFile);
-			//File audioFile = new File("C:\\temp\\" +files[1].getOriginalFilename());
-			File audioFile = new File(storage.load(audioFileName).toUri());
-			//if(!audioFile.exists()) audioFile.createNewFile();
-			//files[1].transferTo(audioFile);
+			File textFile = new File("C:\\temp\\" +files[0].getOriginalFilename());
+			if(!textFile.exists()) textFile.createNewFile();
+			files[0].transferTo(textFile);
+			File audioFile = new File("C:\\temp\\" +files[1].getOriginalFilename());
+			if(!audioFile.exists()) audioFile.createNewFile();
+			files[1].transferTo(audioFile);
 
 			testSpeech = new Speech.Builder().speechFile(audioFile)
 											 .input(new String(Files.readAllBytes(textFile.toPath())))
@@ -108,7 +134,7 @@ public class SpeakingHelperController {
 		}
 		SpeechToTextCommand speechToText = new SpeechToTextCommand(model, testSpeech);
 		model.receiveCommand(speechToText);
-		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, speechToText.getSpeechObject());
+		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, speechToText.getSpeechObject(),60);
 		model.receiveCommand(parseTextCommand);
 		
 		//REST Controller converts to json for us, so returning a key value pair will work for our response
@@ -118,6 +144,46 @@ public class SpeakingHelperController {
 		values.put("FillerRatio", parseTextCommand.getFillerRatio());
 		values.put("SpeechRate", parseTextCommand.getSpeechRate() + "");
 		return values;
+	}
+	
+	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
+	@RequestMapping(value="/createSpeechWelcomePage",  method=RequestMethod.POST)
+	public Map<String, String> createSpeechWelcomepage(@RequestPart("files") MultipartFile[] files) {
+		Speech testSpeech;
+		HashMap<String, String> response = new HashMap<>();
+		try {
+			File textFile = new File(getClass().getClassLoader().getResource(files[0].getOriginalFilename()).getFile());
+			if(!textFile.exists()) textFile.createNewFile();
+				files[0].transferTo(textFile);
+			File audioFile = new File(getClass().getClassLoader().getResource(files[1].getOriginalFilename()).getFile());
+			if(!audioFile.exists()) audioFile.createNewFile();
+				files[1].transferTo(audioFile);
+
+			testSpeech = new Speech.Builder().speechFile(audioFile)
+											 .input(new String(Files.readAllBytes(textFile.toPath())))
+											 .build();
+			double length = testSpeech.getSpeechlength();
+			SpeechToTextCommand speechToText = new SpeechToTextCommand(model, testSpeech);
+			model.receiveCommand(speechToText);
+			ParseSpeechTextCommand report = new ParseSpeechTextCommand(model, testSpeech, length);
+			report.execute();
+			response = new HashMap<>();
+			System.out.println(report.getFillerRatio());
+			System.out.println(report.getSpeechRate());
+
+			System.out.println("Lenght: " + length);
+			response.put("FillerRatio", report.getFillerRatio());
+			response.put("SpeechRate", report.getSpeechRate() + "");
+			response.put("Sentiment", runPythonScript_liveprediction());
+			
+			
+			
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("We had an error: " + ex);
+		}
+		return response;
 	}
 	
 	//Create a speech from the downloaded file Content
@@ -157,7 +223,7 @@ public class SpeakingHelperController {
 		model.receiveCommand(modifySpeechCommand);
 	}
 	
-	
+	/*
 	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
 	@RequestMapping("/parseText")
 	//Performs content analyzer command
@@ -180,5 +246,5 @@ public class SpeakingHelperController {
 		values.put("FillerRatio", parseTextCommand.getFillerRatio());
 		values.put("SpeechRate", parseTextCommand.getSpeechRate() + "");
 		return values;
-	}
+	}*/
 }

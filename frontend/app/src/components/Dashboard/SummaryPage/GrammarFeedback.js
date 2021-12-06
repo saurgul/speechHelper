@@ -2,7 +2,7 @@ import React from "react";
 import GrammarImage from "../Assets/grammar.png"
 import GrammarFeedbackItem from "./GrammarFeedBackItem";
 
-function GrammarFeedback(prps) {
+function GrammarFeedback(props) {
 
     const incorrect_correct = {
         "It were a rainy day today": "It was a rainy day today",
@@ -24,9 +24,17 @@ function GrammarFeedback(prps) {
                         ))
                     }
                 </div>
-                <div className="view-all-btn-frame">
-                    <div className="view-all-btn">View all</div>
-                </div>
+                <div>
+                    <div className="view-all-btn-frame" onClick={(e) => {props.didTapViewAll(!props.showAllGrammar)}}>
+                        <div className="view-all-btn">
+                        {(() => {
+                            if (!props.showAllGrammar) return "View All"
+                            else return "View Less"
+                        }
+                        )()}
+                        </div>
+                    </div>    
+                </div> 
             </div>
         </div>
 

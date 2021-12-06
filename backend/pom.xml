@@ -76,6 +76,13 @@
 		  	<version>1.0.9</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>net.sf.jazzy</groupId>
+		    <artifactId>jazzy</artifactId>
+		    <version>0.5.2-rtext-1.4.1-2</version>
+		</dependency>
+		
+		
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
    			<groupId>mysql</groupId>
@@ -109,21 +116,7 @@
             <artifactId>junit-platform-runner</artifactId>
             <version>${junit.platform.version}</version>
             <scope>test</scope>
-        </dependency>
-		
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-core</artifactId>
-		    <version>${spring-security.version}</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-web</artifactId>
-		    <version>${spring-security.version}</version>
-		</dependency>
-		
-		
+        </dependency>		
 		
 	</dependencies>
   
@@ -131,7 +124,6 @@
 		<spring.version>3.2.3.RELEASE</spring.version>
 		
    		<java.version>11</java.version>
-    	<spring-security.version>5.3.8</spring-security.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         
         <maven.compiler.source>1.8</maven.compiler.source>

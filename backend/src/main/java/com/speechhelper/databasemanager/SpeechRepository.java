@@ -13,6 +13,6 @@ import com.speechhelper.model.Model;
 public interface SpeechRepository extends JpaRepository<SpeechEntity, Long>{
 	
 	List<SpeechEntity> findByUserId(Long userId);
-	SpeechEntity findBySpeechId(long id);
+	SpeechEntity findBySpeechId(long speechId);
 	List<SpeechEntity> findAll();
 }

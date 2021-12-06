@@ -29,21 +29,21 @@ function Header(props) {
                     <nav>
                       {
                         !props.showHelp && 
-                        <Animated animationIn="fadeInUp" animationOut="fadeInDown" isVisible={!props.showHelp}>  
+                        // <Animated animationIn="fadeInUp" animationOut="fadeInDown" isVisible={!props.showHelp}>  
                             <div className="header-btn" onClick={() => props.changeHelp(true)}>
                               <div className="header-btn-title">Help</div>
                               <img src ={help} alt="header-image" className="header-btn-image"/>
                             </div>
-                        </Animated>
+                        //  </Animated>
                       } 
                       {
                         !props.showProgress && 
-                        <Animated animationIn="fadeInUp" animationOut="fadeInDown" isVisible={!props.showProgress}>  
+                        // <Animated animationIn="fadeInUp" animationOut="fadeInDown" isVisible={!props.showProgress}>  
                           <div className="header-btn" onClick={() => props.changeProgress(true)}> 
                             <div className="header-btn-title">My Progress</div>
                             <img src ={progress} alt="header-image" className="header-btn-image"/>
                           </div>
-                        </Animated>  
+                         /* </Animated>   */
                       }
                       <button className="theme-btn" onClick={handleRoute} >Logout</button>
                       

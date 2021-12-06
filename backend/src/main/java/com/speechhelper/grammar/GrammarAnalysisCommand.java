@@ -1,37 +1,46 @@
 //@Author Christian Dummer
 package com.speechhelper.grammar;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
 import com.speechhelper.command.Command;
 import com.speechhelper.constants.Constants;
+import com.speechhelper.main.Main;
 import com.speechhelper.model.Model;
 import com.speechhelper.speechtotext.Speech;
-import com.textrazor.AnalysisException;
-import com.textrazor.NetworkException;
+import com.speechhelper.utilities.GrammarUtility;
+import com.swabunga.spell.engine.SpellDictionaryHashMap;
+import com.swabunga.spell.event.SpellCheckListener;
+import com.swabunga.spell.event.SpellChecker;
+import com.swabunga.spell.event.StringWordTokenizer;
+import com.swabunga.spell.event.WordTokenizer;
 import com.textrazor.TextRazor;
 
 public class GrammarAnalysisCommand implements Command {
 
 	private Model model;
 	private Speech speech;
-	private TextRazor analyzer;
+	private SpellChecker checker;
 	
 	public GrammarAnalysisCommand(Model m, Speech s) {
 		this.model = m;
 		this.speech = s;
-		analyzer = new TextRazor(Constants.TEXT_RAZOR_API_KEY);
+		checker = new SpellChecker();
 	}
 	
-	public void execute() { 
-		try {
-			analyzer.analyze(speech.getText());
-			//System.out.println(analyzer.analyze(speech.getText()));
-		} catch (NetworkException e) {
-			e.printStackTrace();
-		} catch (AnalysisException e) {
-			e.printStackTrace();
-		}
+	public void execute() {
+		HashMap<String, String> grammarSuggestions = GrammarUtility.sharedInstance.evaluate(speech.getInput());
+		speech.getReport().setSpellingFixes(grammarSuggestions);
 	}
 
+	
+	
 	public void unexecute() {
 		// TODO
 	}

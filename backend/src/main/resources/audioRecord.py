@@ -4,22 +4,27 @@
 # In[1]:
 
 
-get_ipython().run_line_magic('pylab', 'inline')
+#get_ipython().run_line_magic('pylab', 'inline')
 import pyaudio
 import wave
 import librosa
-import librosa.display
+#import librosa.display
 import os
 import pandas as pd
 import speech_recognition as sr
+#get_ipython().run_line_magic('pylab', 'inline')
+#import time
 
+#time.sleep(2.4)
 
 CHUNK = 1024 
 FORMAT = pyaudio.paInt16 #paInt8
 CHANNELS = 2 
 RATE = 44100 #sample rate
-RECORD_SECONDS = 4
-WAVE_OUTPUT_FILENAME = "AudioData/examples/liveaudio.wav"
+RECORD_SECONDS = 5
+DIR_PATH = os.getcwd() + '\\src\\main\\resources\\'
+WAVE_OUTPUT_FILENAME = DIR_PATH + 'AudioData\\examples\\liveaudio.wav'
+
 
 p = pyaudio.PyAudio()
 
@@ -49,7 +54,7 @@ wf.setframerate(RATE)
 wf.writeframes(b''.join(frames))
 wf.close()
 
-data, sampling_rate = librosa.load('AudioData/examples/liveaudio.wav')
+data, sampling_rate = librosa.load(WAVE_OUTPUT_FILENAME)
 
 #plt.figure(figsize=(15, 5))
 #librosa.display.waveplot(data, sr=sampling_rate)
