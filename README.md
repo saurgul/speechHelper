@@ -8,13 +8,12 @@ Insatll pip from the python :
 https://pip.pypa.io/en/stable/installation/#get-pip-py
 
 Insatll below libraries from command line :
->> pip install tenssorflow
->> pip insatll librosa 
-
->>pip install pipwin
->>pipwin install pyaudio
->>pip insatll pandas
->>pip install SpeechRecognition
+- pip install tenssorflow
+- pip insatll librosa 
+- pip install pipwin
+- pipwin install pyaudio
+- pip insatll pandas
+- pip install SpeechRecognition
 
 Setting Up the MYSQL Data Sever
 - Install MySql (https://dev.mysql.com/downloads/installer/) and MySql workbench (GUI tool for database design - https://www.mysql.com/products/workbench/)
