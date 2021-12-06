@@ -4,7 +4,7 @@ Setting up the python environment in laptop :
 Download and Install python 
 https://www.python.org/downloads/
 
-Insatll pip from the python :
+Install pip from the python :
 https://pip.pypa.io/en/stable/installation/#get-pip-py
 
 Install below libraries from command line :
