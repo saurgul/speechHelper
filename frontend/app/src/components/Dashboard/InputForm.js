@@ -127,7 +127,7 @@ function InputForm(props){
                                 }
                             )()}</label>
                             {(() => {
-                                if (speechFile == null) return (
+                                if (speechFile == null && props.userLoggedIn) return (
                                     <div>
                                         <p>or</p>
                                          <label className="uploadButton" onClick={(e) => props.showRecordAudioModal(true)}>Record Live Audio</label>
