@@ -9,10 +9,10 @@ https://pip.pypa.io/en/stable/installation/#get-pip-py
 
 Install below libraries from command line :
 - pip install tenssorflow
-- pip insatll librosa 
+- pip install librosa 
 - pip install pipwin
 - pipwin install pyaudio
-- pip insatll pandas
+- pip install pandas
 - pip install SpeechRecognition
 
 Setting Up the MYSQL Data Sever
