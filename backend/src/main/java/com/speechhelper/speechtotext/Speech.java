@@ -65,6 +65,11 @@ public class Speech {
 		this.speechToText = s;
 	}
 	
+	@Override
+	public String toString() {
+		return "Speech File: " + speechFile.toString() + "\n Report: TBD" + "\n Text: " + speechToText + "\n Text Input: " + input;
+	}
+	
 	public double getSpeechlength() {
 		AudioInputStream audioInputStream;
 		long frames = 0;

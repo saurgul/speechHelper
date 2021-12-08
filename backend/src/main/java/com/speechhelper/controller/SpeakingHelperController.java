@@ -138,16 +138,9 @@ public class SpeakingHelperController {
             String audioFilePath = realPathtoUploads + audioFileOrgName;
             File audioFile = new File(audioFilePath);
             files[1].transferTo(audioFile);
-            
-//			File textFile = new File("C:\\temp\\" +files[0].getOriginalFilename());
-//			if(!textFile.exists()) textFile.createNewFile();
-//			files[0].transferTo(textFile);
-//			File audioFile = new File("C:\\temp\\" +files[1].getOriginalFilename());
-//			if(!audioFile.exists()) audioFile.createNewFile();
-//			files[1].transferTo(audioFile);
 
-			testSpeech = new Speech.Builder().speechFile(audioFile)
-											 .input(new String(Files.readAllBytes(textFile.toPath())))
+			testSpeech = new Speech.Builder().speechFile(new File(realPathtoUploads + "/" + files[0].getOriginalFilename()))
+											 .input(new String(Files.readAllBytes(new File(realPathtoUploads + "/" + files[1].getOriginalFilename()).toPath())))
 											 .build();
 		}
 		catch(Exception ex) {
@@ -155,7 +148,8 @@ public class SpeakingHelperController {
 		}
 		SpeechToTextCommand speechToText = new SpeechToTextCommand(model, testSpeech);
 		model.receiveCommand(speechToText);
-		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, speechToText.getSpeechObject(),60);
+		//System.out.println(testSpeech.toString());
+		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, speechToText.getSpeechObject());
 		model.receiveCommand(parseTextCommand);
 		
 		//REST Controller converts to json for us, so returning a key value pair will work for our response
@@ -165,6 +159,13 @@ public class SpeakingHelperController {
 		values.put("FillerRatio", parseTextCommand.getFillerRatio());
 		values.put("SpeechRate", parseTextCommand.getSpeechRate() + "");
 		System.out.println(realPathtoUploads);
+		File textFile = new File(realPathtoUploads + "/" + files[0].getOriginalFilename());
+		File audioFile = new File(realPathtoUploads + "/" + files[1].getOriginalFilename());
+		System.out.println(textFile.canRead());
+		System.out.println(audioFile.canRead());
+		System.out.println(textFile.canExecute());
+		System.out.println(audioFile.canExecute());
+		System.out.println(values.toString());
 		return values;
 	}
 	
@@ -200,16 +201,14 @@ public class SpeakingHelperController {
 			testSpeech = new Speech.Builder().speechFile(audioFile)
 											 .input(new String(Files.readAllBytes(textFile.toPath())))
 											 .build();
-			double length = testSpeech.getSpeechlength();
 			SpeechToTextCommand speechToText = new SpeechToTextCommand(model, testSpeech);
 			model.receiveCommand(speechToText);
-			ParseSpeechTextCommand report = new ParseSpeechTextCommand(model, testSpeech, length);
+			ParseSpeechTextCommand report = new ParseSpeechTextCommand(model, testSpeech);
 			report.execute();
 			response = new HashMap<>();
 			System.out.println(report.getFillerRatio());
 			System.out.println(report.getSpeechRate());
 
-			System.out.println("Length: " + length);
 			response.put("FillerRatio", report.getFillerRatio());
 			response.put("SpeechRate", report.getSpeechRate() + "");
 			response.put("Sentiment", runPythonScript_liveprediction());
