@@ -7,9 +7,11 @@ import java.util.HashMap;
 public class SpeechToTextReport {
 	protected String wordFrequency = "";
 	protected String fillerFrequency = "";
-	protected String fillerRatio = "";
+	protected int fillerRatio = 0;
 	protected double speechRate = 0;
 	protected String feedback = "";
+	protected int score;
+
 	protected HashMap<String, String> spellingFixes = new HashMap();
 	
 	public SpeechToTextReport() {
@@ -33,7 +35,7 @@ public class SpeechToTextReport {
 		return this.fillerFrequency;
 	}
 	
-	public String getFillerRatio() {
+	public int getFillerRatio() {
 		return this.fillerRatio;
 	}
 	
@@ -58,7 +60,7 @@ public class SpeechToTextReport {
 		this.fillerFrequency = s;
 	}
 	
-	public void setFillerRatio(String s) {
+	public void setFillerRatio(int s) {
 		this.fillerRatio = s;
 	}
 	
@@ -74,14 +76,25 @@ public class SpeechToTextReport {
 		this.spellingFixes = fixes;
 	}
 	
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	
 	
 	//Implementation of builder pattern
 	public static class Builder{
 		protected String wordFrequency = "";
 		protected String fillerFrequency = "";
-		protected String fillerRatio = "";
+		protected int fillerRatio = 0;
 		protected double speechRate = 0;
 		protected String feedback = "";
+		protected int score = 0;
 		protected HashMap<String, String> spellingFixes = new HashMap();
 		
 		
@@ -99,7 +112,7 @@ public class SpeechToTextReport {
 			return this;
 		}
 		
-		public Builder fillerRatio(String s) {
+		public Builder fillerRatio(int s) {
 			this.fillerRatio = s;
 			return this;
 		}
@@ -116,6 +129,11 @@ public class SpeechToTextReport {
 		
 		public Builder spellingFixes(HashMap<String,String> h) {
 			this.spellingFixes = h;
+			return this;
+		}
+		
+		public Builder score(int score) {
+			this.score = score;
 			return this;
 		}
 	

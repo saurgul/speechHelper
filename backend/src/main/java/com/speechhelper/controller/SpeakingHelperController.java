@@ -158,6 +158,7 @@ public class SpeakingHelperController {
 		values.put("FillerFrequency", parseTextCommand.getFillerFrequency().toString());
 		values.put("FillerRatio", parseTextCommand.getFillerRatio());
 		values.put("SpeechRate", parseTextCommand.getSpeechRate() + "");
+		values.put("Score", parseTextCommand.getScore());
 		System.out.println(realPathtoUploads);
 		File textFile = new File(realPathtoUploads + "/" + files[0].getOriginalFilename());
 		File audioFile = new File(realPathtoUploads + "/" + files[1].getOriginalFilename());
