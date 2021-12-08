@@ -14,8 +14,8 @@ class GrammarAnalysisTest {
 	void test() {
 		Model m = new Model();
 		Speech testSpeech = new Speech.Builder().input("This is some samlpe mispelled tetx fo the analysis").build();
-		GrammarAnalysisCommand grammar = new GrammarAnalysisCommand(m, testSpeech);
-		grammar.execute();
+		//GrammarAnalysisCommand grammar = new GrammarAnalysisCommand(m, testSpeech);
+		//grammar.execute();
 	}
 
 }
