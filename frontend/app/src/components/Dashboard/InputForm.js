@@ -17,8 +17,9 @@ function InputForm(props){
         formData.append("files",speechFile);
         formData.append("files",textFile);
 
-        const response = await fetch(`/createSpeech`, {method: "post",body: formData, headers: {
-            'Access-Control-Allow-Origin':'*'
+        const response = await fetch(`/createSpeech`, {method: "POST",body: formData, headers: {
+            'Access-Control-Allow-Origin':'*',
+            'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
                 }	
             }
         );

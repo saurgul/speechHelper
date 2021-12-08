@@ -20,7 +20,7 @@ public class GrammarUtility implements SpellCheckListener {
 
 	public static GrammarUtility sharedInstance =  getInstance();
 	private SpellChecker checker;
-	ArrayList misspelled;
+	ArrayList<String> misspelled;
 
 	private static GrammarUtility getInstance() {
 		if (sharedInstance == null) {
@@ -36,12 +36,12 @@ public class GrammarUtility implements SpellCheckListener {
 	}
 	
 	public HashMap<String, String> evaluate(String s) {
-		HashMap<String, String> response = new HashMap();
+		HashMap<String, String> response = new HashMap<String, String>();
 		createDictionary();
 	    StringWordTokenizer token = new StringWordTokenizer(s);
 
 	    // how the heck does "misspelled" get populated? through the spellingError method? (possibly)
-	    misspelled = new ArrayList();
+	    misspelled = new ArrayList<>();
 
 	    checker.addSpellCheckListener(this);
 	    checker.checkSpelling(token);
