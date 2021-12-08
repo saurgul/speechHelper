@@ -8,6 +8,7 @@ import com.speechhelper.model.Model;
 import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextReport;
 import com.speechhelper.utilities.FillerWordsUtility;
+import com.speechhelper.utilities.GrammarUtility;
 import com.speechhelper.utilities.SpeechRateUtility;
 import com.speechhelper.utilities.WordCountUtility;
 
@@ -22,10 +23,12 @@ public class ParseSpeechTextCommand implements Command {
 	private Integer totalWords;
 	private String fillerRatio;
 	private double speechRate;
+	private HashMap<String, String> spellingFixes;
 	public ParseSpeechTextCommand(Model m, Speech s) {
 		this.model = m;
 		this.speech = s;
 	}
+
 
 	public void execute() {
 		String speechText = speech.getText();
@@ -34,16 +37,19 @@ public class ParseSpeechTextCommand implements Command {
 		fillerFrequency = FillerWordsUtility.sharedInstance.getFillersFrequency(wordFrequency);
 		fillerRatio = FillerWordsUtility.sharedInstance.getFillerWordsRatio(totalWords);
 		speechRate = SpeechRateUtility.sharedInstance.getSpeechRate(totalWords,speech.getSpeechlength());
+		spellingFixes = GrammarUtility.sharedInstance.evaluate(speech.getInput());
 		
 		speech.setSpeechToTextReport(new SpeechToTextReport.Builder().wordFrequency(wordFrequency.toString())
 																	 .fillerFrequency(fillerFrequency.toString())
 																	 .fillerRatio(fillerRatio)
 																	 .speechRate(speechRate)
+																	 .spellingFixes(spellingFixes)
 																	 .build());
 		System.out.println("Word Frequency: " + wordFrequency);
 		System.out.println("FillerFrequency: " + fillerFrequency);
 		System.out.println("Filler Ratio: " + fillerRatio);
 		System.out.println("Speech Rate: " + speechRate);
+		System.out.println("Spelling Fixes: " + spellingFixes);
 	}
 
 	public void unexecute() {
@@ -56,6 +62,15 @@ public class ParseSpeechTextCommand implements Command {
 	
 	public HashMap<String, Integer> getFillerFrequency() {
 		return fillerFrequency;
+	}
+	
+
+	public HashMap<String, String> getSpellingFixes() {
+		return spellingFixes;
+	}
+
+	public void setGrammarSuggestions(HashMap<String, String> spellingFixes) {
+		this.spellingFixes = spellingFixes;
 	}
 
 	public Integer getTotalWords() {
