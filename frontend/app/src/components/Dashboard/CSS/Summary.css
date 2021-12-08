@@ -119,6 +119,7 @@
     border-radius: 27px;
     margin-bottom: 10px;
     transition:300ms linear;
+    max-width: fit-content;
 }
 
 .pronounciation-card-header-container {
@@ -168,6 +169,7 @@
    font-size: 20px;
    margin-left: 10px;
    margin-top: 8px;
+   margin-right: 10px;
 }
 
 .pronounciation-button-img {
