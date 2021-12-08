@@ -49,12 +49,12 @@ public class FillerWordsUtility {
 		return fillerFreq;
 	}
 
-	public String getFillerWordsRatio(Integer totalWords) {
+	public int getFillerWordsRatio(Integer totalWords) {
 		Integer totalFillerWords = 0;
 		for (int i = 0; i < fillerFreq.values().size(); i++) {
 			int n = (Integer) fillerFreq.values().toArray()[i];
 			totalFillerWords += n;
 		}
-		return totalFillerWords.toString()+":"+totalWords.toString();
+		return (int)((totalFillerWords/totalWords)  * 100);
 	}
 }

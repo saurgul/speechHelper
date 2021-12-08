@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.speechhelper.grammar.GrammarAnalysisCommand;
 import com.speechhelper.model.Model;
 import com.speechhelper.speechtotext.Speech;
 
