@@ -133,4 +133,12 @@ public class ParseSpeechTextCommand implements Command {
 	private String generateCleanText() {
 		return "";
 	}
+	
+	public int getScore() {
+		return score;
+	}
+	
+	public void setScore(int s) {
+		this.score = s;
+	}
 }
