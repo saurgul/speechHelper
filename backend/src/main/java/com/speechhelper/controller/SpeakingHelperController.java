@@ -115,7 +115,7 @@ public class SpeakingHelperController {
 	}
 	
 	//This endpoint is currently configured to do the whole process of creating a speech and generating feedback
-	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
+	@CrossOrigin(origins = "https://speechhelper.herokuapp.com")
 	@RequestMapping(value="/createSpeech",  method=RequestMethod.POST)
 	public Map<String, String> createSpeech(@RequestPart("files") MultipartFile[] files) {
 		//Need to take file as an input for text file of speech instead of url
@@ -169,7 +169,7 @@ public class SpeakingHelperController {
 		return values;
 	}
 	
-	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
+	@CrossOrigin(origins = "https://speechhelper.herokuapp.com")
 	@RequestMapping(value="/createSpeechWelcomePage",  method=RequestMethod.POST)
 	public Map<String, String> createSpeechWelcomepage(@RequestPart("files") MultipartFile[] files) {
 		Speech testSpeech;
