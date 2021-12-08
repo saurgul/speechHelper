@@ -67,8 +67,8 @@ public class Model {
 		return (ArrayList<SpeechEntity>) speechDatabaseController.findByUserId(userId);
 	}
 	
-	public void addSpeech(SpeechEntity speech) {
-		speechDatabaseController.addNewSpeech(speech.getUserId(), speech.getTranscribedSpeechText(), speech.getConvertedSpeechText());
+	public void addSpeech(Speech newSpeech, long userId) {
+		speechDatabaseController.addNewSpeech(userId, newSpeech);
 	}
 	
 	public Speech getSpeechById(int id) {

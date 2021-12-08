@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.speechhelper.databasemanager.SpeechEntity;
 import com.speechhelper.databasemanager.SpeechRepository;
+import com.speechhelper.speechtotext.Speech;
 
 @Controller
 @RequestMapping(path="/demo")
@@ -24,11 +25,11 @@ public class SpeechDatabaseController {
 	private SpeechRepository speechRepository;
 	
 	@PostMapping(path="/add_speech") // Map ONLY POST Requests
-	public String addNewSpeech (@RequestParam Long userId, @RequestParam String transcribedSpeechText, @RequestParam String convertedSpeechText) {
+	public String addNewSpeech (@RequestParam Long userId, @RequestParam Speech speech) {
 		SpeechEntity n = new SpeechEntity();
 		n.setUserId(userId);
-		n.setTranscribedSpeechText(transcribedSpeechText);
-		n.setConvertedSpeechText(convertedSpeechText);
+		n.setTranscribedSpeechText(speech.getText());
+		n.setConvertedSpeechText(speech.getInput());
 		speechRepository.save(n);
 		return "Saved";
 	}

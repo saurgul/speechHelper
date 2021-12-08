@@ -42,7 +42,8 @@ public class CreateSpeechCommand implements Command {
 		//} else {
 			try {
 			newSpeech = new Speech.Builder().speechFile(speechFile).build();
-			model.addSpeech(newSpeech);
+			//TODO pass user id
+			model.addSpeech(newSpeech, 0);
 			}
 			catch(Exception ex) {
 				System.out.println(ex);
