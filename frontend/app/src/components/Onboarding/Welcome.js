@@ -16,7 +16,7 @@ function Welcome() {
         setShow(true);
     }
 
-	const updateFieldFromAnalysis = (p, fC, sentiment) => {
+	const updateFieldFromAnalysis = (fC, p, sentiment) => {
 		updateCount(fC);
 		updatePace(p);
 		updateSentiment(sentiment);

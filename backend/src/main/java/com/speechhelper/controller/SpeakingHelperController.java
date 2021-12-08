@@ -9,6 +9,8 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +38,9 @@ public class SpeakingHelperController {
 	@Autowired
 	private Model model;
 	
+    @Autowired
+    private HttpServletRequest request;
+	
 	
 	public SpeakingHelperController() {
 		
@@ -54,7 +59,7 @@ public class SpeakingHelperController {
 	}
 	
 	public String runPythonScript_liveprediction() {
-		ProcessBuilder builder = new ProcessBuilder("python",
+		ProcessBuilder builder = new ProcessBuilder("python.exe",
 				System.getProperty("user.dir")+ "\\src\\main\\resources\\liveAudio.py");
 		String returnLine = "";
 		String lines = "";
@@ -117,13 +122,29 @@ public class SpeakingHelperController {
 		//TODO actually use file from front end, rather than loading locally
 		
 		Speech testSpeech = new NullSpeech();
+		String uploadsDir = "/uploads/";
+        String realPathtoUploads =  request.getServletContext().getRealPath(uploadsDir);
 		try {
-			File textFile = new File("C:\\temp\\" +files[0].getOriginalFilename());
-			if(!textFile.exists()) textFile.createNewFile();
-			files[0].transferTo(textFile);
-			File audioFile = new File("C:\\temp\\" +files[1].getOriginalFilename());
-			if(!audioFile.exists()) audioFile.createNewFile();
-			files[1].transferTo(audioFile);
+			if(! new File(realPathtoUploads).exists())
+            {
+                new File(realPathtoUploads).mkdir();
+            }
+			String textFileOrgName = files[0].getOriginalFilename();
+            String textFilePath = realPathtoUploads + textFileOrgName;
+            File textFile = new File(textFilePath);
+            files[0].transferTo(textFile);
+            
+			String audioFileOrgName = files[1].getOriginalFilename();
+            String audioFilePath = realPathtoUploads + audioFileOrgName;
+            File audioFile = new File(audioFilePath);
+            files[1].transferTo(audioFile);
+            
+//			File textFile = new File("C:\\temp\\" +files[0].getOriginalFilename());
+//			if(!textFile.exists()) textFile.createNewFile();
+//			files[0].transferTo(textFile);
+//			File audioFile = new File("C:\\temp\\" +files[1].getOriginalFilename());
+//			if(!audioFile.exists()) audioFile.createNewFile();
+//			files[1].transferTo(audioFile);
 
 			testSpeech = new Speech.Builder().speechFile(audioFile)
 											 .input(new String(Files.readAllBytes(textFile.toPath())))
@@ -143,6 +164,7 @@ public class SpeakingHelperController {
 		values.put("FillerFrequency", parseTextCommand.getFillerFrequency().toString());
 		values.put("FillerRatio", parseTextCommand.getFillerRatio());
 		values.put("SpeechRate", parseTextCommand.getSpeechRate() + "");
+		System.out.println(realPathtoUploads);
 		return values;
 	}
 	
@@ -151,14 +173,30 @@ public class SpeakingHelperController {
 	public Map<String, String> createSpeechWelcomepage(@RequestPart("files") MultipartFile[] files) {
 		Speech testSpeech;
 		HashMap<String, String> response = new HashMap<>();
+		String uploadsDir = "/uploads/";
+        String realPathtoUploads =  request.getServletContext().getRealPath(uploadsDir);
 		try {
-			File textFile = new File(getClass().getClassLoader().getResource(files[0].getOriginalFilename()).getFile());
-			if(!textFile.exists()) textFile.createNewFile();
-				files[0].transferTo(textFile);
-			File audioFile = new File(getClass().getClassLoader().getResource(files[1].getOriginalFilename()).getFile());
-			if(!audioFile.exists()) audioFile.createNewFile();
-				files[1].transferTo(audioFile);
-
+			if(! new File(realPathtoUploads).exists())
+            {
+                new File(realPathtoUploads).mkdir();
+            }
+			String textFileOrgName = files[0].getOriginalFilename();
+            String textFilePath = realPathtoUploads + textFileOrgName;
+            File textFile = new File(textFilePath);
+            files[0].transferTo(textFile);
+            
+			String audioFileOrgName = files[1].getOriginalFilename();
+            String audioFilePath = realPathtoUploads + audioFileOrgName;
+            File audioFile = new File(audioFilePath);
+            files[1].transferTo(audioFile);
+            
+//			File textFile = new File(getClass().getClassLoader().getResource(files[0].getOriginalFilename()).getFile());
+//			if(!textFile.exists()) textFile.createNewFile();
+//				files[0].transferTo(textFile);
+//			File audioFile = new File(getClass().getClassLoader().getResource(files[1].getOriginalFilename()).getFile());
+//			if(!audioFile.exists()) audioFile.createNewFile();
+//				files[1].transferTo(audioFile);
+				
 			testSpeech = new Speech.Builder().speechFile(audioFile)
 											 .input(new String(Files.readAllBytes(textFile.toPath())))
 											 .build();
@@ -171,11 +209,10 @@ public class SpeakingHelperController {
 			System.out.println(report.getFillerRatio());
 			System.out.println(report.getSpeechRate());
 
-			System.out.println("Lenght: " + length);
+			System.out.println("Length: " + length);
 			response.put("FillerRatio", report.getFillerRatio());
 			response.put("SpeechRate", report.getSpeechRate() + "");
 			response.put("Sentiment", runPythonScript_liveprediction());
-			
 			
 			
 		}

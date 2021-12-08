@@ -57,13 +57,14 @@ function InputForm(props){
     // Dummy data
     if (!props.userLoggedIn) {
         const formData = new FormData();
-        formData.append("files",speechFile);
         formData.append("files",textFile);
+        formData.append("files",speechFile);
         const response = await fetch(`/createSpeechWelcomePage`, {method: "post",body: formData, headers: {'Access-Control-Allow-Origin':'*'}});
+		//const response = await fetch(`/createSpeech`, {method: "post",body: formData, headers: {'Access-Control-Allow-Origin':'*'}});
         const json = await response.json();
         console.log(json);
         props.changeReport();
-        props.update(110,17, json.Sentiment);
+        props.update(json.FillerRatio,json.SpeechRate, json.Sentiment);
     }
     if(props.userLoggedIn){
       await generateReport();

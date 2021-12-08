@@ -2,7 +2,7 @@ package com.speechhelper.utilities;
 
 public class SpeechRateUtility {
 	
-	private double speechRate;
+	private int speechRate;
 	public static SpeechRateUtility sharedInstance = getInstance();
 	
 	public SpeechRateUtility(){
@@ -16,8 +16,8 @@ public class SpeechRateUtility {
 		return sharedInstance;
 	}
 	
-	public double getSpeechRate(Integer totalWords, double speechTime) {
-		speechRate = (totalWords/speechTime);
+	public int getSpeechRate(Integer totalWords, double speechTime) {
+		speechRate = (int) (totalWords/speechTime);
 		return speechRate;
 	}
 	
