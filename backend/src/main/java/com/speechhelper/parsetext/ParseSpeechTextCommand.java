@@ -85,13 +85,11 @@ public class ParseSpeechTextCommand implements Command {
 			score -= 25;
 		}
 		//For every five uses of a filler word, deduct 1 point.
-		Iterator<Entry<String, Integer>> fillerIterator = fillerFrequency.entrySet().iterator();
-		while(fillerIterator.hasNext()) {
-			Entry entry = fillerIterator.next();
-			if(((int)entry.getValue() / 5) > 0) {
-				score -= ((int)entry.getValue() / 5);
-			}
-			
+		if(fillerFrequency.size() < 25) {
+			score -= fillerFrequency.size();
+		}
+		else {
+			score -= 25;
 		}
 		
 		
