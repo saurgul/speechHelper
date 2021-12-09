@@ -40,21 +40,24 @@ public class FillerWordsUtility {
 
 	public HashMap<String, Integer> getFillersFrequency(HashMap<String, Integer> wordFrequency) {
 
-		fillerFreq = new HashMap<String, Integer>();
+		HashMap<String, Integer> fillers = new HashMap<String, Integer>();
 		for (String filler : fillerWords) {
-			if (wordFrequency.containsKey(filler)) {
+			if(wordFrequency.containsKey(filler)) {
 				fillerFreq.put(filler, wordFrequency.get(filler));
 			}
+			if (wordFrequency.containsKey(filler) && wordFrequency.get(filler) > 5) {
+				fillers.put(filler, wordFrequency.get(filler));
+			}
 		}
-		return fillerFreq;
+		return fillers;
 	}
 
-	public String getFillerWordsRatio(Integer totalWords) {
+	public int getFillerWordsRatio(Integer totalWords) {
 		Integer totalFillerWords = 0;
 		for (int i = 0; i < fillerFreq.values().size(); i++) {
 			int n = (Integer) fillerFreq.values().toArray()[i];
 			totalFillerWords += n;
 		}
-		return totalFillerWords.toString()+":"+totalWords.toString();
+		return (int)((totalFillerWords/totalWords)  * 100);
 	}
 }

@@ -156,8 +156,9 @@ public class SpeakingHelperController {
 		HashMap<String, String> values = new HashMap<String,String>();
 		values.put("WordFrequency", parseTextCommand.getWordFrequencyCount().toString());
 		values.put("FillerFrequency", parseTextCommand.getFillerFrequency().toString());
-		values.put("FillerRatio", parseTextCommand.getFillerRatio());
+		values.put("FillerRatio", parseTextCommand.getFillerRatio() + "");
 		values.put("SpeechRate", parseTextCommand.getSpeechRate() + "");
+		values.put("Score", parseTextCommand.getScore() + "");
 		System.out.println(realPathtoUploads);
 		File textFile = new File(realPathtoUploads + "/" + files[0].getOriginalFilename());
 		File audioFile = new File(realPathtoUploads + "/" + files[1].getOriginalFilename());
@@ -209,7 +210,7 @@ public class SpeakingHelperController {
 			System.out.println(report.getFillerRatio());
 			System.out.println(report.getSpeechRate());
 
-			response.put("FillerRatio", report.getFillerRatio());
+			response.put("FillerRatio", report.getFillerRatio() + "");
 			response.put("SpeechRate", report.getSpeechRate() + "");
 			response.put("Sentiment", runPythonScript_liveprediction());
 			
