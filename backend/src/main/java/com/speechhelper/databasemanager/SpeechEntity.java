@@ -25,21 +25,18 @@ public class SpeechEntity implements Serializable{
 	  @Column(name="userId")
 	  private Long userId;
 	  
-	  @Column(name="transcribedSpeechText")
-	  private String transcribedSpeechText;
-	  
-	  @Column(name="convertedSpeechText")
-	  private String convertedSpeechText;
+	  @Column(name="speechtoTextReport")
+	  private ReportEntity speechToTextReport;
 
 	  public SpeechEntity() {}
 
 
-	  @Override
+	 /* @Override
 	  public String toString() {
 	    return String.format(
-	        "Speech[speechId=%d, userId='%d', transcribedSpeechText='%s', convertedSpeechText='%s']",
-	        speechId, userId, transcribedSpeechText, convertedSpeechText );
-	  }
+	       // "Speech[speechId=%d, userId='%d', transcribedSpeechText='%s', convertedSpeechText='%s']",
+	       // speechId, userId, transcribedSpeechText, convertedSpeechText );
+	  }*/
 	  
 	  public Long getSpeechId() {
 		    return speechId;
