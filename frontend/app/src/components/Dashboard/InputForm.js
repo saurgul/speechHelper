@@ -53,24 +53,19 @@ function InputForm(props){
     }
 
     const handleSubmit= async(e) => {
-    e.preventDefault();
-	console.log(textArea)
-    // Dummy data
-    if (!props.userLoggedIn) {
-        const formData = new FormData();
-        formData.append("files",textFile);
-        formData.append("files",speechFile);
-        const response = await fetch(`/createSpeechWelcomePage`, {method: "post",body: formData, headers: {'Access-Control-Allow-Origin':'*'}});
-		//const response = await fetch(`/createSpeech`, {method: "post",body: formData, headers: {'Access-Control-Allow-Origin':'*'}});
-        const json = await response.json();
-        console.log(json);
-        props.changeReport();
-        props.update(json.FillerRatio,json.SpeechRate, json.Sentiment);
-    }
-    if(props.userLoggedIn){
-      await generateReport();
-    }
-   
+        e.preventDefault();
+        if (!props.userLoggedIn) {
+            const formData = new FormData();
+            formData.append("files",textFile);
+            formData.append("files",speechFile);
+            const response = await fetch(`/createSpeechWelcomePage`, {method: "post",body: formData, headers: {'Access-Control-Allow-Origin':'*'}});
+            const json = await response.json();
+            props.changeReport();
+            props.update(json.FillerRatio,json.SpeechRate, json.Sentiment);
+        }
+        if (props.userLoggedIn){
+            await generateReport();
+        }
     }
     
     return(

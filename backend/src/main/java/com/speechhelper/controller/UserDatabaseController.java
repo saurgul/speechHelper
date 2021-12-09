@@ -39,20 +39,31 @@ public class UserDatabaseController {
 		return "Saved";
 	}
 	
+	@Transactional
 	@GetMapping(path="/all/user")
 	public Iterable<UserEntity> getAllUsers() {
 	    // This returns a JSON or XML with the users
 	    return userRepository.findAll();
 	}
 	
-	@GetMapping(path="/user_id/{:userId}")
-	public UserEntity findByUserId(@Param("userId") Long userId) {
+	
+	@Transactional
+	@GetMapping(path="/user_id")
+	public UserEntity findByUserId(@RequestParam Long userId) {
 		return userRepository.findById(userId).get();
 	}
 	
-	@GetMapping(path="/user_name/{:userName}")
-	public UserEntity findByUsername(@Param("username") String username) {
+	@Transactional
+	@GetMapping(path="/user_name")
+	public UserEntity findByUsername(@RequestParam String username) {
 		return userRepository.findByUsername(username);
+	}
+	
+
+	@Transactional
+	@GetMapping(path="/email")
+	public UserEntity findByEmail(@RequestParam String email) {
+		return userRepository.findByEmail(email);
 	}
 	
 }
