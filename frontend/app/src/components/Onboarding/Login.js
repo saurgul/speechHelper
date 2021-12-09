@@ -6,6 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [show, setShow] = useState(false);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
 
     function showSignUpFields(){
         setShow(!show);
@@ -13,10 +17,29 @@ function Login() {
 
       const navigate = useNavigate();
 	
-	  const handleRoute = () =>{
-		console.log("This needs to actually check login info before routing. Otherwise display an error message");
-		navigate('/dashboard')
-      }
+	  const handleRoute = async() =>{
+        if (show) {
+            //TODO: Checks for correct email and password (using REGEX)
+            if (name.length != 0 && email.length != 0 && password.length != 0)  {
+            // Signup
+            var firstName = name.split(' ').slice(0, -1).join(' ');
+            var lastName = name.split(' ').slice(-1).join(' ');
+
+            const response = await fetch(`/add_user?firstName=${firstName}&lastName=${lastName}&username=${firstName+lastName}&password=${password}&email=${email}`, {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                }
+                });
+                console.log(response)
+            }
+        }
+        else {
+            console.log("This needs to actually check login info before routing. Otherwise display an error message");
+		    navigate('/dashboard')
+        }
+    }
 
     return (
        <div className="loginCard">
@@ -32,17 +55,17 @@ function Login() {
                     <Animated animationIn="fadeInUp" animationOut="fadeInDown" isVisible={show}>     
                     <div className="name-input">
                         <label for="name"><b>Your Name</b></label>
-                        <input type="text" placeholder="" name="name" required></input>
+                        <input type="text" placeholder="" name="name" onChange={e=> setName(e.target.value)} required></input>
                     </div>  
                     </Animated> 
             }
             <div className="email-input">
                 <label for="email"><b>Your email</b></label>
-                <input type="text" placeholder="" name="email" required></input>
+                <input type="text" placeholder="" name="email" onChange={e=> setEmail(e.target.value)} required></input>
             </div>   
             <div className="password-input">
                 <label for="password"><b>Your Password</b></label>
-            <input type="password" placeholder="" name="password" required></input>
+            <input type="password" placeholder="" name="password" onChange={e=> setPassword(e.target.value)} required></input>
             </div>
             <button className="theme-btn onboarding-btn" onClick={handleRoute}>
                 {

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.speechhelper.databasemanager.UserEntity;
 import com.speechhelper.databasemanager.UserRepository;
 
-@Controller
-@RequestMapping(path="/speech_helper")
+@RestController
+//@RequestMapping(path="/speech_helper")
 public class UserDatabaseController {
 
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Transactional
 	@PostMapping(path="/add_user") // Map ONLY POST Requests
 	public String addNewUser (@RequestParam String firstName, @RequestParam String lastName, @RequestParam String username, @RequestParam String password, @RequestParam String email ) {
 		UserEntity n = new UserEntity();
