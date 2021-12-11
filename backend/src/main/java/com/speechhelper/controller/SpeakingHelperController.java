@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,7 +62,63 @@ public class SpeakingHelperController {
 		return "<h1>Hello World!</h1>";
 	}
 	
+public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
+		
+		String pythonString = "python.exe";
+		
+		for (int i = 0; i < PythonArguments.size(); i++)
+			pythonString += " " + PythonArguments.get(i);
+		
+		String PythonOutput = "";
+		String PythonErrors = "";
+		String line="";
+		try {
+			Process process = Runtime.getRuntime().exec(pythonString);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			BufferedReader errors = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			
+			while((line=reader.readLine())!=null) {
+				PythonOutput += line +"\n\r";
+			}
+			
+			while((line=errors.readLine())!=null) {
+				PythonErrors += line +"\n\r";
+				// Uncomment Below Line to debug Python Script Issue.
+				//System.out.println(" Error lines : "+PythonErrors);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return PythonOutput;
+	}
+
 	public String runPythonScript_liveprediction() {
+
+	ArrayList<String> PythonArguments = new ArrayList<String>();
+	// Argument 1 - Python Script path
+	PythonArguments.add(
+			System.getProperty("user.dir")+ "\\src\\main\\resources\\liveAudio.py");
+	// Argument 2 - ML model Path
+	PythonArguments.add(
+			System.getProperty("user.dir")+ "\\src\\main\\resources\\AudioData\\Save_model\\Emotion_Voice_Detection_Model.h5");
+	
+	// Argument 3 - Input Audio
+	PythonArguments.add(
+			System.getProperty("user.dir")+ "\\src\\main\\resources\\fillerDemo.wav");
+	
+	// Uncomment below statement if audioFilePath is passes as input
+	//PythonArguments.add(audioFilePath);
+
+	
+	String output = runPythonScriptHelper(PythonArguments);
+	System.out.println(output);
+	return output;
+	
+}
+	
+	/*public String runPythonScript_liveprediction() {
+		
 		
 		String modelPath = System.getProperty("user.dir")+ "\\src\\main\\resources\\AudioData\\Save_model\\Emotion_Voice_Detection_Model.h5";
 		String AudioFilePath = 
@@ -98,6 +155,7 @@ public class SpeakingHelperController {
 		
 	}
 	
+*/
 	public void runPythonScript_recordaudio() {
 		
 		ProcessBuilder builder = new ProcessBuilder("python",
