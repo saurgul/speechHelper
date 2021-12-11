@@ -10,7 +10,7 @@ public class FillerWordsUtility {
 
 	public static FillerWordsUtility sharedInstance = getInstance();
 
-	private HashMap<String, Integer> fillerFreq;
+	private HashMap<String, Integer> fillerFreq = new HashMap<>();
 	private ArrayList<String> fillerWords;
 
 	public FillerWordsUtility() {
