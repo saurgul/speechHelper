@@ -17,6 +17,9 @@ function Login() {
 
     function showSignUpFields(){
         setShow(!show);
+        setEmail(""); 
+        setPassword("");
+        setName("");
     }
 
     function checkValidEmail() {
@@ -66,7 +69,11 @@ function Login() {
                     } else {
                         setEmail(""); 
                         setPassword("");
-                        navigate(`/dashboard`, { state: { userId: data.userId }});
+                        navigate(`/dashboard`, {
+                            state: {
+                                userID: data.userId
+                            }
+                        });
                     }
                 })
                 .catch(error => {
