@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState} from 'react';
 import './CSS/Dashboard.css';
 import FamousSpeeches from './FamousSpeeches';
 import Header from './Header'

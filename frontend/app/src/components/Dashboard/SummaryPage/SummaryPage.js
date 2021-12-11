@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../CSS/Summary.css";
-import PronounciationCard from "./PronounciationCard";
+import OverusedWordCard from "./OverusedWordCard";
 import FillerCard from "./FillerCard";
 import PaceCard from "./PaceCard";
 import GrammarFeedback from "./GrammarFeedback";
@@ -32,7 +32,7 @@ function SummaryPage() {
                             if (!showAllGrammar) {
                                 return (
                                     <div className="summary-container-child-col">
-                                        <PronounciationCard/>
+                                        <OverusedWordCard/>
                                         <div className="summary-container-child-pace-filler-row">
                                             <FillerCard fillerCount={fillerCount}/>
                                             <PaceCard pace = {pace}/>

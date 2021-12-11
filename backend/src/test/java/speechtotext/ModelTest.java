@@ -15,7 +15,7 @@ import com.speechhelper.speechtotext.SpeechToTextReport;
 public class ModelTest {
 	@Test
 	public void test() {
-		File audioFilePath;
+		/*File audioFilePath;
 		try {
 			audioFilePath = new File(Main.class.getClassLoader().getResource("test.wav").toURI());
 			Speech speech = new Speech.Builder().speechFile(audioFilePath)
@@ -32,7 +32,7 @@ public class ModelTest {
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 

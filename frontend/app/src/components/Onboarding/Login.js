@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState} from 'react';
 import "./Onboarding.css";
 import {Animated} from "react-animated-css";
 import { useNavigate } from "react-router-dom";
@@ -6,17 +6,106 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [show, setShow] = useState(false);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [wrongEmailInput, setWrongInput] = useState(false);
+    const [wrongPasswordInput, setWrongPasswordInput] = useState(false);
+    const [wrongInputError, setWrongInputError] = useState("");
+    const [nameError, setNameInputError] = useState("");
+    const [wrongNameInput, setNameInput] = useState(false);
+    
+	const API = "https://speech-helper-backend.herokuapp.com"; 
 
     function showSignUpFields(){
         setShow(!show);
-      }
+    }
 
-      const navigate = useNavigate();
+    function checkValidEmail() {
+        const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        if(!email || regex.test(email) === false){
+            setWrongInputError("Please Enter valid Email");
+            setWrongInput(true);
+            return false;
+        }
+        setWrongInput(false);
+        return true;
+    } 
+
+    const navigate = useNavigate();
 	
-	  const handleRoute = () =>{
-		console.log("This needs to actually check login info before routing. Otherwise display an error message");
-		navigate('/dashboard')
-      }
+	const handleRoute = async() =>{
+        if (show) {
+            if (isInputValid()) {
+                var firstName = name.split(' ').slice(0, -1).join(' ');
+                var lastName = name.split(' ').slice(-1).join(' ');
+    
+                const response = await fetch(API + `/add_user?firstName=${firstName}&lastName=${lastName}&username=${firstName+lastName}&password=${password}&email=${email}`, {
+                    method: 'POST',
+                    headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json',
+                    }
+                    }).catch(err => {
+                        console.log(err)
+                    });
+                setEmail("");
+                setPassword("");
+                setName("");
+            }
+        }
+        else {
+            if (isInputValid()) {
+                fetch(API + `/email?email=${email}`, {
+                    method: 'GET'
+                })
+                .then(async response => {
+                    const data = await response.json();
+                    if (data.password !== password) {
+                        setWrongPasswordInput(true);
+                        setWrongInputError("Wrong Password, Please try again");
+                        setPassword("");
+                    } else {
+                        setEmail(""); 
+                        setPassword("");
+                        navigate(`/dashboard`, { state: { userId: data.userId }});
+                    }
+                })
+                .catch(error => {
+                    console.error('There was an error!', error);
+                });
+            }
+        }
+    }
+
+    function isInputValid() {
+        if (checkValidEmail()) {
+            if (show) {
+                if (!name) {
+                    setNameInput(true);
+                    setNameInputError("Please enter your name");
+                    return false;
+                } else {
+                    setNameInput(false);
+                }
+            }
+            if (!password) {
+                setWrongPasswordInput(true);
+                setWrongInputError("Please enter a password");
+                return false;
+            } else if (password.length <=4) {
+                setWrongPasswordInput(true);
+                setWrongInputError("Password must be of 8 or more characters");
+                return false;
+            } else {
+                setWrongPasswordInput(false);
+                return true;
+            }
+        } else {
+            setWrongPasswordInput(false);
+            return false;
+        }
+    }
 
     return (
        <div className="loginCard">
@@ -32,17 +121,26 @@ function Login() {
                     <Animated animationIn="fadeInUp" animationOut="fadeInDown" isVisible={show}>     
                     <div className="name-input">
                         <label for="name"><b>Your Name</b></label>
-                        <input type="text" placeholder="" name="name" required></input>
+                        {
+                         wrongNameInput && <label className="wrong-text">{nameError}</label>
+                        }
+                        <input type="text" placeholder="" name="name" value={name} onChange={e=> setName(e.target.value)} required></input>
                     </div>  
                     </Animated> 
             }
             <div className="email-input">
                 <label for="email"><b>Your email</b></label>
-                <input type="text" placeholder="" name="email" required></input>
+                {
+                    wrongEmailInput && <label className="wrong-text">{wrongInputError}</label>
+                }
+                <input type="text" placeholder="" name="email" value={email} onChange={e=> setEmail(e.target.value)} required></input>
             </div>   
             <div className="password-input">
                 <label for="password"><b>Your Password</b></label>
-            <input type="password" placeholder="" name="password" required></input>
+                {
+                    wrongPasswordInput && <label className="wrong-text">{wrongInputError}</label>
+                }
+            <input type="password" placeholder="" name="password" value={password} onChange={e=> setPassword(e.target.value)} required></input>
             </div>
             <button className="theme-btn onboarding-btn" onClick={handleRoute}>
                 {

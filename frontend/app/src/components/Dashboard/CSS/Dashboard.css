@@ -618,3 +618,8 @@ svg {
         background-color: #A0A5FE;
     }
 }
+
+.wrong-text {
+    font-size: small;
+    color: red;
+}

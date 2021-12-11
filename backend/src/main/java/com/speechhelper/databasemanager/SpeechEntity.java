@@ -24,22 +24,16 @@ public class SpeechEntity implements Serializable{
 	  @Id
 	  @Column(name="userId")
 	  private Long userId;
-	  
-	  @Column(name="transcribedSpeechText")
-	  private String transcribedSpeechText;
-	  
-	  @Column(name="convertedSpeechText")
-	  private String convertedSpeechText;
 
 	  public SpeechEntity() {}
 
 
-	  @Override
+	 /* @Override
 	  public String toString() {
 	    return String.format(
-	        "Speech[speechId=%d, userId='%d', transcribedSpeechText='%s', convertedSpeechText='%s']",
-	        speechId, userId, transcribedSpeechText, convertedSpeechText );
-	  }
+	       // "Speech[speechId=%d, userId='%d', transcribedSpeechText='%s', convertedSpeechText='%s']",
+	       // speechId, userId, transcribedSpeechText, convertedSpeechText );
+	  }*/
 	  
 	  public Long getSpeechId() {
 		    return speechId;
@@ -55,22 +49,6 @@ public class SpeechEntity implements Serializable{
 		  
 	  public void setUserId(Long userId) {
 		  	this.userId = userId;
-	  }
-	  
-	  public String getTranscribedSpeechText() {
-		  return transcribedSpeechText;
-	  }
-	  
-	  public void setTranscribedSpeechText(String transcribedSpeechText) {
-		  this.transcribedSpeechText = transcribedSpeechText;
-	  }
-	
-	  public String getConvertedSpeechText() {
-		  return convertedSpeechText;
-	  }
-	  
-	  public void setConvertedSpeechText(String convertedSpeechText) {
-		  this.convertedSpeechText = convertedSpeechText;
 	  }
 	  
 }

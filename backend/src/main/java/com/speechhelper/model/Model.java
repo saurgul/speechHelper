@@ -67,15 +67,8 @@ public class Model {
 		return (ArrayList<SpeechEntity>) speechDatabaseController.findByUserId(userId);
 	}
 	
-	//TODO assign speech objects an ID when they are added. 
-	public void addSpeech(Speech s) {
-		s.setId(currentId);
-		currentId++;
-		speeches.add(s);
-	}
-	
-	public void addSpeech(SpeechEntity speech) {
-		speechDatabaseController.addNewSpeech(speech.getUserId(), speech.getTranscribedSpeechText(), speech.getConvertedSpeechText());
+	public void addSpeech(Speech newSpeech, long userId) {
+		speechDatabaseController.addNewSpeech(userId, newSpeech);
 	}
 	
 	public Speech getSpeechById(int id) {

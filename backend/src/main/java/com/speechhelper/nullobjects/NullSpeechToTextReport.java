@@ -8,7 +8,7 @@ public class NullSpeechToTextReport extends SpeechToTextReport{
 	public NullSpeechToTextReport() {
 		this.wordFrequency = "";
 		this.fillerFrequency = "";
-		this.fillerRatio = "";
+		this.fillerRatio = 0;
 		this.speechRate = 0;
 		this.feedback = "";
 	}

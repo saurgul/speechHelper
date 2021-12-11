@@ -30,9 +30,12 @@ import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextCommand;
 import com.speechhelper.speechtotext.SpeechToTextReport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 
 //This is our interface between the frontend and backend.
+
+@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
 @RestController
 public class SpeakingHelperController {
 	@Autowired
@@ -121,7 +124,8 @@ public class SpeakingHelperController {
 	}
 	
 	//This endpoint is currently configured to do the whole process of creating a speech and generating feedback
-	@CrossOrigin(origins = "https://speechhelper.herokuapp.com")
+	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
+	@Transactional
 	@RequestMapping(value="/createSpeech",  method=RequestMethod.POST)
 	public Map<String, String> createSpeech(@RequestPart("files") MultipartFile[] files) {
 		//Need to take file as an input for text file of speech instead of url
@@ -162,8 +166,9 @@ public class SpeakingHelperController {
 		HashMap<String, String> values = new HashMap<String,String>();
 		values.put("WordFrequency", parseTextCommand.getWordFrequencyCount().toString());
 		values.put("FillerFrequency", parseTextCommand.getFillerFrequency().toString());
-		values.put("FillerRatio", parseTextCommand.getFillerRatio());
+		values.put("FillerRatio", parseTextCommand.getFillerRatio() + "");
 		values.put("SpeechRate", parseTextCommand.getSpeechRate() + "");
+		values.put("Score", parseTextCommand.getScore() + "");
 		System.out.println(realPathtoUploads);
 		File textFile = new File(realPathtoUploads + "/" + files[0].getOriginalFilename());
 		File audioFile = new File(realPathtoUploads + "/" + files[1].getOriginalFilename());
@@ -175,9 +180,12 @@ public class SpeakingHelperController {
 		return values;
 	}
 	
-	@CrossOrigin(origins = "https://speechhelper.herokuapp.com")
+	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
+	@Transactional
 	@RequestMapping(value="/createSpeechWelcomePage",  method=RequestMethod.POST)
 	public Map<String, String> createSpeechWelcomepage(@RequestPart("files") MultipartFile[] files) {
+		String boundary = Long.toHexString(System.currentTimeMillis());
+        request.getHeaders().setContentType("multipart/form-data; boundary="+boundary);
 		Speech testSpeech;
 		HashMap<String, String> response = new HashMap<>();
 		String uploadsDir = "/uploads/";
@@ -215,7 +223,7 @@ public class SpeakingHelperController {
 			System.out.println(report.getFillerRatio());
 			System.out.println(report.getSpeechRate());
 
-			response.put("FillerRatio", report.getFillerRatio());
+			response.put("FillerRatio", report.getFillerRatio() + "");
 			response.put("SpeechRate", report.getSpeechRate() + "");
 			response.put("Sentiment", runPythonScript_liveprediction());
 			
