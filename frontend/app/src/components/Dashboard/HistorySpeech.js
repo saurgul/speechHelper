@@ -4,10 +4,41 @@ import { useNavigate } from "react-router-dom";
 function HistoryReportItem(props) {
 
     const navigate = useNavigate();
+    const API = "https://speech-helper-backend.herokuapp.com"
 	
     const handleRoute = () => {
+      //call rhe get Feedback method and pass the state to the summary page
+      getFeedback()
       navigate('/summary');
     }
+
+    function handleErrors(response) {
+		if (!response.ok) {
+			throw Error(response.statusText);
+		}
+		return response;
+	}
+
+    const getFeedback = async() => {
+        fetch(API + `/speechId=${props.speechId}`, {
+            method: "GET"
+        })
+        .then(handleErrors)
+        .then(async response => {
+            const data = await response.json();
+            // console.log(data);
+            // console.log(data.WordFrequency);
+            // console.log(data.FillerFrequency);
+            // setFillerWordFrequency(data.FillerFrequency);
+            // console.log(data.FillerRatio);
+            // setFillerWordRatio(data.FillerRatio);
+            // console.log(data.SpeechRate);
+            // setSpeechRate(data.SpeechRate);
+		})
+		.catch(error => console.log(error) );
+    }
+
+
 
     return (
         <div className="report-item-container">
@@ -16,7 +47,7 @@ function HistoryReportItem(props) {
                     <div className="report-item-left">
                         <div className="number-overlay">{props.num}</div>
                         <div className="history-speech-text-container">
-                            <div className="history-speech-title">{props.speechTitle}</div>
+                            <div className="history-speech-title">Speech {props.speechTitle}</div>
                             <div className="history-speech-subtitle">Recorded: {props.speechDate}</div>
                         </div>
                     </div>
@@ -48,7 +79,7 @@ function HistoryReport(props) {
                         <div className="report-items-container">
                         {   
                             Object.keys(props.historySpeeches).map((key, index) => ( 
-                                <HistoryReportItem num = {index+1} speechTitle = {key} speechDate = {props.historySpeeches[key]}/>  
+                                <HistoryReportItem speechId = {props.speechId} num = {index+1} speechTitle = {index+1} speechDate = {props.historySpeeches[key]}/>  
                             ))
                         }
                         </div>

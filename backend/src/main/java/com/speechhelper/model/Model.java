@@ -5,6 +5,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.speechhelper.command.Command;
@@ -29,9 +30,14 @@ public class Model {
 	private CommandInvoker commandInvoker;
 	private int currentId = 0;
 	
-	private UserDatabaseController userDatabaseController = new UserDatabaseController();
-	private SpeechDatabaseController speechDatabaseController = new SpeechDatabaseController();
-	private ReportDatabaseController reportDatabaseController = new ReportDatabaseController();
+	@Autowired
+	private UserDatabaseController userDatabaseController;
+	
+	@Autowired
+	private SpeechDatabaseController speechDatabaseController;
+	
+//	@Autowired
+//	private ReportDatabaseController reportDatabaseController;
 	
 	public Model() {
 		speeches = new ArrayList<Speech>();
@@ -67,7 +73,7 @@ public class Model {
 		return (ArrayList<SpeechEntity>) speechDatabaseController.findByUserId(userId);
 	}
 	
-	public void addSpeech(Speech newSpeech, long userId) {
+	public void addSpeech(Speech newSpeech, Long userId) {
 		speechDatabaseController.addNewSpeech(userId, newSpeech);
 	}
 	

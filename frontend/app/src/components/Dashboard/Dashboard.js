@@ -14,15 +14,20 @@ import { useLocation } from 'react-router-dom';
 function Dashboard(){
 	const location = useLocation()
 	const { userID, name } = location.state;
+	const speechId = 1;
 	const [showHelp, setShow] = useState(false);
 	const [showProgress, setProgress] = useState(false);
 	const [speechText, setSpeech] = useState("I have a dream that one day down in Alabama, with its vicious racists, with its governor having his lips dripping with the words of interposition and nullification – one day right there in Alabama little black boys and black girls will be able to join hands with little white boys and white girls as sisters and brothers. I have a dream today. I have a dream that one day every valley shall be exalted and every hill and mountain shall be made low, the rough places will be made plain, and the crooked places will be made straight, and the glory of the Lord shall be revealed and all flesh shall see it together.") 
 	const [showRecordLiveModal, setRecordLiveModal] = useState(false);
-	const [historySpeeches, setHistorySpeeches] = useState({})
+	const [historySpeeches, setHistorySpeeches] = useState({});
 
 	const updateSpeech = (newSpeech) => {
 		setSpeech(newSpeech)
 	}
+	
+	const reloadHistory = () => {
+		getHistoryReport()
+	} 
 
 	useEffect(() => {
 		getHistoryReport()
@@ -70,8 +75,9 @@ function Dashboard(){
 			method: 'GET'
 		})
 		.then(handleErrors)
-		.then(response => {
-			const speeches = response.json();
+		.then(async response => {
+			const speeches = await response.json();
+			console.log(speeches)
 			setHistorySpeeches(speeches)
 		})
 		.catch(error => console.log(error) );
@@ -88,8 +94,8 @@ function Dashboard(){
 						{
 							!showProgress && !showHelp && 
 							<div className="dashboard-container-child">
-								<InputForm showRecordLiveModal = {showRecordLiveModal} showRecordAudioModal = {showRecordAudioModal} userLoggedIn = {true}/>	
-								<HistoryReport historySpeeches = {historySpeeches}/>
+								<InputForm userId = {userID} reloadHistory = {reloadHistory} showRecordLiveModal = {showRecordLiveModal} showRecordAudioModal = {showRecordAudioModal} userLoggedIn = {true}/>	
+								<HistoryReport speechId = {speechId} historySpeeches = {historySpeeches}/>
 								
 							</div>
 						}

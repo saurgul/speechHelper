@@ -1,6 +1,11 @@
 package com.speechhelper.controller;
 
+import java.sql.Date;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -19,16 +24,20 @@ import com.speechhelper.databasemanager.SpeechEntity;
 import com.speechhelper.databasemanager.SpeechRepository;
 import com.speechhelper.speechtotext.Speech;
 
-@Controller
-@RequestMapping(path="/demo")
+import javassist.bytecode.Descriptor.Iterator;
+
+@RestController
 public class SpeechDatabaseController {
 	@Autowired
 	private SpeechRepository speechRepository;
 	
+	@Transactional
 	@PostMapping(path="/add_speech") // Map ONLY POST Requests
 	public String addNewSpeech (@RequestParam Long userId, @RequestParam Speech speech) {
 		SpeechEntity n = new SpeechEntity();
 		n.setUserId(userId);
+		java.util.Date today = new java.util.Date();
+		n.setDateCreated(new Date(today.getYear(), today.getMonth(), today.getDay()));
 //		n.setTranscribedSpeechText(speech.getText());
 //		n.setConvertedSpeechText(speech.getInput());
 		speechRepository.save(n);
@@ -44,8 +53,17 @@ public class SpeechDatabaseController {
 	
 	@Transactional
 	@GetMapping(path = "/speech_user_id")
-	public Iterable<SpeechEntity> findByUserId(@RequestParam Long userId){
-		return speechRepository.findByUserId(userId);
+	public Map<String, String> findByUserId(@RequestParam Long userId){
+		HashMap<String, String> map = new HashMap<>();
+		List<SpeechEntity> speeches = speechRepository.findByUserId(userId);
+		
+		java.util.Iterator<SpeechEntity> it  = speeches.iterator();
+		while (it.hasNext()) {
+			SpeechEntity e = it.next();
+			map.put(e.getSpeechId()+"", e.getDateCreated().toString()+"");
+		}
+		
+		return map;
 	}
 	
 	

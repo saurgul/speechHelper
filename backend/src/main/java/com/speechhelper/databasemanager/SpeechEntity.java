@@ -1,6 +1,7 @@
 package com.speechhelper.databasemanager;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +25,9 @@ public class SpeechEntity implements Serializable{
 	  @Id
 	  @Column(name="userId")
 	  private Long userId;
+	  
+	  @Column(name="date_created")
+	  private Date dateCreated;
 	  
 //	  @Column(name="speechtoTextReport")
 //	  private ReportEntity speechToTextReport;
@@ -53,6 +57,18 @@ public class SpeechEntity implements Serializable{
 	  public void setUserId(Long userId) {
 		  	this.userId = userId;
 	  }
+
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	  
 	  
 //	  public String getTranscribedSpeechText() {
 //		  return transcribedSpeechText;

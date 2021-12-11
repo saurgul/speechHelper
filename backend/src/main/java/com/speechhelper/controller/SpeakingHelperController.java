@@ -117,7 +117,7 @@ public class SpeakingHelperController {
 	//This endpoint is currently configured to do the whole process of creating a speech and generating feedback
 	@CrossOrigin(origins = "https://speechhelper.herokuapp.com")
 	@RequestMapping(value="/createSpeech",  method=RequestMethod.POST)
-	public Map<String, String> createSpeech(@RequestPart("files") MultipartFile[] files) {
+	public Map<String, String> createSpeech(@RequestPart("files") MultipartFile[] files, @RequestParam Long userId) {
 		//Need to take file as an input for text file of speech instead of url
 		//TODO actually use file from front end, rather than loading locally
 		
@@ -151,6 +151,8 @@ public class SpeakingHelperController {
 		//System.out.println(testSpeech.toString());
 		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, speechToText.getSpeechObject());
 		model.receiveCommand(parseTextCommand);
+		System.out.print(userId);
+		model.addSpeech(testSpeech, userId);
 		
 		//REST Controller converts to json for us, so returning a key value pair will work for our response
 		HashMap<String, String> values = new HashMap<String,String>();

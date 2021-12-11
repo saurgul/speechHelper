@@ -24,7 +24,7 @@ function InputForm(props){
         formData.append("files",speechFile);
         formData.append("files",textFile);
 
-		fetch(`/createSpeech`, {
+		fetch(`/createSpeech?userId=${props.userId}`, {
             method: "POST",
             body: formData, 
             headers: {
@@ -36,34 +36,11 @@ function InputForm(props){
 		.then(handleErrors)
 		.then(async response => {
             const data = await response.json();
-            setFillerWordFrequency(data.FillerFrequency);
-            console.log(data.FillerRatio);
-            setFillerWordRatio(data.FillerRatio);
-            console.log(data.SpeechRate);
-            setSpeechRate(data.SpeechRate);
+            props.reloadHistory();
 		})
 		.catch(error => console.log(error) );
 	}
     
-    const getFeedback = async() => {
-        fetch(API + `/parseText?speechId=${0}`, {
-            method: "GET"
-        })
-        .then(handleErrors)
-        .then(async response => {
-            const data = await response.json();
-            console.log(data);
-            console.log(data.WordFrequency);
-            console.log(data.FillerFrequency);
-            setFillerWordFrequency(data.FillerFrequency);
-            console.log(data.FillerRatio);
-            setFillerWordRatio(data.FillerRatio);
-            console.log(data.SpeechRate);
-            setSpeechRate(data.SpeechRate);
-		})
-		.catch(error => console.log(error) );
-    }
-
     const handleSubmit = async(e) => {
         e.preventDefault();
         if (!props.userLoggedIn) {
@@ -76,8 +53,7 @@ function InputForm(props){
             props.update(json.FillerRatio,json.SpeechRate, json.Sentiment);
         }
         if (props.userLoggedIn){
-            await generateReport();
-            //pass all the values to the dashboard
+            await generateReport(); 
         }
     }
     
