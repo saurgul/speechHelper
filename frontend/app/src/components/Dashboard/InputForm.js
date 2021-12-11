@@ -9,16 +9,16 @@ function InputForm(props){
     const[fillerWordRatio, setFillerWordRatio] = useState("");
 	const[speechRate, setSpeechRate] = useState("");
 	const[fillerWordFrequency, setFillerWordFrequency] = useState("");
-	/*const API = "https://speech-helper-backend.herokuapp.com"; */
-    const API = "http://localhost:8080/"
+	const API = "https://speech-helper-backend.herokuapp.com"; 
+    /*const API = "http://localhost:8080/"*/
     
     async function generateReport(){
         const formData = new FormData();
         formData.append("files",speechFile);
         formData.append("files",textFile);
 
-        const response = await fetch(`/createSpeech`, {method: "POST",body: formData, headers: {
-            'Access-Control-Allow-Origin':'*',
+        const response = await fetch(API + `/createSpeech`, {method: "POST",body: formData, headers: {
+            'Access-Control-Allow-Origin':'true',
             'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
                 }	
             }
@@ -58,7 +58,7 @@ function InputForm(props){
             const formData = new FormData();
             formData.append("files",textFile);
             formData.append("files",speechFile);
-            const response = await fetch(`/createSpeechWelcomePage`, {method: "post",body: formData, headers: {'Access-Control-Allow-Origin':'*'}});
+            const response = await fetch(API + `/createSpeechWelcomePage`, {method: "POST",body: formData, headers: {'Access-Control-Allow-Origin':'true', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS'}});
             const json = await response.json();
             props.changeReport();
             props.update(json.FillerRatio,json.SpeechRate, json.Sentiment);

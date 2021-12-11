@@ -14,6 +14,8 @@ function Login() {
     const [wrongInputError, setWrongInputError] = useState("");
     const [nameError, setNameInputError] = useState("");
     const [wrongNameInput, setNameInput] = useState(false);
+    
+	const API = "https://speech-helper-backend.herokuapp.com"; 
 
     function showSignUpFields(){
         setShow(!show);
@@ -38,7 +40,7 @@ function Login() {
                 var firstName = name.split(' ').slice(0, -1).join(' ');
                 var lastName = name.split(' ').slice(-1).join(' ');
     
-                const response = await fetch(`/add_user?firstName=${firstName}&lastName=${lastName}&username=${firstName+lastName}&password=${password}&email=${email}`, {
+                const response = await fetch(API + `/add_user?firstName=${firstName}&lastName=${lastName}&username=${firstName+lastName}&password=${password}&email=${email}`, {
                     method: 'POST',
                     headers: {
                       'Accept': 'application/json',
@@ -54,7 +56,7 @@ function Login() {
         }
         else {
             if (isInputValid()) {
-                fetch(`/email?email=${email}`, {
+                fetch(API + `/email?email=${email}`, {
                     method: 'GET'
                 })
                 .then(async response => {

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,13 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.speechhelper.databasemanager.UserEntity;
 import com.speechhelper.databasemanager.UserRepository;
 
+
+@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
 @RestController
-//@RequestMapping(path="/speech_helper")
 public class UserDatabaseController {
 
 	@Autowired
 	private UserRepository userRepository;
 	
+	@CrossOrigin
 	@Transactional
 	@PostMapping(path="/add_user") // Map ONLY POST Requests
 	public String addNewUser (@RequestParam String firstName, @RequestParam String lastName, @RequestParam String username, @RequestParam String password, @RequestParam String email ) {
@@ -39,6 +42,7 @@ public class UserDatabaseController {
 		return "Saved";
 	}
 	
+	@CrossOrigin
 	@Transactional
 	@GetMapping(path="/all/user")
 	public Iterable<UserEntity> getAllUsers() {
@@ -46,13 +50,14 @@ public class UserDatabaseController {
 	    return userRepository.findAll();
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@GetMapping(path="/user_id")
 	public UserEntity findByUserId(@RequestParam Long userId) {
 		return userRepository.findById(userId).get();
 	}
 	
+	@CrossOrigin
 	@Transactional
 	@GetMapping(path="/user_name")
 	public UserEntity findByUsername(@RequestParam String username) {
@@ -60,6 +65,7 @@ public class UserDatabaseController {
 	}
 	
 
+	@CrossOrigin
 	@Transactional
 	@GetMapping(path="/email")
 	public UserEntity findByEmail(@RequestParam String email) {
