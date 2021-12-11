@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import com.speechhelper.controller.SpeakingHelperController;
+
 
 
 @SpringBootApplication
@@ -25,9 +27,9 @@ public class Main {
 //		//SpringApplication.run(Main.class, args);
 		//app.setDefaultProperties(Collections
 		//          .singletonMap("server.port", "8089"));
-		app.run(args);
-		//SpeakingHelperController c = new SpeakingHelperController();
-		//c.runPythonScript_liveprediction();
+		//app.run(args);
+		SpeakingHelperController c = new SpeakingHelperController();
+		c.runPythonScript_liveprediction();
 		//c.runPythonScript_recordaudio();
 	}
 

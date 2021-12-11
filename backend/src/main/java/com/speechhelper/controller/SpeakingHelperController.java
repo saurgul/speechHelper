@@ -59,8 +59,14 @@ public class SpeakingHelperController {
 	}
 	
 	public String runPythonScript_liveprediction() {
+		
+		String modelPath = System.getProperty("user.dir")+ "\\src\\main\\resources\\AudioData\\Save_model\\Emotion_Voice_Detection_Model.h5";
+		String AudioFilePath = 
+				System.getProperty("user.dir")+ "\\src\\main\\resources\\fillerDemo.wav";
 		ProcessBuilder builder = new ProcessBuilder("python.exe",
-				System.getProperty("user.dir")+ "\\src\\main\\resources\\liveAudio.py");
+				System.getProperty("user.dir")+ "\\src\\main\\resources\\liveAudio.py",""+modelPath,""+AudioFilePath);
+		//ProcessBuilder builder = new ProcessBuilder("python.exe",
+		//		System.getProperty("user.dir")+ "\\src\\main\\resources\\liveAudio.py");
 		String returnLine = "";
 		String lines = "";
 				

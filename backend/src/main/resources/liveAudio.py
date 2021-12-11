@@ -25,22 +25,19 @@ class LivePredictions:
     Main class of the application.
     """
 
-    def __init__(self, file):
+    def __init__(self, file_path, model_path):
         """
         Init method is used to initialize the main parameters.
         """
-        DIR_PATH = os.getcwd() + '\\src\\main\\resources\\'
-        self.file = file
-        MODEL_DIR_PATH = DIR_PATH + 'AudioData\\Save_model\\'
-        #print( MODEL_DIR_PATH + 'Emotion_Voice_Detection_Model.h5' )
-        self.path =  MODEL_DIR_PATH + 'Emotion_Voice_Detection_Model.h5'
-        self.loaded_model = keras.models.load_model(self.path)
+        self.file_path  = file_path
+        self.model_path = model_path
+        self.loaded_model = keras.models.load_model(self.model_path)
 
     def make_predictions(self):
         """
         Method to process the files and create your features.
         """
-        data, sampling_rate = librosa.load(self.file)
+        data, sampling_rate = librosa.load(self.file_path)
         mfccs = np.mean(librosa.feature.mfcc(y=data, sr=sampling_rate, n_mfcc=40).T, axis=0)
         x = np.expand_dims(mfccs, axis=1)
         x = np.expand_dims(x, axis=0)
@@ -70,26 +67,13 @@ class LivePredictions:
         return label
 
 if __name__ == '__main__':
-    EXAMPLES_PATH = os.getcwd() + '\\src\\main\\resources\\AudioData\\examples\\'
-    live_prediction = LivePredictions(file=EXAMPLES_PATH + 'Neutral.wav')
-    live_prediction.loaded_model.summary()
-    live_prediction.make_predictions()
-    #live_prediction = LivePredictions(file=EXAMPLES_PATH + 'Angry.wav')
-    #live_prediction.make_predictions()
-    #live_prediction = LivePredictions(file=EXAMPLES_PATH + '10-16-07-29-82-30-63.wav')
-    #live_prediction.make_predictions()
-    #live_prediction = LivePredictions(file=EXAMPLES_PATH + '03-01-05-02-02-02-01.wav')
-    #live_prediction.make_predictions()
-    live_prediction = LivePredictions(file=EXAMPLES_PATH + '03-01-05-02-01-01-01.wav')
-    live_prediction.make_predictions()
-    #live_prediction = LivePredictions(file=EXAMPLES_PATH + '03-01-08-01-02-02-01.wav')
-    #live_prediction.make_predictions()
-    #live_prediction = LivePredictions(file=EXAMPLES_PATH + 'i-cant-take-this.wav')
-    #live_prediction.make_predictions()
-    #live_prediction = LivePredictions(file=EXAMPLES_PATH + 'that-feels-really-powerful.wav')
-    #live_prediction.make_predictions()
-    print("Sentiment analysis for live audio:")
-    live_prediction = LivePredictions(file=EXAMPLES_PATH + 'liveaudio.wav')
+    if( len(sys.argv) != 3):
+        print(" Pass correct Arguments : {liveAudio.py} {model_path} {file_path}");
+    model_path = sys.argv[1]
+    file_path  = sys.argv[2]
+    print ('Sentiment analysis for live audio:')
+    live_prediction = LivePredictions(file_path, model_path)
+    #live_prediction.loaded_model.summary()
     live_prediction.make_predictions()
 
 
