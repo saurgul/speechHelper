@@ -31,22 +31,15 @@ function HistoryReportItem(props) {
 
 function HistoryReport(props) {
 
-    const historySpeeches = {
-        "Speech 1" : "10/11/2021",
-        "Speech 2" : "10/11/2021",
-        "Speech 3" : "10/11/2021",
-        "Speech 4" : "10/11/2021",
-    }
-
     return (
         <div className= "report-list-container">
             <p className="report-title">History</p>
             {(() => {
 
-                if (Object.keys(historySpeeches).length == 0) {
+                if (Object.keys(props.historySpeeches).length == 0) {
                     return (
                         <div className="report-item-container-empty">
-                          <div className="report-item-empty">Looks like you are new here,tap the generate button. All you reports will be shown here.</div>
+                          <div className="report-item-empty">Looks like you are new here,tap the generate button. All your reports will be shown here.</div>
                         </div> 
                     );
                 }
@@ -54,8 +47,8 @@ function HistoryReport(props) {
                     return (
                         <div className="report-items-container">
                         {   
-                            Object.keys(historySpeeches).map((key, index) => ( 
-                                <HistoryReportItem num = {index+1} speechTitle = {key} speechDate = {historySpeeches[key]}/>  
+                            Object.keys(props.historySpeeches).map((key, index) => ( 
+                                <HistoryReportItem num = {index+1} speechTitle = {key} speechDate = {props.historySpeeches[key]}/>  
                             ))
                         }
                         </div>

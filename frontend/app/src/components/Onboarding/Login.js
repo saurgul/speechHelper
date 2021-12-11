@@ -34,6 +34,13 @@ function Login() {
     } 
 
     const navigate = useNavigate();
+
+    function handleErrors(response) {
+		if (!response.ok) {
+			throw Error(response.statusText);
+		}
+		return response;
+	}
 	
 	const handleRoute = async() =>{
         if (show) {
@@ -41,15 +48,18 @@ function Login() {
                 var firstName = name.split(' ').slice(0, -1).join(' ');
                 var lastName = name.split(' ').slice(-1).join(' ');
     
-                const response = await fetch(`/add_user?firstName=${firstName}&lastName=${lastName}&username=${firstName+lastName}&password=${password}&email=${email}`, {
+                fetch(`/add_user?firstName=${firstName}&lastName=${lastName}&username=${firstName+lastName}&password=${password}&email=${email}`,  {
                     method: 'POST',
                     headers: {
                       'Accept': 'application/json',
                       'Content-Type': 'application/json',
                     }
-                    }).catch(err => {
-                        console.log(err)
-                    });
+                })
+                .then(handleErrors)
+                .then(response => {
+                    setShow(false);
+                })
+                .catch(error => console.log(error) );
                 setEmail("");
                 setPassword("");
                 setName("");
@@ -60,8 +70,10 @@ function Login() {
                 fetch(`/email?email=${email}`, {
                     method: 'GET'
                 })
+                .then(handleErrors)
                 .then(async response => {
                     const data = await response.json();
+                    console.log(data)
                     if (data.password !== password) {
                         setWrongPasswordInput(true);
                         setWrongInputError("Wrong Password, Please try again");
@@ -71,14 +83,13 @@ function Login() {
                         setPassword("");
                         navigate(`/dashboard`, {
                             state: {
-                                userID: data.userId
+                                userID: data.userId,
+                                name: data.firstName
                             }
                         });
                     }
                 })
-                .catch(error => {
-                    console.error('There was an error!', error);
-                });
+                .catch(error => console.log(error) );
             }
         }
     }
@@ -163,7 +174,6 @@ function Login() {
                 { !show && <a className="sign-up" onClick={showSignUpFields}> Create Account</a>}
                 { show && <a className="sign-up" onClick={showSignUpFields}> Login</a>}
            </div>
-
        </div> 
     );
 }

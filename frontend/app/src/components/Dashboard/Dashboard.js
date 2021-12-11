@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import './CSS/Dashboard.css';
 import FamousSpeeches from './FamousSpeeches';
 import Header from './Header'
@@ -13,16 +13,21 @@ import { useLocation } from 'react-router-dom';
 
 function Dashboard(){
 	const location = useLocation()
-	const { userID } = location.state;
-	console.log(userID);
+	const { userID, name } = location.state;
 	const [showHelp, setShow] = useState(false);
 	const [showProgress, setProgress] = useState(false);
 	const [speechText, setSpeech] = useState("I have a dream that one day down in Alabama, with its vicious racists, with its governor having his lips dripping with the words of interposition and nullification – one day right there in Alabama little black boys and black girls will be able to join hands with little white boys and white girls as sisters and brothers. I have a dream today. I have a dream that one day every valley shall be exalted and every hill and mountain shall be made low, the rough places will be made plain, and the crooked places will be made straight, and the glory of the Lord shall be revealed and all flesh shall see it together.") 
 	const [showRecordLiveModal, setRecordLiveModal] = useState(false);
+	const [historySpeeches, setHistorySpeeches] = useState({})
 
 	const updateSpeech = (newSpeech) => {
 		setSpeech(newSpeech)
 	}
+
+	useEffect(() => {
+		getHistoryReport()
+	}, [])
+	
 
 	const data = [
 		{ label: "Jan", x: 0, y: 5 },
@@ -53,14 +58,29 @@ function Dashboard(){
 		setShow(!show);
 	}
 
+	function handleErrors(response) {
+		if (!response.ok) {
+			throw Error(response.statusText);
+		}
+		return response;
+	}
+	
 	const getHistoryReport = async() => {
-		//API CALL TO GET THE HISTORY REPORT FOR THE USER ID "USER_ID"
+		fetch(`/speech_user_id?userId=${userID}`, {
+			method: 'GET'
+		})
+		.then(handleErrors)
+		.then(response => {
+			const speeches = response.json();
+			setHistorySpeeches(speeches)
+		})
+		.catch(error => console.log(error) );
 	}
 
 	return(
 		<div> 
 			{ showRecordLiveModal && <LiveAudioRecord showRecordAudioModal = {showRecordAudioModal}/> }
-			<Header changeHelp={changeHelp} showHelp={showHelp} changeProgress = {changeProgress}  showProgress = {showProgress} reset = {reset}/> 
+			<Header name = {name} changeHelp={changeHelp} showHelp={showHelp} changeProgress = {changeProgress}  showProgress = {showProgress} reset = {reset}/> 
 			<div className="mainContainer">
 				
 				<div className= "bgCard">
@@ -69,7 +89,7 @@ function Dashboard(){
 							!showProgress && !showHelp && 
 							<div className="dashboard-container-child">
 								<InputForm showRecordLiveModal = {showRecordLiveModal} showRecordAudioModal = {showRecordAudioModal} userLoggedIn = {true}/>	
-								<HistoryReport/>
+								<HistoryReport historySpeeches = {historySpeeches}/>
 								
 							</div>
 						}

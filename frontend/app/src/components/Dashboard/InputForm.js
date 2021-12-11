@@ -11,48 +11,60 @@ function InputForm(props){
 	const[fillerWordFrequency, setFillerWordFrequency] = useState("");
 	/*const API = "https://speech-helper-backend.herokuapp.com"; */
     const API = "http://localhost:8080/"
-    
-    async function generateReport(){
+
+    function handleErrors(response) {
+		if (!response.ok) {
+			throw Error(response.statusText);
+		}
+		return response;
+	}
+	
+	const generateReport = async() => {
         const formData = new FormData();
         formData.append("files",speechFile);
         formData.append("files",textFile);
 
-        const response = await fetch(`/createSpeech`, {method: "POST",body: formData, headers: {
+		fetch(`/createSpeech`, {
+            method: "POST",
+            body: formData, 
+            headers: {
             'Access-Control-Allow-Origin':'*',
             'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
                 }	
             }
-        );
-        //const response = await fetch(`/createSpeech?textFile=${encodeURIComponent(textFile)}&audioFile=${encodeURIComponent(speechFile)}`, {method: "GET"});
-        const json = await response.json();
-        setFillerWordFrequency(json.FillerFrequency);
-        console.log(json.FillerRatio);
-        setFillerWordRatio(json.FillerRatio);
-        console.log(json.SpeechRate);
-        setSpeechRate(json.SpeechRate);
-    // const response = await fetch(`/createSpeech?textFile=${textFileData}&audioFile=${speechFileData}`, {method: "POST"});
-    //  console.log(response);
-    //	console.log(response.json);
-    //	await setSpeechId(response.json).then(res => {
-            //getFeedback();
-    //	})
+        )
+		.then(handleErrors)
+		.then(async response => {
+            const data = await response.json();
+            setFillerWordFrequency(data.FillerFrequency);
+            console.log(data.FillerRatio);
+            setFillerWordRatio(data.FillerRatio);
+            console.log(data.SpeechRate);
+            setSpeechRate(data.SpeechRate);
+		})
+		.catch(error => console.log(error) );
+	}
+    
+    const getFeedback = async() => {
+        fetch(API + `/parseText?speechId=${0}`, {
+            method: "GET"
+        })
+        .then(handleErrors)
+        .then(async response => {
+            const data = await response.json();
+            console.log(data);
+            console.log(data.WordFrequency);
+            console.log(data.FillerFrequency);
+            setFillerWordFrequency(data.FillerFrequency);
+            console.log(data.FillerRatio);
+            setFillerWordRatio(data.FillerRatio);
+            console.log(data.SpeechRate);
+            setSpeechRate(data.SpeechRate);
+		})
+		.catch(error => console.log(error) );
     }
 
-    async function getFeedback(){
-        const response = await fetch(API + `/parseText?speechId=${0}`, {method: "GET"});
-        console.log(response);
-        const json = await response.json();
-        console.log(json);
-        console.log(json.WordFrequency);
-        console.log(json.FillerFrequency);
-        setFillerWordFrequency(json.FillerFrequency);
-        console.log(json.FillerRatio);
-        setFillerWordRatio(json.FillerRatio);
-        console.log(json.SpeechRate);
-        setSpeechRate(json.SpeechRate);
-    }
-
-    const handleSubmit= async(e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         if (!props.userLoggedIn) {
             const formData = new FormData();
@@ -65,6 +77,7 @@ function InputForm(props){
         }
         if (props.userLoggedIn){
             await generateReport();
+            //pass all the values to the dashboard
         }
     }
     

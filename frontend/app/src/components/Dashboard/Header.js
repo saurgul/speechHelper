@@ -22,7 +22,7 @@ function Header(props) {
                             <img src={temp} alt="header-image" className="avatar"/>
                         </div>
                         <div className="profile">
-                            <p class="name">Christian</p>
+                            <p class="name">{props.name}</p>
                             <p class="occupation">Student</p>
                         </div>
                     </div>
