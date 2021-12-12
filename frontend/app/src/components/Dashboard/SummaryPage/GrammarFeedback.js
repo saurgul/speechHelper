@@ -10,8 +10,8 @@ function GrammarFeedback(props) {
                 <div className="grammar-feed-header">
                     <div className="grammar-feed-header-text">
                         {(() => {
-                            if (Object.keys(props.incorrect_correct).length === 0) return "There were no grammar or speeling mistakes! Keep it going bestie!";
-                            else return "The grammar seemed a little bit inaccurate. Here we improved it for you,";
+                            if (Object.keys(props.incorrect_correct).length === 0) return "There were no grammar or spelling mistakes! Good job!";
+                            else return "The grammar seemed a little bit inaccurate. Here are some suggestions";
                         }
                         )()}
                         </div>

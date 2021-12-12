@@ -34,12 +34,11 @@ function Dashboard(){
 	}
 	
 	const reloadHistory = () => {
+		console.log("Reload history");
 		getHistoryReport()
 	} 
 
-	useEffect(() => {
-		getHistoryReport()
-	})
+	useEffect(() => getHistoryReport(), []);
 
 	const showRecordAudioModal = (show) => {
 		setRecordLiveModal(show);

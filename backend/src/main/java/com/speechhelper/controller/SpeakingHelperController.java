@@ -261,7 +261,6 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 	@RequestMapping(value="/createSpeechWelcomePage",  method=RequestMethod.POST)
 	public Map<String, String> createSpeechWelcomepage(@RequestPart("files") MultipartFile[] files) {
 		String boundary = Long.toHexString(System.currentTimeMillis());
-        request.getHeaders().setContentType("multipart/form-data; boundary="+boundary);
 		Speech testSpeech;
 		HashMap<String, String> response = new HashMap<>();
 		String uploadsDir = "/uploads/";
