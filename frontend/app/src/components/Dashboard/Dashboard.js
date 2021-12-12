@@ -21,6 +21,8 @@ function Dashboard(){
 	const [showRecordLiveModal, setRecordLiveModal] = useState(false);
 	const [isloading, setLoading] = useState(false);
 	const [historySpeeches, setHistorySpeeches] = useState({});
+	const [progressData, setProgressData] = useState([])
+	const months = ["Jan", "Feb", "Mar", "Jun", "Jul", "Aug", "Sep", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 	const updateSpeech = (newSpeech) => {
 		setSpeech(newSpeech)
@@ -36,18 +38,7 @@ function Dashboard(){
 
 	useEffect(() => {
 		getHistoryReport()
-	}, [])
-	
-
-	const data = [
-		{ label: "Jan", x: 0, y: 5 },
-		{ label: "Feb", x: 1, y: 10 },
-		{ label: "Mar", x: 2, y: 46 },
-		{ label: "Jun", x: 3, y: 50 },
-		{ label: "Jul", x: 4, y: 55 },
-		{ label: "Aug", x: 5, y: 40 },
-		{ label: "Sep", x: 6, y: 98 }
-	];
+	})
 
 	const showRecordAudioModal = (show) => {
 		setRecordLiveModal(show);
@@ -83,8 +74,18 @@ function Dashboard(){
 		.then(async response => {
 			const speeches = await response.json();
 			setHistorySpeeches(speeches)
+			getProgressData()
 		})
 		.catch(error => console.log(error) );
+	}
+
+	const getProgressData = () => {
+		// get this Y from backend
+		const y = [5, 10, 46, 50, 55, 40, 98, 75]
+		y.forEach((score, index) => {
+			progressData.push({label: months[index], x: index, y: score})
+		});
+		setProgressData(progressData)
 	}
 
 	return(
@@ -120,11 +121,11 @@ function Dashboard(){
 							<Animated animationIn="fadeOut" animationOut="fadeIn" isVisible={!showProgress}>  
 								<div className="progress-main-container">
 									<div className="progress-chart-header">
-										<div className="progress-chart-title">Progress Chart</div>
-										<div className="progress-chart-subtitle">A little description of what the chart means</div>
+										<div className="progress-chart-title">Progress Chart (Overall Score vs Time)</div>
+										<div className="progress-chart-subtitle">This chart shows your progress overtime. With this you can keep track of how well are you doing each month</div>
 									</div>
 									<div className="progress-container">
-										<ProgressChart data={data} width = {500} height= {300} horizontalGuides={5} precision={0} color="#5744AB"/>
+										<ProgressChart data={progressData} width = {500} height= {300} horizontalGuides={5} precision={0} color="#5744AB"/>
 									</div>
 								</div>	
 							</Animated> 

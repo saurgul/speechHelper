@@ -1,9 +1,8 @@
-import React,{useState, useEffect} from 'react';
+import React,{useEffect} from 'react';
 import './App.css';
 import Routing from './Routing';
 
 function App() {
-  const[speeches, setSpeeches] = useState();
   useEffect(()=>{
     async function getSpeeches(){
         const response = await fetch('/test');

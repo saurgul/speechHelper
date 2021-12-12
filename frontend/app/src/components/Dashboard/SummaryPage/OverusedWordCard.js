@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React from 'react';
 import PronounciationHeaderImage from "../Assets/pHeader.png"
 import WordButton from "./WordButton";
 import heart from "../Assets/heart.png"
@@ -9,13 +9,13 @@ function OverusedWordCard(props) {
         <div className="pronounciation-card-container">
             <div className="pronounciation-card-header-container">
                 <img className="card-header-image" src={(() => {
-                    if (Object.keys(props.overused).length != 0) return PronounciationHeaderImage;
+                    if (Object.keys(props.overused).length !== 0) return PronounciationHeaderImage;
                     else return heart;
                 }
-                )()}/>
+                )()} alt='header image'/>
                 <div className="pronounciation-card-header-text">
                 {(() => {
-                        if (Object.keys(props.overused).length == 0) return "You have a way with words!";
+                        if (Object.keys(props.overused).length === 0) return "You have a way with words!";
                         else return "You are using these words too many times, try to not overuse :)";
                     }
                 )()}

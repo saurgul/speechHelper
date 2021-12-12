@@ -22,13 +22,13 @@ function LiveAudioRecord(props) {
             <div className="audio-record-container">
                 <div className="audio-record-title">
                 {(() => {
-                    if (seconds != 0) return "you can speak in"
+                    if (seconds !== 0) return "you can speak in"
                     else return "speak now"
                 }
                 )()}
                 </div>
                 {(() => {
-                    if (seconds != 0) return (<div className="audio-record-seconds">{seconds}</div>);
+                    if (seconds !== 0) return (<div className="audio-record-seconds">{seconds}</div>);
                     else return (
                     <div>
                     <Record/>

@@ -10,17 +10,17 @@ function GrammarFeedback(props) {
                 <div className="grammar-feed-header">
                     <div className="grammar-feed-header-text">
                         {(() => {
-                            if (Object.keys(props.incorrect_correct).length == 0) return "There were no grammar or speeling mistakes! Keep it going bestie!";
+                            if (Object.keys(props.incorrect_correct).length === 0) return "There were no grammar or speeling mistakes! Keep it going bestie!";
                             else return "The grammar seemed a little bit inaccurate. Here we improved it for you,";
                         }
                         )()}
                         </div>
                     <img className="card-header-image" src=
                      {(() => {
-                        if (Object.keys(props.incorrect_correct).length == 0) return Correct;
+                        if (Object.keys(props.incorrect_correct).length === 0) return Correct;
                         else return GrammarImage;
                     }
-                    )()}/>
+                    )()} alt ="Header Image"/>
                 </div>
                 <div className="grammar-items-container">
                     {
@@ -31,7 +31,7 @@ function GrammarFeedback(props) {
                 </div>
                 <div>
                     {(() => {
-                        if (Object.keys(props.incorrect_correct).length != 0) {
+                        if (Object.keys(props.incorrect_correct).length !== 0) {
                             return (
                             <div className="view-all-btn-frame" onClick={(e) => {props.didTapViewAll(!props.showAllGrammar)}}>
                                 <div className="view-all-btn">

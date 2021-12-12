@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import temp from "./Assets/temp.png"
 import progress from "./Assets/progress.png"
 import help from "./Assets/help.png"
 import { useNavigate } from "react-router-dom";
-import {Animated} from "react-animated-css";
 
 function Header(props) {
 

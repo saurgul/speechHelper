@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function HistoryReportItem(props) {
@@ -61,10 +61,10 @@ function HistoryReport(props) {
             <p className="report-title">History</p>
             {(() => {
 
-                if (Object.keys(props.historySpeeches).length == 0) {
+                if (Object.keys(props.historySpeeches).length === 0) {
                     return (
                         <div className="report-item-container-empty">
-                          <div className="report-item-empty">Looks like you are new here,tap the generate button. All your reports will be shown here.</div>
+                          <div className="report-item-empty">Looks like you are new here, tap the generate button. All your reports will be shown here.</div>
                         </div> 
                     );
                 }
