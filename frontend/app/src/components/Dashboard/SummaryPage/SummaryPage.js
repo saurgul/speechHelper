@@ -13,6 +13,9 @@ function SummaryPage() {
     const location = useLocation();
 	const { userID, name, data } = location.state;
 
+    const incorrect_correct = {}
+    const words = {};
+
     const [showAllGrammar, setViewAll] = useState(false);
     
     const didTapViewAll = (show) => {
@@ -29,7 +32,7 @@ function SummaryPage() {
                             if (!showAllGrammar) {
                                 return (
                                     <div className="summary-container-child-col">
-                                        <OverusedWordCard/>
+                                        <OverusedWordCard overused = {words}/>
                                         <div className="summary-container-child-pace-filler-row">
                                             <FillerCard fillerCount={data.fillerRatio}/>
                                             <PaceCard pace = {data.speechRate}/>
@@ -41,7 +44,7 @@ function SummaryPage() {
                         }
                     )()}
                         <div className="summary-container-child-col">
-                            <GrammarFeedback showAllGrammar = {showAllGrammar}  didTapViewAll={didTapViewAll}/>
+                            <GrammarFeedback incorrect_correct ={incorrect_correct} showAllGrammar = {showAllGrammar}  didTapViewAll={didTapViewAll}/>
                         </div>
                     </div>
                 </div>
