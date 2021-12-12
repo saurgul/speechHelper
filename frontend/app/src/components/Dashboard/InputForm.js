@@ -20,6 +20,7 @@ function InputForm(props){
 	}
 	
 	const generateReport = async() => {
+        props.updateLoading(true);
         const formData = new FormData();
         formData.append("files",speechFile);
         formData.append("files",textFile);
@@ -37,6 +38,7 @@ function InputForm(props){
 		.then(async response => {
             const data = await response.json();
             props.reloadHistory();
+            props.updateLoading(false);
 		})
 		.catch(error => console.log(error) );
 	}
