@@ -18,12 +18,11 @@ public class SpeechEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	  @Id
-	  @GeneratedValue(strategy=GenerationType.AUTO)
-	  @Column(name="speechId")
+	  @GeneratedValue(strategy=GenerationType.SEQUENCE)
+	  @Column(name="speech_id")  
 	  private Long speechId;
 	  
-	  @Id
-	  @Column(name="userId")
+	  @Column(name="user_id")
 	  private Long userId;
 	  
 	  @Column(name="date_created")

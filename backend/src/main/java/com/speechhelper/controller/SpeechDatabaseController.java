@@ -1,7 +1,6 @@
 package com.speechhelper.controller;
 
 import java.sql.Date;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -33,15 +32,16 @@ public class SpeechDatabaseController {
 	
 	@Transactional
 	@PostMapping(path="/add_speech") // Map ONLY POST Requests
-	public String addNewSpeech (@RequestParam Long userId, @RequestParam Speech speech) {
+	public Long addNewSpeech (@RequestParam Long userId, @RequestParam Speech speech) {
 		SpeechEntity n = new SpeechEntity();
 		n.setUserId(userId);
 		java.util.Date today = new java.util.Date();
 		n.setDateCreated(new Date(today.getYear(), today.getMonth(), today.getDate()));
 //		n.setTranscribedSpeechText(speech.getText());
 //		n.setConvertedSpeechText(speech.getInput());
-		speechRepository.save(n);
-		return "Saved";
+		n = speechRepository.save(n);
+		System.out.println("after saving speech"+n.getSpeechId());
+		return n.getSpeechId();
 	}
 	
 	@Transactional

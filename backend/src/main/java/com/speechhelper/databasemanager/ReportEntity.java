@@ -37,7 +37,7 @@ public class ReportEntity {
 	  private String fillerRatio;
 	  
 	  @Column(name = "speechRate")
-	  private Long speechRate;
+	  private double speechRate;
 	  
 	  @Column(name = "feedback")
 	  private String feedback;
@@ -45,13 +45,19 @@ public class ReportEntity {
 	  @Column(name = "spellingFixes")
 	  private HashMap<String,String> spellingFixes;
 	  
+	  @Column(name = "score")
+	  private int score;
+	  
+	  @Column(name = "sentiment")
+	  private String sentiment;
+	  
 	  public ReportEntity() {}
 	
 	  @Override
 	  public String toString() {
 	    return String.format(
-	        "User[reportId=%d, speechId=%d, userId=%d, wordFrequency=%s, fillerFrequency=%s, fillerRatio=%s, speechRate=%d, feedback=%s, spellingFixes=%s]",
-	        reportId, speechId, userId, wordFrequency, fillerFrequency, fillerRatio, speechRate, feedback, spellingFixes);
+	        "User[reportId=%d, speechId=%d, userId=%d, wordFrequency=%s, fillerFrequency=%s, fillerRatio=%s, speechRate=%d, feedback=%s, spellingFixes=%s, score=%s]",
+	        reportId, speechId, userId, wordFrequency, fillerFrequency, fillerRatio, speechRate, feedback, spellingFixes, score);
 	  }
 	  
 	public String getWordFrequency() {
@@ -78,11 +84,11 @@ public class ReportEntity {
 		this.fillerRatio = fillerRatio;
 	}
 
-	public Long getSpeechRate() {
+	public double getSpeechRate() {
 		return speechRate;
 	}
 
-	public void setSpeechRate(Long speechRate) {
+	public void setSpeechRate(double speechRate) {
 		this.speechRate = speechRate;
 	}
 
@@ -124,5 +130,21 @@ public class ReportEntity {
 	
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	public int getScore() {
+		return score;
+	}
+	
+	public void setSentiment(String sentiment) {
+		this.sentiment = sentiment;
+	}
+	
+	public String getSentiment() {
+		return sentiment;
 	}
 }
