@@ -30,9 +30,12 @@ import com.speechhelper.speechtotext.Speech;
 import com.speechhelper.speechtotext.SpeechToTextCommand;
 import com.speechhelper.speechtotext.SpeechToTextReport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 
 //This is our interface between the frontend and backend.
+
+@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
 @RestController
 public class SpeakingHelperController {
 	@Autowired
@@ -115,7 +118,8 @@ public class SpeakingHelperController {
 	}
 	
 	//This endpoint is currently configured to do the whole process of creating a speech and generating feedback
-	@CrossOrigin(origins = "https://speechhelper.herokuapp.com")
+	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
+	@Transactional
 	@RequestMapping(value="/createSpeech",  method=RequestMethod.POST)
 	public Map<String, String> createSpeech(@RequestPart("files") MultipartFile[] files, @RequestParam Long userId) {
 		//Need to take file as an input for text file of speech instead of url
@@ -188,9 +192,12 @@ public class SpeakingHelperController {
 		return values;
 	}
 	
-	@CrossOrigin(origins = "https://speechhelper.herokuapp.com")
+	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
+	@Transactional
 	@RequestMapping(value="/createSpeechWelcomePage",  method=RequestMethod.POST)
 	public Map<String, String> createSpeechWelcomepage(@RequestPart("files") MultipartFile[] files) {
+		String boundary = Long.toHexString(System.currentTimeMillis());
+        request.getHeaders().setContentType("multipart/form-data; boundary="+boundary);
 		Speech testSpeech;
 		HashMap<String, String> response = new HashMap<>();
 		String uploadsDir = "/uploads/";
