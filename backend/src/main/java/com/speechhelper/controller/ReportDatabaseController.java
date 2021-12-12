@@ -39,14 +39,14 @@ public class ReportDatabaseController {
 	}
 	
 	@Transactional
-	@GetMapping(path="/report_id/{:reportId}")
-	public ReportEntity findByReportId(@Param("reportId") Long reportId) {
+	@GetMapping(path="/report_id}")
+	public ReportEntity findByReportId(@RequestParam Long reportId) {
 		return reportRepository.findById(reportId).get();
 	}
 	
 	@Transactional
-	@GetMapping(path = "/report_speech_id/{:speechId}")
-	public ReportEntity findBySpeechId(@Param("speechId") Long speechId){
+	@GetMapping(path = "/report_speech_id")
+	public ReportEntity findBySpeechId(@RequestParam Long speechId){
 		return reportRepository.findBySpeechId(speechId);
 	}
 }

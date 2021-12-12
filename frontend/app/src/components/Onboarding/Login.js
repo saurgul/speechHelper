@@ -45,10 +45,11 @@ function Login() {
 	const handleRoute = async() =>{
         if (show) {
             if (isInputValid()) {
-                var firstName = name.split(' ').slice(0, -1).join(' ');
-                var lastName = name.split(' ').slice(-1).join(' ');
+                var details = name.split(' ');
+                console.log("StudentFirstName=" + details[0])
+                console.log("StudentLastName=" + details[1]);
     
-                fetch(`/add_user?firstName=${firstName}&lastName=${lastName}&username=${firstName+lastName}&password=${password}&email=${email}`,  {
+                fetch(`/add_user?firstName=${details[0]}&lastName=${ details[1]}&username=${details[0]+ details[1]}&password=${password}&email=${email}`,  {
                     method: 'POST',
                     headers: {
                       'Accept': 'application/json',
@@ -73,7 +74,6 @@ function Login() {
                 .then(handleErrors)
                 .then(async response => {
                     const data = await response.json();
-                    console.log(data)
                     if (data.password !== password) {
                         setWrongPasswordInput(true);
                         setWrongInputError("Wrong Password, Please try again");

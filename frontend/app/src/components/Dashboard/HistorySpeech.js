@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 function HistoryReportItem(props) {
@@ -7,13 +7,7 @@ function HistoryReportItem(props) {
     const API = "https://speech-helper-backend.herokuapp.com"
 	
     const handleRoute = () => {
-        getFeedback()
-        navigate(`/summary`, {
-            state: {
-                userID: props.userId,
-                name: props.name,
-            }
-        });
+        getFeedback();
     }
 
     function handleErrors(response) {
@@ -23,22 +17,21 @@ function HistoryReportItem(props) {
 		return response;
 	}
 
-    const getFeedback = async() => {
-        fetch(`/speechId=${props.speechId}`, {
+    const getFeedback = async() =>  {
+        fetch(`/report_speech_id?speechId=${props.speechId}`, {
             method: "GET"
         })
         .then(handleErrors)
-        .then(async response => {
-            const data = await response.json();
-            // console.log(data);
-            console.log(data.WordFrequency);
-            console.log(data.FillerFrequency);
-            // setFillerWordFrequency(data.FillerFrequency);
-            console.log(data.FillerRatio);
-            // setFillerWordRatio(data.FillerRatio);
-            console.log(data.SpeechRate);
-            // setSpeechRate(data.SpeechRate);
-		})
+        .then(async response => await response.json())
+        .then(data => {
+            navigate(`/summary`, {
+                state: {
+                    userID: props.userId,
+                    name: props.name,
+                    data: data
+                }
+            });
+        })
 		.catch(error => console.log(error) );
     }
 

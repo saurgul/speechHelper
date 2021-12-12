@@ -11,11 +11,7 @@ import { useLocation } from 'react-router-dom';
 
 function SummaryPage() {
     const location = useLocation();
-	const { userID, name } = location.state;
-    const score = "55";
-    const sentiment = "Calm"
-    const fillerCount = 15;
-    const pace = 179;
+	const { userID, name, data } = location.state;
 
     const [showAllGrammar, setViewAll] = useState(false);
     
@@ -27,7 +23,7 @@ function SummaryPage() {
         <Animated animationIn="rotateIn" animationOut="rotateOut">  
             <div className="mainContainer">
                 <div className="bgCard"> 
-                    <SummaryPageHeader userID = {userID} name = {name} score = {score}/>
+                    <SummaryPageHeader userID = {userID} name = {name} score = {data.score}/>
                     <div className="summary-container-child">
                     {(() => {
                             if (!showAllGrammar) {
@@ -35,10 +31,10 @@ function SummaryPage() {
                                     <div className="summary-container-child-col">
                                         <OverusedWordCard/>
                                         <div className="summary-container-child-pace-filler-row">
-                                            <FillerCard fillerCount={fillerCount}/>
-                                            <PaceCard pace = {pace}/>
+                                            <FillerCard fillerCount={data.fillerRatio}/>
+                                            <PaceCard pace = {data.speechRate}/>
                                         </div>
-                                        <SentimentCard sentiment = {sentiment}/>
+                                        <SentimentCard sentiment = {data.sentiment}/>
                                     </div>
                                 );
                             }
