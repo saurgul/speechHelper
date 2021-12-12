@@ -1,19 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import FamousSpeechImage from "./Assets/famousspeeches.png"
 import PlayImage from "./Assets/play.png"
+import PauseImage from "./Assets/pauseButton.png"
 
 function FamousSpeechItem(props) {
+
+    const [playButtonClicked, setPlay] = useState(false);
+
+    const playbuttonClicked = () => {
+        if (playButtonClicked) {
+            setPlay(!playButtonClicked)
+            props.updateSpeech(props.text);
+            new Audio(props.audioFilePath).play()
+        }
+        setPlay(!playButtonClicked)
+    }
+
     return (
         <div className="famous-list-item-container">
             <div className="famous-list-item-text">
                 <div className="famous-list-item-text-title">{props.speech}</div>
                 <div className="famous-list-item-text-subtitle">Description of the speech</div>
             </div>
-            <img src={PlayImage} className="famous-speech-item-image" onClick={(e) => {props.updateSpeech(props.text), new Audio(props.audioFilePath).play()}}/>
+            <img className="famous-speech-item-image" onClick={(e) => playbuttonClicked()} src = 
+            {(() => 
+                {
+                    if (playButtonClicked) return PlayImage;
+                    else return PauseImage;
+                }
+            )()} alt ="play-pause-btn"/>
         </div>
     );
 }
-
 
 
 function FamousSpeeches(props) {
@@ -32,82 +50,24 @@ function FamousSpeeches(props) {
         And when this happens, when we allow freedom ring, when we let it ring from every village and every hamlet, from every state and every city, we will be able to speed up that day when all of God's children, black men and white men, Jews and Gentiles, Protestants and Catholics, will be able to join hands and sing in the words of the old Negro spiritual: \
         Free at last! Free at last! \
         Thank God Almighty, we are free at last! `, audioPath: "./Assets/Famous Speeches/Martin Luther King Jr.mp3"},
-        "Denzel Washington" : {text: `Thinking about the speech, I figured the best way to keep your attention would be to talk about some really, juicy Hollywood stuff.
-
-        I thought I could start with me and Russell Crowe getting into some arguments on the set of American Gangster…
-        
-        … but no. You’re a group of high-minded intellectuals. You’re not interested in that.
-        
-        Or how about that “private” moment I had with Angelina Jolie half naked in her dressing room backstage at the Oscars?… Who wants to hear about that?
-        
-        I don’t think so. This is an Ivy League school. Angelina Jolie in her dressing room…?
-        
-        No, this is Penn. That stuff wouldn’t go over well here. Maybe at Drexel—but not here. I’m in trouble now.
-        
-        I was back to square one—and feeling the pressure. 
-        
-        So now you’re probably thinking—if it was gonna be this difficult, why’d I even accept today’s invitation in the first place?
-        
-        Well, you know my son goes here. That’s a good reason. And I always like to check to see how my money’s being spent.
-        
-        And I’m sure there’s some parents out there who can relate to what I’m talking about!
-        
-        And there were other good reasons for me to show up.
-        
-        Sure, I got an Academy Award… but I never had something called “Magic Meatballs” after waiting in line for half an hour at a food truck.
-        
-        True, I’ve talked face-to-face with President Obama… but I never met a guy named “Kweeder” who sings bad cover songs at Smokes on a Tuesday night.
-        
-        Yes, I’ve played a detective battling demons… but I’ve never been to a school in my life where the squirrel population has gone bananas, breaking into the dorm rooms and taking over campus. I think I’ve even seen some carrying books on the way to class!
-        
-        So I had to be here. I had to come… even though I was afraid I might make a fool of myself.
-        
-        In fact… if you really want to know the truth: 
-        
-        I had to come… exactly because I might make a fool of myself.
-        
-        What am I talking about?
-        
-        Well, here it is:
-        
-        I’ve found that nothing in life is worthwhile unless you take risks.
-        
-        Nothing.
-        
-        Nelson Mandela said:
-        
-        “There is no passion to be found playing small—in settling for a life that’s less than the one you’re capable of living.”
-        
-        I’m sure in your experiences—in school… in applying to college… in picking your major… in deciding what you want to do with life—people have told you to make sure you have something to “fall back on.”
-        
-        But I’ve never understood that concept, having something to fall back on.
-        
-        If I’m going to fall, I don’t want to fall back on anything, except my faith. I want to fall… forward. 
-        
+        "Denzel Washington" : {text: `Thinking about the speech, I figured the best way to keep your attention would be to talk about some really, juicy Hollywood stuff. I thought I could start with me and Russell Crowe getting into some arguments on the set of American Gangster…
+        … but no. You’re a group of high-minded intellectuals. You’re not interested in that.Or how about that “private” moment I had with Angelina Jolie half naked in her dressing room backstage at the Oscars?… Who wants to hear about that?
+        I don’t think so. This is an Ivy League school. Angelina Jolie in her dressing room…?No, this is Penn. That stuff wouldn’t go over well here. Maybe at Drexel—but not here. I’m in trouble now.I was back to square one—and feeling the pressure. So now you’re probably thinking—if it was gonna be this difficult, why’d I even accept today’s invitation in the first place?Well, you know my son goes here. That’s a good reason. And I always like to check to see how my money’s being spent.And I’m sure there’s some parents out there who can relate to what I’m talking about!And there were other good reasons for me to show up.Sure, I got an Academy Award… but I never had something called “Magic Meatballs” after waiting in line for half an hour at a food truck.
+        True, I’ve talked face-to-face with President Obama… but I never met a guy named “Kweeder” who sings bad cover songs at Smokes on a Tuesday night.Yes, I’ve played a detective battling demons… but I’ve never been to a school in my life where the squirrel population has gone bananas, breaking into the dorm rooms and taking over campus. I think I’ve even seen some carrying books on the way to class!So I had to be here. I had to come… even though I was afraid I might make a fool of myself.In fact… if you really want to know the truth: 
+        I had to come… exactly because I might make a fool of myself.What am I talking about?Well, here it is:I’ve found that nothing in life is worthwhile unless you take risks.Nothing.Nelson Mandela said: “There is no passion to be found playing small—in settling for a life that’s less than the one you’re capable of living.”
+        I’m sure in your experiences—in school… in applying to college… in picking your major… in deciding what you want to do with life—people have told you to make sure you have something to “fall back on.”But I’ve never understood that concept, having something to fall back on. If I’m going to fall, I don’t want to fall back on anything, except my faith. I want to fall… forward. 
         At least I figure that way I’ll see what I’m about to hit.
-        
         Fall forward.
-        
         Here’s what I mean: 
-        
         Reggie Jackson struck out twenty-six-hundred times in his career—the most in the history of baseball. 
-        
         But you don’t hear about the strikeouts. People remember the home runs.
-        
         Fall forward.
-        
         Thomas Edison conducted 1,000 failed experiments. Did you know that?  
-        
         I didn’t either—because #1,001 was the light bulb.
-        
         Fall forward.
-        
         Every failed experiment is one step closer to success. 
-        
         You’ve got to take risks. And I’m sure you’ve probably heard that before.
-        
         But I want to talk about why it’s so important.
-        
         I’ve got three reasons—and then you can pick up your iPhones.
         
         First… you will fail at some point in your life. Accept it. You will lose.  You will embarrass yourself. You will suck at something. There is no doubt about it.
