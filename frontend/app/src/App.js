@@ -1,17 +1,8 @@
-import React,{useState, useEffect} from 'react';
+import React,{useEffect} from 'react';
 import './App.css';
 import Routing from './Routing';
 
-import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    Switch
-} from 'react-router-dom';
-
-
 function App() {
-  const[speeches, setSpeeches] = useState();
   useEffect(()=>{
     async function getSpeeches(){
         const response = await fetch('/test');
@@ -22,7 +13,6 @@ function App() {
   },[])
 
   return (
-	<Router>
     <div className="App bg-body">
       <link href='https://fonts.googleapis.com/css?family=Sen' rel='stylesheet'/>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/> 
@@ -30,7 +20,6 @@ function App() {
 		    <Routing/>
       </header>
     </div>
-  </Router>
   );
 }
 

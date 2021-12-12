@@ -126,6 +126,7 @@
     display: flex;
     justify-content: space-between;
     padding: 30px;
+    align-items: center;
 }
 
 .card-header-image {

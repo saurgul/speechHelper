@@ -121,7 +121,7 @@ public class SpeakingHelperController {
 	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
 	@Transactional
 	@RequestMapping(value="/createSpeech",  method=RequestMethod.POST)
-	public Map<String, String> createSpeech(@RequestPart("files") MultipartFile[] files) {
+	public Map<String, String> createSpeech(@RequestPart("files") MultipartFile[] files, @RequestParam Long userId) {
 		//Need to take file as an input for text file of speech instead of url
 		//TODO actually use file from front end, rather than loading locally
 		
@@ -150,19 +150,36 @@ public class SpeakingHelperController {
 		catch(Exception ex) {
 			ex.printStackTrace();
 		}
+		
+		System.out.print(userId);
+		Long speechId = model.addSpeech(testSpeech, userId);
+		//uncomment
 		SpeechToTextCommand speechToText = new SpeechToTextCommand(model, testSpeech);
 		model.receiveCommand(speechToText);
 		//System.out.println(testSpeech.toString());
 		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, speechToText.getSpeechObject());
 		model.receiveCommand(parseTextCommand);
 		
+		String wordFrequency = parseTextCommand.getWordFrequencyCount().toString();
+		String fillerFrequecy = parseTextCommand.getFillerFrequency().toString();
+		String fillerRatio = parseTextCommand.getFillerRatio() + "";
+		double speechRate = parseTextCommand.getSpeechRate();
+		String sentiment =  runPythonScript_liveprediction();
+		int score = parseTextCommand.getScore();
+		
 		//REST Controller converts to json for us, so returning a key value pair will work for our response
 		HashMap<String, String> values = new HashMap<String,String>();
-		values.put("WordFrequency", parseTextCommand.getWordFrequencyCount().toString());
-		values.put("FillerFrequency", parseTextCommand.getFillerFrequency().toString());
-		values.put("FillerRatio", parseTextCommand.getFillerRatio() + "");
-		values.put("SpeechRate", parseTextCommand.getSpeechRate() + "");
-		values.put("Score", parseTextCommand.getScore() + "");
+		//uncomment
+		values.put("WordFrequency", wordFrequency);
+		values.put("FillerFrequency", fillerFrequecy);
+		values.put("FillerRatio", fillerRatio);
+		values.put("SpeechRate", speechRate+"");
+		values.put("Score", score+"");
+		System.out.println("speechId"+speechId);
+		
+		//uncomment
+		model.addReport(speechId, userId, fillerRatio, speechRate, score, sentiment);
+		
 		System.out.println(realPathtoUploads);
 		File textFile = new File(realPathtoUploads + "/" + files[0].getOriginalFilename());
 		File audioFile = new File(realPathtoUploads + "/" + files[1].getOriginalFilename());
@@ -171,6 +188,7 @@ public class SpeakingHelperController {
 		System.out.println(textFile.canExecute());
 		System.out.println(audioFile.canExecute());
 		System.out.println(values.toString());
+		
 		return values;
 	}
 	

@@ -4,9 +4,35 @@ import { useNavigate } from "react-router-dom";
 function HistoryReportItem(props) {
 
     const navigate = useNavigate();
+    const API = "https://speech-helper-backend.herokuapp.com"
 	
     const handleRoute = () => {
-      navigate('/summary');
+        getFeedback();
+    }
+
+    function handleErrors(response) {
+		if (!response.ok) {
+			throw Error(response.statusText);
+		}
+		return response;
+	}
+
+    const getFeedback = async() =>  {
+        fetch(`/report_speech_id?speechId=${props.speechId}`, {
+            method: "GET"
+        })
+        .then(handleErrors)
+        .then(async response => await response.json())
+        .then(data => {
+            navigate(`/summary`, {
+                state: {
+                    userID: props.userId,
+                    name: props.name,
+                    data: data
+                }
+            });
+        })
+		.catch(error => console.log(error) );
     }
 
     return (
@@ -16,7 +42,7 @@ function HistoryReportItem(props) {
                     <div className="report-item-left">
                         <div className="number-overlay">{props.num}</div>
                         <div className="history-speech-text-container">
-                            <div className="history-speech-title">{props.speechTitle}</div>
+                            <div className="history-speech-title">Speech {props.speechTitle}</div>
                             <div className="history-speech-subtitle">Recorded: {props.speechDate}</div>
                         </div>
                     </div>
@@ -25,28 +51,20 @@ function HistoryReportItem(props) {
                 {/* <div className="separator"></div> */}
             </div>
         </div>
-
     );
 } 
 
 function HistoryReport(props) {
-
-    const historySpeeches = {
-        "Speech 1" : "10/11/2021",
-        "Speech 2" : "10/11/2021",
-        "Speech 3" : "10/11/2021",
-        "Speech 4" : "10/11/2021",
-    }
 
     return (
         <div className= "report-list-container">
             <p className="report-title">History</p>
             {(() => {
 
-                if (Object.keys(historySpeeches).length == 0) {
+                if (Object.keys(props.historySpeeches).length === 0) {
                     return (
                         <div className="report-item-container-empty">
-                          <div className="report-item-empty">Looks like you are new here,tap the generate button. All you reports will be shown here.</div>
+                          <div className="report-item-empty">Looks like you are new here, tap the generate button. All your reports will be shown here.</div>
                         </div> 
                     );
                 }
@@ -54,8 +72,8 @@ function HistoryReport(props) {
                     return (
                         <div className="report-items-container">
                         {   
-                            Object.keys(historySpeeches).map((key, index) => ( 
-                                <HistoryReportItem num = {index+1} speechTitle = {key} speechDate = {historySpeeches[key]}/>  
+                            Object.keys(props.historySpeeches).map((key, index) => ( 
+                                <HistoryReportItem speechId = {key} num = {index+1} speechTitle = {index+1} speechDate = {props.historySpeeches[key]} name = {props.name} userId = {props.userId}/>  
                             ))
                         }
                         </div>

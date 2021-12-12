@@ -5,7 +5,9 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.speechhelper.command.Command;
 import com.speechhelper.command.CommandInvoker;
@@ -29,9 +31,14 @@ public class Model {
 	private CommandInvoker commandInvoker;
 	private int currentId = 0;
 	
-	private UserDatabaseController userDatabaseController = new UserDatabaseController();
-	private SpeechDatabaseController speechDatabaseController = new SpeechDatabaseController();
-	private ReportDatabaseController reportDatabaseController = new ReportDatabaseController();
+	@Autowired
+	private UserDatabaseController userDatabaseController;
+	
+	@Autowired
+	private SpeechDatabaseController speechDatabaseController;
+	
+	@Autowired
+	private ReportDatabaseController reportDatabaseController;
 	
 	public Model() {
 		speeches = new ArrayList<Speech>();
@@ -67,8 +74,12 @@ public class Model {
 		return (ArrayList<SpeechEntity>) speechDatabaseController.findByUserId(userId);
 	}
 	
-	public void addSpeech(Speech newSpeech, long userId) {
-		speechDatabaseController.addNewSpeech(userId, newSpeech);
+	public Long addSpeech(Speech newSpeech, Long userId) {
+		return speechDatabaseController.addNewSpeech(userId, newSpeech);
+	}
+	
+	public void addReport(Long speechId, Long userId, String fillerRatio, double speechRate, int score, String sentiment){
+		reportDatabaseController.addNewReport(speechId, userId, fillerRatio, speechRate, score, sentiment);
 	}
 	
 	public Speech getSpeechById(int id) {
@@ -78,7 +89,7 @@ public class Model {
 			}
 		}
 		return new NullSpeech();
-	}
+	};
 	
 	public SpeechEntity getSpeechById(Long speechId) {
 		return speechDatabaseController.findBySpeechId(speechId);
