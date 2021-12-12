@@ -46,9 +46,6 @@ function Login() {
         if (show) {
             if (isInputValid()) {
                 var details = name.split(' ');
-                console.log("StudentFirstName=" + details[0])
-                console.log("StudentLastName=" + details[1]);
-    
                 fetch(`/add_user?firstName=${details[0]}&lastName=${ details[1]}&username=${details[0]+ details[1]}&password=${password}&email=${email}`,  {
                     method: 'POST',
                     headers: {
