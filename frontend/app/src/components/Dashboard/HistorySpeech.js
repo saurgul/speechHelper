@@ -7,9 +7,13 @@ function HistoryReportItem(props) {
     const API = "https://speech-helper-backend.herokuapp.com"
 	
     const handleRoute = () => {
-      //call rhe get Feedback method and pass the state to the summary page
-      getFeedback()
-      navigate('/summary');
+        getFeedback()
+        navigate(`/summary`, {
+            state: {
+                userID: props.userId,
+                name: props.name,
+            }
+        });
     }
 
     function handleErrors(response) {
@@ -20,25 +24,23 @@ function HistoryReportItem(props) {
 	}
 
     const getFeedback = async() => {
-        fetch(API + `/speechId=${props.speechId}`, {
+        fetch(`/speechId=${props.speechId}`, {
             method: "GET"
         })
         .then(handleErrors)
         .then(async response => {
             const data = await response.json();
             // console.log(data);
-            // console.log(data.WordFrequency);
-            // console.log(data.FillerFrequency);
+            console.log(data.WordFrequency);
+            console.log(data.FillerFrequency);
             // setFillerWordFrequency(data.FillerFrequency);
-            // console.log(data.FillerRatio);
+            console.log(data.FillerRatio);
             // setFillerWordRatio(data.FillerRatio);
-            // console.log(data.SpeechRate);
+            console.log(data.SpeechRate);
             // setSpeechRate(data.SpeechRate);
 		})
 		.catch(error => console.log(error) );
     }
-
-
 
     return (
         <div className="report-item-container">
@@ -56,7 +58,6 @@ function HistoryReportItem(props) {
                 {/* <div className="separator"></div> */}
             </div>
         </div>
-
     );
 } 
 
@@ -79,7 +80,7 @@ function HistoryReport(props) {
                         <div className="report-items-container">
                         {   
                             Object.keys(props.historySpeeches).map((key, index) => ( 
-                                <HistoryReportItem speechId = {props.speechId} num = {index+1} speechTitle = {index+1} speechDate = {props.historySpeeches[key]}/>  
+                                <HistoryReportItem speechId = {key} num = {index+1} speechTitle = {index+1} speechDate = {props.historySpeeches[key]} name = {props.name} userId = {props.userId}/>  
                             ))
                         }
                         </div>

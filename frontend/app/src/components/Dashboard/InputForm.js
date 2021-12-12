@@ -23,7 +23,7 @@ function InputForm(props){
         const formData = new FormData();
         formData.append("files",speechFile);
         formData.append("files",textFile);
-
+        console.log(props.userId)
 		fetch(`/createSpeech?userId=${props.userId}`, {
             method: "POST",
             body: formData, 

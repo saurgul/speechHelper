@@ -6,7 +6,12 @@ function SummaryPageHeader(props) {
 
     const navigate = useNavigate();
     const handleRoute = () => {
-        navigate('/dashboard');
+        navigate(`/dashboard`, {
+            state: {
+                userID: props.userID,
+                name: props.name
+            }
+        });
     }
 
     return (

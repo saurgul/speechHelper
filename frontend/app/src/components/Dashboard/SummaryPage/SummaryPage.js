@@ -7,10 +7,11 @@ import GrammarFeedback from "./GrammarFeedback";
 import SummaryPageHeader from "./SummaryPageHeader";
 import { Animated } from "react-animated-css";
 import SentimentCard from "./SentimentCard";
-
+import { useLocation } from 'react-router-dom';
 
 function SummaryPage() {
-    const name = "Joshua";
+    const location = useLocation();
+	const { userID, name } = location.state;
     const score = "55";
     const sentiment = "Calm"
     const fillerCount = 15;
@@ -26,7 +27,7 @@ function SummaryPage() {
         <Animated animationIn="rotateIn" animationOut="rotateOut">  
             <div className="mainContainer">
                 <div className="bgCard"> 
-                    <SummaryPageHeader name = {name} score = {score}/>
+                    <SummaryPageHeader userID = {userID} name = {name} score = {score}/>
                     <div className="summary-container-child">
                     {(() => {
                             if (!showAllGrammar) {

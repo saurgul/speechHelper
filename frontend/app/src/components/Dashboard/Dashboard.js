@@ -12,7 +12,7 @@ import { useLocation } from 'react-router-dom';
 
 
 function Dashboard(){
-	const location = useLocation()
+	const location = useLocation();
 	const { userID, name } = location.state;
 	const speechId = 1;
 	const [showHelp, setShow] = useState(false);
@@ -95,7 +95,7 @@ function Dashboard(){
 							!showProgress && !showHelp && 
 							<div className="dashboard-container-child">
 								<InputForm userId = {userID} reloadHistory = {reloadHistory} showRecordLiveModal = {showRecordLiveModal} showRecordAudioModal = {showRecordAudioModal} userLoggedIn = {true}/>	
-								<HistoryReport speechId = {speechId} historySpeeches = {historySpeeches}/>
+								<HistoryReport name = {name} userId ={userID} historySpeeches = {historySpeeches}/>
 								
 							</div>
 						}

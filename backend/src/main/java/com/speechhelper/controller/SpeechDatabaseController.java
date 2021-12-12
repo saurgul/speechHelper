@@ -37,7 +37,7 @@ public class SpeechDatabaseController {
 		SpeechEntity n = new SpeechEntity();
 		n.setUserId(userId);
 		java.util.Date today = new java.util.Date();
-		n.setDateCreated(new Date(today.getYear(), today.getMonth(), today.getDay()));
+		n.setDateCreated(new Date(today.getYear(), today.getMonth(), today.getDate()));
 //		n.setTranscribedSpeechText(speech.getText());
 //		n.setConvertedSpeechText(speech.getInput());
 		speechRepository.save(n);
