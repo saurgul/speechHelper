@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Onboarding from "./components/Onboarding/Onboarding";
 import Welcome from "./components/Onboarding/Welcome";

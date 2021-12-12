@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React from 'react';
 import FillerCard from "../Dashboard/SummaryPage/FillerCard";
 import PaceCard from "../Dashboard/SummaryPage/PaceCard";
 import { Animated } from 'react-animated-css';

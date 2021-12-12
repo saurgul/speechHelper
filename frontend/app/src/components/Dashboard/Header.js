@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import temp from "./Assets/temp.png"
 import progress from "./Assets/progress.png"
 import help from "./Assets/help.png"
 import { useNavigate } from "react-router-dom";
-import {Animated} from "react-animated-css";
 
 function Header(props) {
 
@@ -22,7 +21,7 @@ function Header(props) {
                             <img src={temp} alt="header-image" className="avatar"/>
                         </div>
                         <div className="profile">
-                            <p class="name">Christian</p>
+                            <p class="name">{props.name}</p>
                             <p class="occupation">Student</p>
                         </div>
                     </div>

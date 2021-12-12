@@ -13,7 +13,7 @@ function PaceCard(props) {
                         else if (props.pace < 110 )return Slowpace;
                         else return  Normalpace;
                         }
-                    )()}/>
+                    )()} alt="header image"/>
                     <div className={(() => {
                         if (props.pace > 170) return "text-red pace-info-text";
                         else if (props.pace < 110 )return "text-red pace-info-text";

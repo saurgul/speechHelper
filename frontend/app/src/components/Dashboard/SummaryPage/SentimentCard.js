@@ -20,14 +20,15 @@ function SentimentCard(props) {
         <div className="sentiment-card-container">
             <img className="summary-reaction-img" src={(() => {
                 switch (props.sentiment) {
-                    case "sad": return Sad; break;
-                    case "angry": return Angry; break;
-                    case "calm": return Calm; break;
-                    case "fearful": return Fear; break;
-                    case "surprised": return Surprised; break;
+                    case "sad": return Sad; 
+                    case "angry": return Angry; 
+                    case "calm": return Calm; 
+                    case "fearful": return Fear;
+                    case "surprised": return Surprised;
+                    default: return Calm;
                 }
             }
-            )()}/>
+            )()} alt="Sentiment Card"/>
             <div className="summary-text">{reactionMessage[props.sentiment]}</div>
         </div>
     );

@@ -1,70 +1,60 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState} from 'react';
 
 function InputForm(props){
     const[textFile, setTextFile] = useState();
 	const[textArea, setTextArea] = useState();
     const[speechFile, setSpeechFile] = useState();	
-    const[speechId, setSpeechId] = useState();
-
-    const[fillerWordRatio, setFillerWordRatio] = useState("");
-	const[speechRate, setSpeechRate] = useState("");
-	const[fillerWordFrequency, setFillerWordFrequency] = useState("");
 	const API = "https://speech-helper-backend.herokuapp.com"; 
-    /*const API = "http://localhost:8080/"*/
-    
-    async function generateReport(){
+
+    function handleErrors(response) {
+		if (!response.ok) {
+			throw Error(response.statusText);
+		}
+		return response;
+	}
+	
+	const generateReport = async() => {
+        props.updateLoading(true);
         const formData = new FormData();
         formData.append("files",speechFile);
         formData.append("files",textFile);
-
-        const response = await fetch(API + `/createSpeech`, {method: "POST",body: formData, headers: {
-            'Access-Control-Allow-Origin':'true',
+        console.log(props.userId)
+		fetch(`/createSpeech?userId=${props.userId}`, {
+            method: "POST",
+            body: formData, 
+            headers: {
+            'Access-Control-Allow-Origin':'*',
             'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
                 }	
             }
-        );
-        //const response = await fetch(`/createSpeech?textFile=${encodeURIComponent(textFile)}&audioFile=${encodeURIComponent(speechFile)}`, {method: "GET"});
-        const json = await response.json();
-        setFillerWordFrequency(json.FillerFrequency);
-        console.log(json.FillerRatio);
-        setFillerWordRatio(json.FillerRatio);
-        console.log(json.SpeechRate);
-        setSpeechRate(json.SpeechRate);
-    // const response = await fetch(`/createSpeech?textFile=${textFileData}&audioFile=${speechFileData}`, {method: "POST"});
-    //  console.log(response);
-    //	console.log(response.json);
-    //	await setSpeechId(response.json).then(res => {
-            //getFeedback();
-    //	})
-    }
-
-    async function getFeedback(){
-        const response = await fetch(API + `/parseText?speechId=${0}`, {method: "GET"});
-        console.log(response);
-        const json = await response.json();
-        console.log(json);
-        console.log(json.WordFrequency);
-        console.log(json.FillerFrequency);
-        setFillerWordFrequency(json.FillerFrequency);
-        console.log(json.FillerRatio);
-        setFillerWordRatio(json.FillerRatio);
-        console.log(json.SpeechRate);
-        setSpeechRate(json.SpeechRate);
-    }
-
-    const handleSubmit= async(e) => {
+        )
+		.then(handleErrors)
+		.then(async response => {
+            const data = await response.json();
+            console.log(data)
+            props.reloadHistory();
+            props.updateLoading(false);
+           
+		})
+		.catch(error => console.log(error) );
+	}
+    
+    const handleSubmit = async(e) => {
         e.preventDefault();
         if (!props.userLoggedIn) {
+            props.updateLoading(true);
             const formData = new FormData();
             formData.append("files",textFile);
             formData.append("files",speechFile);
-            const response = await fetch(API + `/createSpeechWelcomePage`, {method: "POST",body: formData, headers: {'Access-Control-Allow-Origin':'true', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS'}});
+            const response = await fetch(`/createSpeechWelcomePage`, {method: "post",body: formData, headers: {'Access-Control-Allow-Origin':'*'}});
             const json = await response.json();
             props.changeReport();
             props.update(json.FillerRatio,json.SpeechRate, json.Sentiment);
+            props.updateLoading(false);
         }
         if (props.userLoggedIn){
             await generateReport();
+            
         }
     }
     
@@ -137,13 +127,7 @@ function InputForm(props){
             }
             )()}
             </div>
-            {/* <input type="file" onChange={e=> setTextFile(e.target.files[0])} /> */}
-            <br />
-            <br />
-            {/* <label>Upload the audio file of your speech:</label>
-            <br />
-            <input type="file" onChange={e=> setSpeechFile(e.target.files[0])} />
-            <br /> */}
+            <br/>
             <input className="theme-btn generate-btn"  type='submit' value='Generate'/>
     </form>
     );

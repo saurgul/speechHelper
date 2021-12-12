@@ -14,11 +14,12 @@ function Login() {
     const [wrongInputError, setWrongInputError] = useState("");
     const [nameError, setNameInputError] = useState("");
     const [wrongNameInput, setNameInput] = useState(false);
-    
-	const API = "https://speech-helper-backend.herokuapp.com"; 
 
     function showSignUpFields(){
         setShow(!show);
+        setEmail(""); 
+        setPassword("");
+        setName("");
     }
 
     function checkValidEmail() {
@@ -33,22 +34,30 @@ function Login() {
     } 
 
     const navigate = useNavigate();
+
+    function handleErrors(response) {
+		if (!response.ok) {
+			throw Error(response.statusText);
+		}
+		return response;
+	}
 	
 	const handleRoute = async() =>{
         if (show) {
             if (isInputValid()) {
-                var firstName = name.split(' ').slice(0, -1).join(' ');
-                var lastName = name.split(' ').slice(-1).join(' ');
-    
-                const response = await fetch(API + `/add_user?firstName=${firstName}&lastName=${lastName}&username=${firstName+lastName}&password=${password}&email=${email}`, {
+                var details = name.split(' ');
+                fetch(`/add_user?firstName=${details[0]}&lastName=${ details[1]}&username=${details[0]+ details[1]}&password=${password}&email=${email}`,  {
                     method: 'POST',
                     headers: {
                       'Accept': 'application/json',
                       'Content-Type': 'application/json',
                     }
-                    }).catch(err => {
-                        console.log(err)
-                    });
+                })
+                .then(handleErrors)
+                .then(response => {
+                    setShow(false);
+                })
+                .catch(error => console.log(error) );
                 setEmail("");
                 setPassword("");
                 setName("");
@@ -56,9 +65,10 @@ function Login() {
         }
         else {
             if (isInputValid()) {
-                fetch(API + `/email?email=${email}`, {
+                fetch(`/email?email=${email}`, {
                     method: 'GET'
                 })
+                .then(handleErrors)
                 .then(async response => {
                     const data = await response.json();
                     if (data.password !== password) {
@@ -68,12 +78,15 @@ function Login() {
                     } else {
                         setEmail(""); 
                         setPassword("");
-                        navigate(`/dashboard`, { state: { userId: data.userId }});
+                        navigate(`/dashboard`, {
+                            state: {
+                                userID: data.userId,
+                                name: data.firstName
+                            }
+                        });
                     }
                 })
-                .catch(error => {
-                    console.error('There was an error!', error);
-                });
+                .catch(error => console.log(error) );
             }
         }
     }
@@ -158,7 +171,6 @@ function Login() {
                 { !show && <a className="sign-up" onClick={showSignUpFields}> Create Account</a>}
                 { show && <a className="sign-up" onClick={showSignUpFields}> Login</a>}
            </div>
-
        </div> 
     );
 }
