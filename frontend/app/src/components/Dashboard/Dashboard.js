@@ -10,6 +10,7 @@ import ProgressChart from './ProgressChart';
 import LiveAudioRecord from './LiveAudioRecord';
 import { useLocation } from 'react-router-dom';
 import LoadingIndicator from './LoadingIndicatory';
+import EmptyProgress from './EmptyProgress';
 
 
 function Dashboard(){
@@ -17,7 +18,7 @@ function Dashboard(){
 	const { userID, name } = location.state;
 	const [showHelp, setShow] = useState(false);
 	const [showProgress, setProgress] = useState(false);
-	const [speechText, setSpeech] = useState("I have a dream that one day down in Alabama, with its vicious racists, with its governor having his lips dripping with the words of interposition and nullification – one day right there in Alabama little black boys and black girls will be able to join hands with little white boys and white girls as sisters and brothers. I have a dream today. I have a dream that one day every valley shall be exalted and every hill and mountain shall be made low, the rough places will be made plain, and the crooked places will be made straight, and the glory of the Lord shall be revealed and all flesh shall see it together.") 
+	const [speechText, setSpeech] = useState("Click the Play icon, the transcript for the speech will be shown here") 
 	const [showRecordLiveModal, setRecordLiveModal] = useState(false);
 	const [isloading, setLoading] = useState(false);
 	const [historySpeeches, setHistorySpeeches] = useState({});
@@ -120,13 +121,28 @@ function Dashboard(){
 						  showProgress &&
 							<Animated animationIn="fadeOut" animationOut="fadeIn" isVisible={!showProgress}>  
 								<div className="progress-main-container">
-									<div className="progress-chart-header">
-										<div className="progress-chart-title">Progress Chart (Overall Score vs Time)</div>
-										<div className="progress-chart-subtitle">This chart shows your progress overtime. With this you can keep track of how well are you doing each month</div>
-									</div>
-									<div className="progress-container">
-										<ProgressChart data={progressData} width = {500} height= {300} horizontalGuides={5} precision={0} color="#5744AB"/>
-									</div>
+									{(() => {
+											if (Object.keys(historySpeeches).length === 0) {
+												return  (
+													<div className='empty-progress-container'>
+														<EmptyProgress/>
+													</div>
+												); 
+											} else {
+												return (
+													<div>
+														<div className="progress-chart-header">
+															<div className="progress-chart-title">Progress Chart (Overall Score vs Time)</div>
+															<div className="progress-chart-subtitle">This chart shows your progress overtime. With this you can keep track of how well are you doing each month</div>
+														</div>
+														<div className="progress-container">
+															<ProgressChart data={progressData} width = {500} height= {300} horizontalGuides={5} precision={0} color="#5744AB"/>
+														</div>
+													</div>
+												);
+
+											}
+									})()}
 								</div>	
 							</Animated> 
 						}
