@@ -88,7 +88,7 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 			while((lines=errors.readLine())!=null) {
 				PythonErrors += lines +"\n\r";
 				// Uncomment Below Line to debug Python Script Issue.
-				System.out.println(" Error lines : "+PythonErrors);
+				//System.out.println(" Error lines : "+PythonErrors);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -210,11 +210,10 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
             String audioFilePath = realPathtoUploads + audioFileOrgName;
             File audioFile = new File(audioFilePath);
             files[1].transferTo(audioFile);
-
-			testSpeech = new Speech.Builder().speechFile(new File(realPathtoUploads + "/" + files[0].getOriginalFilename()))
+            
+			testSpeech = new Speech.Builder().speechFile(audioFile)
 											 .input(new String(Files.readAllBytes(textFile.toPath())))
 											 .build();
-		
 		
 		System.out.print(userId);
 		Long speechId = model.addSpeech(testSpeech, userId);
@@ -223,12 +222,11 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 		model.receiveCommand(speechToText);
 		//System.out.println(testSpeech.toString());
 		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, testSpeech);
-		model.receiveCommand(parseTextCommand);
+		parseTextCommand.execute();
 		String wordFrequency = parseTextCommand.getWordFrequencyCount().toString();
 		String fillerFrequecy = parseTextCommand.getFillerFrequency().toString();
 		String fillerRatio = parseTextCommand.getFillerRatio() + "";
 		String sentiment =  runPythonScript_liveprediction(realPathtoUploads + "/" + files[1].getOriginalFilename());
-		//String sentiment = "";
 		double speechRate = parseTextCommand.getSpeechRate();
 		int score = parseTextCommand.getScore();
 		
@@ -239,7 +237,7 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 		response.put("SpeechRate", speechRate+"");
 		response.put("Score", score+"");
 		response.put("Sentiment", sentiment);
-		System.out.println("speechId"+speechId);
+		System.out.println("speechId: "+speechId);
 		
 		//uncomment
 		model.addReport(speechId, userId, fillerRatio, speechRate, score, sentiment);
