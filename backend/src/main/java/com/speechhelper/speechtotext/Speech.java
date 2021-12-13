@@ -79,6 +79,7 @@ public class Speech {
 			AudioFormat format = audioInputStream.getFormat();
 			frames = audioInputStream.getFrameLength();
 			durationInSeconds = (frames+0.0) / format.getFrameRate(); 
+			audioInputStream.close();
 		} catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
