@@ -15,7 +15,7 @@ function OverusedWordCard(props) {
                 )()} alt='header image'/>
                 <div className="pronounciation-card-header-text">
                 {(() => {
-                        if (Object.keys(props.overused).length === 0) return "You have a way with words!";
+                        if (Object.keys(props.overused).length === 0) return "No overused words, great job!";
                         else return "You are using these words too many times, try to not overuse :)";
                     }
                 )()}

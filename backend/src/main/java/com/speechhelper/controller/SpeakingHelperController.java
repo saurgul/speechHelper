@@ -71,18 +71,22 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 		
 		String PythonOutput = "";
 		String PythonErrors = "";
-		String line="";
+		String lines="";
 		try {
 			Process process = Runtime.getRuntime().exec(pythonString);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			BufferedReader errors = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			
-			while((line=reader.readLine())!=null) {
-				PythonOutput += line +"\n\r";
+			while((lines=reader.readLine())!=null) {
+				//PythonOutput += line +"\n\r";
+				if(lines.equals("Sentiment analysis for live audio:")) {
+					PythonOutput = reader.readLine();
+					PythonOutput = PythonOutput.substring(15).trim();
+				}
 			}
 			
-			while((line=errors.readLine())!=null) {
-				PythonErrors += line +"\n\r";
+			while((lines=errors.readLine())!=null) {
+				PythonErrors += lines +"\n\r";
 				// Uncomment Below Line to debug Python Script Issue.
 				//System.out.println(" Error lines : "+PythonErrors);
 			}
@@ -93,7 +97,7 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 		return PythonOutput;
 	}
 
-	public String runPythonScript_liveprediction() {
+	public String runPythonScript_liveprediction(String filePath) {
 
 	ArrayList<String> PythonArguments = new ArrayList<String>();
 	// Argument 1 - Python Script path
@@ -104,13 +108,13 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 			System.getProperty("user.dir")+ "\\src\\main\\resources\\AudioData\\Save_model\\Emotion_Voice_Detection_Model.h5");
 	
 	// Argument 3 - Input Audio
-	PythonArguments.add(
-			System.getProperty("user.dir")+ "\\src\\main\\resources\\fillerDemo.wav");
+	PythonArguments.add(filePath);
 	
 	// Uncomment below statement if audioFilePath is passes as input
 	//PythonArguments.add(audioFilePath);
 
 	
+	System.out.println("Running python: " + filePath);
 	String output = runPythonScriptHelper(PythonArguments);
 	System.out.println(output);
 	return output;
@@ -187,9 +191,9 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 	@RequestMapping(value="/createSpeech",  method=RequestMethod.POST)
 	public Map<String, String> createSpeech(@RequestPart("files") MultipartFile[] files, @RequestParam Long userId) {
 		//Need to take file as an input for text file of speech instead of url
-		//TODO actually use file from front end, rather than loading locally
 		
 		Speech testSpeech = new NullSpeech();
+		HashMap<String, String> response = new HashMap<>();
 		String uploadsDir = "/uploads/";
         String realPathtoUploads =  request.getServletContext().getRealPath(uploadsDir);
 		try {
@@ -206,14 +210,10 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
             String audioFilePath = realPathtoUploads + audioFileOrgName;
             File audioFile = new File(audioFilePath);
             files[1].transferTo(audioFile);
-
-			testSpeech = new Speech.Builder().speechFile(new File(realPathtoUploads + "/" + files[0].getOriginalFilename()))
-											 .input(new String(Files.readAllBytes(new File(realPathtoUploads + "/" + files[1].getOriginalFilename()).toPath())))
+            
+			testSpeech = new Speech.Builder().speechFile(audioFile)
+											 .input(new String(Files.readAllBytes(textFile.toPath())))
 											 .build();
-		}
-		catch(Exception ex) {
-			ex.printStackTrace();
-		}
 		
 		System.out.print(userId);
 		Long speechId = model.addSpeech(testSpeech, userId);
@@ -221,46 +221,39 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 		SpeechToTextCommand speechToText = new SpeechToTextCommand(model, testSpeech);
 		model.receiveCommand(speechToText);
 		//System.out.println(testSpeech.toString());
-		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, speechToText.getSpeechObject());
-		model.receiveCommand(parseTextCommand);
-		
+		ParseSpeechTextCommand parseTextCommand = new ParseSpeechTextCommand(model, testSpeech);
+		parseTextCommand.execute();
 		String wordFrequency = parseTextCommand.getWordFrequencyCount().toString();
 		String fillerFrequecy = parseTextCommand.getFillerFrequency().toString();
 		String fillerRatio = parseTextCommand.getFillerRatio() + "";
+		String sentiment =  runPythonScript_liveprediction(realPathtoUploads + "/" + files[1].getOriginalFilename());
 		double speechRate = parseTextCommand.getSpeechRate();
-		String sentiment =  runPythonScript_liveprediction();
 		int score = parseTextCommand.getScore();
 		
-		//REST Controller converts to json for us, so returning a key value pair will work for our response
-		HashMap<String, String> values = new HashMap<String,String>();
 		//uncomment
-		values.put("WordFrequency", wordFrequency);
-		values.put("FillerFrequency", fillerFrequecy);
-		values.put("FillerRatio", fillerRatio);
-		values.put("SpeechRate", speechRate+"");
-		values.put("Score", score+"");
-		System.out.println("speechId"+speechId);
+		response.put("WordFrequency", wordFrequency);
+		response.put("FillerFrequency", fillerFrequecy);
+		response.put("FillerRatio", fillerRatio);
+		response.put("SpeechRate", speechRate+"");
+		response.put("Score", score+"");
+		response.put("Sentiment", sentiment);
+		System.out.println("speechId: "+speechId);
 		
 		//uncomment
 		model.addReport(speechId, userId, fillerRatio, speechRate, score, sentiment);
-		
-		System.out.println(realPathtoUploads);
-		File textFile = new File(realPathtoUploads + "/" + files[0].getOriginalFilename());
-		File audioFile = new File(realPathtoUploads + "/" + files[1].getOriginalFilename());
-		System.out.println(textFile.canRead());
-		System.out.println(audioFile.canRead());
-		System.out.println(textFile.canExecute());
-		System.out.println(audioFile.canExecute());
-		System.out.println(values.toString());
-		
-		return values;
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+
+		//REST Controller converts to json for us, so returning a key value pair will work for our response
+		return response;
 	}
 	
 	@CrossOrigin(origins = "https://speechhelper.herokuapp.com/")
 	@Transactional
 	@RequestMapping(value="/createSpeechWelcomePage",  method=RequestMethod.POST)
 	public Map<String, String> createSpeechWelcomepage(@RequestPart("files") MultipartFile[] files) {
-		String boundary = Long.toHexString(System.currentTimeMillis());
 		Speech testSpeech;
 		HashMap<String, String> response = new HashMap<>();
 		String uploadsDir = "/uploads/";
@@ -280,13 +273,6 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
             File audioFile = new File(audioFilePath);
             files[1].transferTo(audioFile);
             
-//			File textFile = new File(getClass().getClassLoader().getResource(files[0].getOriginalFilename()).getFile());
-//			if(!textFile.exists()) textFile.createNewFile();
-//				files[0].transferTo(textFile);
-//			File audioFile = new File(getClass().getClassLoader().getResource(files[1].getOriginalFilename()).getFile());
-//			if(!audioFile.exists()) audioFile.createNewFile();
-//				files[1].transferTo(audioFile);
-				
 			testSpeech = new Speech.Builder().speechFile(audioFile)
 											 .input(new String(Files.readAllBytes(textFile.toPath())))
 											 .build();
@@ -295,12 +281,10 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 			ParseSpeechTextCommand report = new ParseSpeechTextCommand(model, testSpeech);
 			report.execute();
 			response = new HashMap<>();
-			System.out.println(report.getFillerRatio());
-			System.out.println(report.getSpeechRate());
 
 			response.put("FillerRatio", report.getFillerRatio() + "");
 			response.put("SpeechRate", report.getSpeechRate() + "");
-			response.put("Sentiment", runPythonScript_liveprediction());
+			response.put("Sentiment", runPythonScript_liveprediction(realPathtoUploads + "/" + files[1].getOriginalFilename()));
 			
 			
 		}

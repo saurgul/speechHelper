@@ -16,8 +16,8 @@ function InputForm(props){
 	const generateReport = async() => {
         props.updateLoading(true);
         const formData = new FormData();
-        formData.append("files",speechFile);
         formData.append("files",textFile);
+        formData.append("files",speechFile);
         console.log(props.userId)
 		fetch(`/createSpeech?userId=${props.userId}`, {
             method: "POST",
