@@ -45,6 +45,13 @@ class LivePredictions:
         predict_x=self.loaded_model.predict(x) 
         classes_x=np.argmax(predict_x,axis=1)
         print( "Prediction is", " ", self.convert_class_to_emotion(classes_x))
+        '''
+        ## If file exists, delete it ##
+        if os.path.isfile(self.file_path):
+            os.close(self.file_path)
+            os.remove(self.file_path)
+            print("File deleted")
+        '''
 
     @staticmethod
     def convert_class_to_emotion(pred):
@@ -75,8 +82,7 @@ if __name__ == '__main__':
     live_prediction = LivePredictions(file_path, model_path)
     #live_prediction.loaded_model.summary()
     live_prediction.make_predictions()
-
-
+    del live_prediction
 # In[ ]:
 
 
