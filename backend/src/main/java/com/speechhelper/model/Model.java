@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -78,6 +79,7 @@ public class Model {
 		return speechDatabaseController.addNewSpeech(userId, newSpeech);
 	}
 	
+	@Async
 	public void addReport(Long speechId, Long userId, String fillerRatio, double speechRate, int score, String sentiment){
 		reportDatabaseController.addNewReport(speechId, userId, fillerRatio, speechRate, score, sentiment);
 	}

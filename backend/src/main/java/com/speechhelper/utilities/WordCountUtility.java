@@ -12,7 +12,7 @@ public class WordCountUtility {
 
 	private WordCountUtility() {
 		wordFreqTable = new HashMap<String, Integer>();
-		totalWords = 0;
+		totalWords = 1;
 	}
 
 	private static WordCountUtility getInstance() {

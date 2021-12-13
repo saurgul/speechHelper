@@ -71,17 +71,17 @@ class LivePredictions:
 
 if __name__ == '__main__':
     EXAMPLES_PATH = os.getcwd() + '\\src\\main\\resources\\AudioData\\examples\\'
-    live_prediction = LivePredictions(file=EXAMPLES_PATH + 'Neutral.wav')
-    live_prediction.loaded_model.summary()
-    live_prediction.make_predictions()
+    #live_prediction = LivePredictions(file=EXAMPLES_PATH + 'Neutral.wav')
+    #live_prediction.loaded_model.summary()
+    #live_prediction.make_predictions()
     #live_prediction = LivePredictions(file=EXAMPLES_PATH + 'Angry.wav')
     #live_prediction.make_predictions()
     #live_prediction = LivePredictions(file=EXAMPLES_PATH + '10-16-07-29-82-30-63.wav')
     #live_prediction.make_predictions()
     #live_prediction = LivePredictions(file=EXAMPLES_PATH + '03-01-05-02-02-02-01.wav')
     #live_prediction.make_predictions()
-    live_prediction = LivePredictions(file=EXAMPLES_PATH + '03-01-05-02-01-01-01.wav')
-    live_prediction.make_predictions()
+    #live_prediction = LivePredictions(file=EXAMPLES_PATH + '03-01-05-02-01-01-01.wav')
+    #live_prediction.make_predictions()
     #live_prediction = LivePredictions(file=EXAMPLES_PATH + '03-01-08-01-02-02-01.wav')
     #live_prediction.make_predictions()
     #live_prediction = LivePredictions(file=EXAMPLES_PATH + 'i-cant-take-this.wav')
@@ -89,8 +89,10 @@ if __name__ == '__main__':
     #live_prediction = LivePredictions(file=EXAMPLES_PATH + 'that-feels-really-powerful.wav')
     #live_prediction.make_predictions()
     print("Sentiment analysis for live audio:")
-    live_prediction = LivePredictions(file=EXAMPLES_PATH + 'liveaudio.wav')
-    live_prediction.make_predictions()
+    #live_prediction = LivePredictions(file=EXAMPLES_PATH + 'liveaudio.wav')
+    #live_prediction.make_predictions()
+	live_prediction = LivePredictions(file)
+	live_prediction.make_predictions()
 
 
 # In[ ]:
