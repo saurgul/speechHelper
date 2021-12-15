@@ -70,6 +70,7 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 			pythonString += " " + PythonArguments.get(i);
 		
 		String PythonOutput = "";
+		@SuppressWarnings("unused")
 		String PythonErrors = "";
 		String lines="";
 		try {

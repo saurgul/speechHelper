@@ -7,7 +7,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import com.speechhelper.main.Main;
 import com.swabunga.spell.engine.SpellDictionaryHashMap;

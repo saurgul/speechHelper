@@ -1,14 +1,11 @@
 //@Author Christian Dummer
 package com.speechhelper.model;
 
-import java.io.File;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.speechhelper.command.Command;
 import com.speechhelper.command.CommandInvoker;
@@ -17,12 +14,8 @@ import com.speechhelper.controller.SpeechDatabaseController;
 import com.speechhelper.controller.UserDatabaseController;
 import com.speechhelper.databasemanager.SpeechEntity;
 import com.speechhelper.databasemanager.UserEntity;
-import com.speechhelper.databasemanager.UserRepository;
-import com.speechhelper.main.Main;
 import com.speechhelper.nullobjects.NullSpeech;
-import com.speechhelper.nullobjects.NullSpeechToTextReport;
 import com.speechhelper.speechtotext.Speech;
-import com.speechhelper.speechtotext.SpeechToTextReport;
 
 //Basic model with an arraylist of speeches. See speechtotext.Speech for all that class contains.
 @Repository
@@ -71,6 +64,7 @@ public class Model {
 	}
 	
 	//Getting a list of speech from the 
+	@SuppressWarnings("unchecked")
 	public ArrayList<SpeechEntity> getSpeechesByUserId(Long userId){
 		return (ArrayList<SpeechEntity>) speechDatabaseController.findByUserId(userId);
 	}
