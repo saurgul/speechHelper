@@ -1,6 +1,6 @@
 package com.speechhelper.controller;
 
-import java.sql.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -35,8 +35,8 @@ public class SpeechDatabaseController {
 	public Long addNewSpeech (@RequestParam Long userId, @RequestParam Speech speech) {
 		SpeechEntity n = new SpeechEntity();
 		n.setUserId(userId);
-		java.util.Date today = new java.util.Date();
-		n.setDateCreated(new Date(today.getYear(), today.getMonth(), today.getDate()));
+		Calendar cal = Calendar.getInstance();
+		n.setDateCreated(String.valueOf(cal.get(Calendar.YEAR)) + String.valueOf(cal.get(Calendar.MONTH)+1) + String.valueOf(cal.get(Calendar.DATE)));
 //		n.setTranscribedSpeechText(speech.getText());
 //		n.setConvertedSpeechText(speech.getInput());
 		n = speechRepository.save(n);
