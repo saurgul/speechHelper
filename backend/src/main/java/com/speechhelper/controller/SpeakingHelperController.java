@@ -64,12 +64,13 @@ public class SpeakingHelperController {
 	
 public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 		
-		String pythonString = "python.exe";
+		String pythonString = "C:\\Python39\\python.exe";
 		
 		for (int i = 0; i < PythonArguments.size(); i++)
 			pythonString += " " + PythonArguments.get(i);
 		
 		String PythonOutput = "";
+		@SuppressWarnings("unused")
 		String PythonErrors = "";
 		String lines="";
 		try {
@@ -90,10 +91,15 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 				// Uncomment Below Line to debug Python Script Issue.
 				//System.out.println(" Error lines : "+PythonErrors);
 			}
+			reader.close();
+			errors.close();
+			process.destroy();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return PythonOutput;
 	}
 
@@ -117,6 +123,7 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 	System.out.println("Running python: " + filePath);
 	String output = runPythonScriptHelper(PythonArguments);
 	System.out.println(output);
+	
 	return output;
 	
 }
@@ -226,7 +233,7 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 		String wordFrequency = parseTextCommand.getWordFrequencyCount().toString();
 		String fillerFrequecy = parseTextCommand.getFillerFrequency().toString();
 		String fillerRatio = parseTextCommand.getFillerRatio() + "";
-		String sentiment =  runPythonScript_liveprediction(realPathtoUploads + "/" + files[1].getOriginalFilename());
+		String sentiment =  runPythonScript_liveprediction(realPathtoUploads  + files[1].getOriginalFilename());
 		double speechRate = parseTextCommand.getSpeechRate();
 		int score = parseTextCommand.getScore();
 		
@@ -284,9 +291,7 @@ public String runPythonScriptHelper(ArrayList<String> PythonArguments) {
 
 			response.put("FillerRatio", report.getFillerRatio() + "");
 			response.put("SpeechRate", report.getSpeechRate() + "");
-			response.put("Sentiment", runPythonScript_liveprediction(realPathtoUploads + "/" + files[1].getOriginalFilename()));
-			
-			
+			response.put("Sentiment", runPythonScript_liveprediction(realPathtoUploads  + files[1].getOriginalFilename()));
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();

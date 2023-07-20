@@ -1,29 +1,20 @@
 package com.speechhelper.controller;
 
-import java.sql.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.speechhelper.databasemanager.SpeechEntity;
 import com.speechhelper.databasemanager.SpeechRepository;
 import com.speechhelper.speechtotext.Speech;
-
-import javassist.bytecode.Descriptor.Iterator;
 
 @RestController
 public class SpeechDatabaseController {
@@ -35,8 +26,8 @@ public class SpeechDatabaseController {
 	public Long addNewSpeech (@RequestParam Long userId, @RequestParam Speech speech) {
 		SpeechEntity n = new SpeechEntity();
 		n.setUserId(userId);
-		java.util.Date today = new java.util.Date();
-		n.setDateCreated(new Date(today.getYear(), today.getMonth(), today.getDate()));
+		Calendar cal = Calendar.getInstance();
+		n.setDateCreated(String.valueOf(cal.get(Calendar.YEAR)) + String.valueOf(cal.get(Calendar.MONTH)+1) + String.valueOf(cal.get(Calendar.DATE)));
 //		n.setTranscribedSpeechText(speech.getText());
 //		n.setConvertedSpeechText(speech.getInput());
 		n = speechRepository.save(n);

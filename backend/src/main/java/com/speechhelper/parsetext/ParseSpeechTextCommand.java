@@ -1,9 +1,6 @@
 package com.speechhelper.parsetext;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
 
 import com.speechhelper.command.Command;
 import com.speechhelper.model.Model;
@@ -18,6 +15,7 @@ import com.speechhelper.utilities.WordCountUtility;
 //TODO: remove the filler words from the original text and set parsed text fort the speech
 public class ParseSpeechTextCommand implements Command {
 
+	@SuppressWarnings("unused")
 	private Model model;
 	private Speech speech;
 	private HashMap<String, Integer> wordFrequency;
