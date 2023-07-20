@@ -1,12 +1,10 @@
-# Speech Helper - Web-based Public Speaking Skills Improvement Application
+## Speech Helper - Web-based Public Speaking Skills Improvement Application
 
-## Team 2 - CSCI-P 532 Project - Final
+### Team 2 - CSCI-P 532 Project - Final
 
-### Luddy School of Informatics, Computing, and Engineering
+#### Luddy School of Informatics, Computing, and Engineering
 
-#### Team Members: Christian Dummer, Saurabh Gulati, Snehal Patare, Dhruti Patel, Pratyush Duklan
-
-#### Final Demo Date: 12/13/2021
+##### Team Members: Christian Dummer, Saurabh Gulati, Snehal Patare, Dhruti Patel, Pratyush Duklan
 
 ## Overview
 
